@@ -21,3 +21,5 @@ tmp
 _yardoc
 /.idea
 app/controllers/test/
+.sublime-project
+.sublime-workspace
