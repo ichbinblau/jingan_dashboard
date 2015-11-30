@@ -1,0 +1,2 @@
+module Webapps::FrameworkHelper
+end

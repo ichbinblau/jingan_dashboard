@@ -1,0 +1,131 @@
+
+    <table id="form-tb">
+      <tbody>
+      <tr>
+        <td> <label>查询编号:</label></td>
+        <td>
+          <input type="text" id="txtCode"  value="<%= params["code"]%>" />
+          <a href="javascript:;" id="btnQuery" class="btn btn-primary">查询</a>
+        </td>
+      </tr>
+      <tr>
+        <td><label> 编号:</label></td>
+        <td>
+          <input type="text" readonly="readonly" dataIndex="apply_code" /><a href="javascript:;" class="btn btn-primary" id="btnUse" style="display: none;">使用</a>
+        </td>
+      </tr>
+      <tr>
+        <td><label>状态 </label></td>
+        <td>
+          <span dataIndex="status" ></span>
+        </td>
+      </tr>
+      <tr>
+        <td><label> 标题:</label></td>
+        <td>
+          <span dataIndex="title" ></span>
+        </td>
+      </tr>
+      <tr>
+        <td><label> 摘要:</label></td>
+        <td>
+          <span dataIndex="abstract" ></span>
+        </td>
+      </tr>
+      <tr>
+        <td><label> 内容:</label></td>
+        <td>
+          <span dataIndex="content"></span>
+        </td>
+      </tr>
+      <tr>
+        <td><label> 图片:</label></td>
+        <td>
+          <img  dataIndex="image_cover" >
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+
+   <script>
+     $(function(){
+         var btnQuery =$("#btnQuery"),btnUse=$("#btnUse"),inputCode =$("#txtCode");
+
+         btnQuery.click(function(){
+            var code = $.trim(inputCode.val());
+             if(!code){
+                 alert("请输入编号");
+                 return;
+             }
+             $.ajax({
+                 url:"/admins/sys_coupon_order/<%= params[:module_id] %>/show",
+                 type: "GET",
+                 data:{code:code},
+                 cache:false,
+                 success:function(data){
+                     if(!data)
+                         alert("未查询到");
+                     setValues(data);
+                 }
+             });
+         });
+         btnUse.click(function(){
+             if(!currentRecord || !currentRecord.apply_code){
+                 return;
+             }
+
+             if(currentRecord.act_status_type_id!=4){
+                 alert( ["优惠券状态为:",currentRecord.status,".不使用"].join(''));
+                 return;
+             }
+
+             alert("提交");
+             debugger;
+
+             $.ajax({
+                 url:"/admins/sys_coupon_order/<%= params[:module_id] %>/update",
+                 type: "POST",
+                 data:{code:currentRecord.apply_code},
+                 success:function(data){
+                     if(data && data.success){
+                         alert("操作成功!")
+                         setValues();
+                     }else
+                        alert(data.msg)
+                 },error:function(){
+                    alert("发生错误!");
+                 }
+             });
+         });
+
+
+         var currentRecord = null,formEls = null;
+         var setValues = function(record){
+             currentRecord = record ||{};
+             if(!formEls) formEls = $("#form-tb").find("[dataIndex]");
+             if( currentRecord.act_status_type_id!=4)
+                 btnUse.hide();
+             else
+                 btnUse.show();
+
+             formEls.each(function(){
+                 var el = $(this), key= el.attr("dataIndex"),value= currentRecord[key]||"" ;
+                 if(el.is("img")){
+                     if(value){
+                         this.src= "http://is.hudongka.com/"+ value+" />";
+                         el.show();
+                     }
+                     else
+                         el.hide();
+                 }else if(el.is(":input")) {
+                     el.val(value);
+                 }else if(this.innerText!= undefined)
+                     this.innerText = value;
+             });
+         }
+         if( inputCode.val()){
+             btnQuery.click();
+         }
+     });
+   </script>

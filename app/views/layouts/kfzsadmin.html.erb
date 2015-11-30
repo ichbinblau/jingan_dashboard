@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>康复助手 管理后台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=no">
+  <%= stylesheet_link_tag "web-app-theme/base", "web-app-theme/themes/default/style", "web-app-theme/override" ,"dashboard"%>
+  <!--[if lt IE 9]>
+    <%= stylesheet_link_tag "html5" %>
+    <%= javascript_include_tag "html5" %>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <!--[if IE 7]>
+    <%= javascript_include_tag "font-awesome/css/font-awesome-ie7.min.css" %>
+  <![endif]-->
+  <%= javascript_include_tag "jquery" ,"jquery_ujs"   %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="container">
+    <div id="header">
+      <h1>康复助手管理后台</h1>
+
+      <div id="main-navigation">
+        <ul class="wat-cf">
+            <li><a href="http://kf.nowapp.cn" target="main-frame">APP下载 - kf.nowapp.cn </a></li>
+        </ul>
+      </div>
+
+      <div id="user-navigation">
+        <ul class="wat-cf">
+            <% if admin_user_signed_in? %>
+            <li><%= link_to('退出', destroy_admin_user_session_path, :method => :delete, :confirm => "确定退出？" ) %></li>
+          <% else %>
+            <li><%= link_to('登录', new_admin_user_session_path({:return_to =>url_for(:action => 'index', :controller => 'dashboard')}) )  %> </li>
+          <% end %>
+        </ul>
+      </div>
+
+    </div>    
+    <div id="wrapper" class="wat-cf">
+      <div id="sidebar">
+        <div class="block">
+          <h3>课程管理</h3>
+          <ul class="navigation">
+            <li><%= link_to "课程" ,{:controller =>"kf/courses" , :action =>"index"}, :target=>"main-frame" %></li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <h3>运营管理</h3>
+          <ul class="navigation">
+            <li><%= link_to "机构管理" ,{:controller =>"kf/sorts" , :action =>"show" , :id => 9}, :target=>"main-frame" %></li>
+            <li><%= link_to "疾病种类管理" ,{:controller =>"kf/sorts" , :action =>"show" , :id => 2}, :target=>"main-frame" %></li>
+            <li><%= link_to "医生管理" ,{:controller =>"kf/doctors" , :action =>"index"}, :target=>"main-frame" %></li>
+            <!-- <li><%= link_to "用户管理" ,{:controller =>"kf/courses" , :action =>"index"}, :target=>"main-frame" %></li> -->
+            <!-- <li><%= link_to "二维码" ,{:controller =>"kf/courses" , :action =>"index"}, :target=>"main-frame" %></li> -->
+          </ul>
+        </div>
+
+        <div class="block">
+          <h3>数据</h3>
+          <ul class="navigation">
+            <li><%= link_to "每日汇总" ,{:controller =>"kf/statuses" , :action =>"index" }, :target=>"main-frame" %></li>
+            <li><%= link_to "医院科室数据" ,{:controller =>"kf/pipes" , :action =>"show" , :id => 1}, :target=>"main-frame" %></li>
+            <li><%= link_to "-- 上海组一" ,{:controller =>"kf/pipes" , :action =>"show" , :id => 5}, :target=>"main-frame" %></li>
+            <li><%= link_to "意见反馈" ,{:controller =>"kf/global_configs" , :action =>"feedback"}, :target=>"main-frame" %></li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <h3>全局设置</h3>
+          <ul class="navigation">
+            <li><%= link_to "全局设置" ,{:controller =>"kf/global_configs" , :action =>"index"}, :target=>"main-frame" %></li>
+            <!-- <li><%= link_to "分类类型设置" ,{:controller =>"kf/sort_types" , :action =>"index"}, :target=>"main-frame" %></li> -->
+            <li><%= link_to "课程内容类型设置" ,{:controller =>"kf/course_item_types" , :action =>"index"}, :target=>"main-frame" %></li>
+            <!-- <li><%= link_to "用户操作类型设置" ,{:controller =>"kf/useraction_history_types" , :action =>"index"}, :target=>"main-frame" %></li> -->
+          </ul>
+        </div>
+        <div class="block">
+          <h3>原始数据</h3>
+          <ul class="navigation">
+            <li><%= link_to "用户操作数据" ,{:controller =>"kf/useraction_histories" , :action =>"index"}, :target=>"main-frame" %></li>
+            <li><%= link_to "日记数据" ,{:controller =>"kf/diaries" , :action =>"index"}, :target=>"main-frame" %></li>
+            <li><%= link_to "通知数据" ,{:controller =>"kf/user_notices" , :action =>"index"}, :target=>"main-frame" %></li>
+            <li><%= link_to "分类数据" ,{:controller =>"kf/sorts" , :action =>"index"}, :target=>"main-frame" %></li>
+            <li><%= link_to "表单数据" ,{:controller =>"kf/course_forms" , :action =>"index"}, :target=>"main-frame" %></li>
+            <li><%= link_to "待办数据" ,{:controller =>"kf/course_todos" , :action =>"index"}, :target=>"main-frame" %></li>
+            <li><%= link_to "文章数据" ,{:controller =>"kf/course_knowledges" , :action =>"index"}, :target=>"main-frame" %></li>
+            <li><%= link_to "文章附件" ,{:controller =>"kf/course_knowledge_attachments" , :action =>"index"}, :target=>"main-frame" %></li>
+            <li><%= link_to "日记附件" ,{:controller =>"kf/diary_attachments" , :action =>"index"}, :target=>"main-frame" %></li>
+            <li><%= link_to "管道数据" ,{:controller =>"kf/pipes" , :action =>"index" }, :target=>"main-frame" %></li>
+
+          </ul>
+        </div>
+        <div class="block notice">
+          <h4>联系我们</h4>
+          <p></p>
+        </div>
+      </div>
+
+      <div id="main-frame-content">
+        <div class="flash">
+          <% flash.each do |type, message| %>
+            <div class="message <%= type %>">
+              <p><%= message %></p>
+            </div>
+          <% end %>
+        </div>
+        <%= yield %>
+      </div>
+
+    </div>    
+  </div>
+</body>
+</html>

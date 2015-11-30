@@ -1,0 +1,50 @@
+<script>
+    var _nested_form = true;
+</script>
+<%= semantic_bootstrap_nested_form_for  @content_item , :url => url_for( :page=>params[:page],:sort_id=>params[:sort_id], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <%= f.semantic_errors %>
+
+    <%= f.inputs do %>
+        <%= f.input :id ,:as => :hidden %>
+        <%= f.input :user_info_id ,:collection =>UserInfo.where(:project_info_id =>@admin_info.project_info_id),:as => :hidden %>
+        <%= f.input :project_companie_id ,:collection =>ProjectCompanie.where(:project_info_id =>@admin_info.project_info_id),:as => :hidden  %>
+        <%= f.input :project_info_id   , :collection =>ProjectInfo.where(:id =>@admin_info.project_info_id),:as => :hidden %>
+
+        <% if @content_distitle["act_status_type_id"].to_s!="1"  %>
+            <%= f.input :act_status_type_id  ,:input_html =>{:class=>"select"} ,:collection =>ActStatusType.where(:name =>"act_buy_order").all.map{|b| [ b[:descption] , b[:id] ]} ,:as=>:select  %>
+        <% end%>
+        <% if @content_distitle["order_number"].to_s!="1"  %>
+            <%= f.input :order_number  %>
+        <% end%>
+        <% if @content_distitle["payment_type"].to_s!="1"  %>
+            <%= f.input :payment_type ,:input_html =>{:class=>"select"} ,:collection =>{ "支付宝" => 1, "其它" => 0 } ,:as=>:select   %>
+        <% end%>
+        <% if @content_distitle["send_type"].to_s!="1"  %>
+            <%= f.input :send_type ,:input_html =>{:class=>"select"} ,:collection =>{ "自取" => 1, "快递" => 2, "送货上门" => 3, "其它" => 0 } ,:as=>:select    %>
+        <% end%>
+        <% if @content_distitle["user_consignee_id"].to_s!="1"  %>
+            <%= f.input :user_consignee_id   %>
+        <% end%>
+        <% if @content_distitle["product_price"].to_s!="1"  %>
+            <%= f.input :product_price    %>
+        <% end%>
+        <% if @content_distitle["fare_price"].to_s!="1"  %>
+            <%= f.input :fare_price   %>
+        <% end%>
+        <% if @content_distitle["must_price"].to_s!="1"  %>
+            <%= f.input :must_price    %>
+        <% end%>
+        <% if @content_distitle["json_property"].to_s!="1"  %>
+            <%= f.input :json_property    %>
+        <% end%>
+
+      <% end %>
+
+
+
+    <hr/>
+
+      <%= f.actions do %>
+        <%= f.action :submit %>
+      <% end %>
+<% end %>

@@ -1,0 +1,164 @@
+<%
+  @kf_course_index.kf_course_id = params[:course_id] unless params[:course_id].blank? 
+  @kf_course_index.kf_doctor_id = params[:kf_doctor_id] unless params[:kf_doctor_id].blank?
+  # 设置计算开始日期的类型
+  @day_start_type_select = {}
+  item = Kf::Course.find(@kf_course_index.kf_course_id)
+  @day_start_type_select["课程开始日期"] = "start_date"
+  @day_start_type_select[item[:day_1_name]] = "day_1_name" unless item[:day_1_name].blank?
+  @day_start_type_select[item[:day_2_name]] = "day_2_name" unless item[:day_2_name].blank?
+  @day_start_type_select[item[:day_3_name]] = "day_3_name" unless item[:day_3_name].blank?
+  @day_start_type_select[item[:day_4_name]] = "day_4_name" unless item[:day_4_name].blank?
+  @day_start_type_select[item[:day_5_name]] = "day_5_name" unless item[:day_5_name].blank?
+%>
+<%= semantic_bootstrap_nested_form_for @kf_course_index , :url => url_for( :page=>params[:page],:tab=>params[:tab], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <% if @kf_course_index.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kf_course_index.errors.count, "error") %> prohibited this kf_course_index_form from being saved:</h2>
+      <ul>
+      <% @kf_course_index.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.inputs  "课程信息" ,:id => "basic" do %>
+    <%= f.input :kf_course_id , :as => :hidden , :required => true%>
+    <%= f.input :kf_doctor_id , :as => :hidden %>
+    <%= f.input :day_start_type ,:as => :select ,:collection => @day_start_type_select , :required => true%>
+    <%= f.input :day_start ,:as => :number%>
+    <!-- <%= f.input :day_duration ,:as => :number ,:input_html => {:min => 1 } %> -->
+    <%= f.input :title %>
+
+    <div class="control-group">
+    <label class=" control-label" for="kf_course_index_title"></label>
+      <%= raw get_ecimg_tag( f.object[:image_cover] , 80 , 80 ) + " 删除图片 " + f.check_box(:remove_image_cover) if !f.object.image_cover.blank? %>
+      
+    </div>
+    <%= f.input :image_cover %>
+
+    <div class="string input optional stringish control-group" id="kf_course_index_title_input"><label class=" control-label" for="kf_course_index_title">更多图片</label><div class="controls">
+      <p class="control-group"><%= f.link_to_add "添加图片", :course_index_attachment %></p>
+      <%= f.fields_for :course_index_attachment do |attachment| %>
+        <%= attachment.input :order_level %>
+        <div class="control-group"><%= raw get_ecimg_tag( attachment.object[:attachment] , 80 , 80 ) if !attachment.object.attachment.blank? %></div>
+        <%= attachment.input :attachment %>
+        <%= attachment.input :title %>
+        <%= attachment.link_to_remove "删除" %>
+        <hr />
+      <% end %>
+    </div></div>
+
+    <%= f.input :content %>
+    <%= f.input :kf_course_item_type_id ,:as => :select ,:collection => Kf::CourseItemType.all, :required => true  ,:input_html => { :disabled => params[:action]=="edit" ? true : false } %>    
+  <% end %>
+
+  <!-- 不显示的条件 start -->
+  <div style="width:500px; position:absolute; top:60px;right:30px;">
+  <%= f.inputs  "不显示的条件" ,:id => "discard" do %>
+    <%= f.input :dc_day_type ,:as => :select ,:collection => @day_start_type_select %>
+    <%= f.input :dc_day_offset %>
+    <div class="clearfix"></div><hr />
+    <%= f.input :valid_start %>
+    <%= f.input :valid_end %>
+  <% end %>
+  </div>
+
+  <!-- 内容列表 start -->
+  <% if params[:action]=="edit" %>
+    <% if f.object.kf_course_item_type_id == 2 %>
+      <%= f.inputs  "文章列表" ,:id => "items" do %>
+        <%= f.fields_for :kf_course_knowledge do |fform| %>
+          <table class="table table-bordered table-hover">
+            <tr>
+              <td>
+                <%= fform.input :order_level %>
+                <%= fform.input :title %>
+                <div class="control-group"><%= raw get_ecimg_tag( fform.object[:image_cover] , 80 , 80 ) + " 删除图片 " + fform.check_box(:remove_image_cover) if !fform.object.image_cover.blank? %></div>
+
+
+                <%= fform.input :image_cover %>
+                <%= fform.input :description %>
+              </td>
+              <td>
+                <%= fform.input :content %>
+                <p class="control-group"><%= fform.link_to_add "添加图片", :course_knowledge_attachment %></p>
+                <%= fform.fields_for :course_knowledge_attachment do |attachment| %>
+                  <%= attachment.input :order_level %>
+                  <div class="control-group"><%= raw get_ecimg_tag( attachment.object[:attachment] , 80 , 80 ) if !attachment.object.attachment.blank? %></div>
+                  <%= attachment.input :attachment %>
+                  <%= attachment.input :title %>
+                  <%= attachment.link_to_remove "删除" %>
+                  <hr />
+                <% end %>
+              </td>
+              <td>
+                <%= fform.link_to_remove "删除" %>
+              </td>
+            </tr>
+          </table>
+        <% end %>
+      <% end %>
+      <p><%= f.link_to_add "添加文章", :kf_course_knowledge %></p>
+
+    <% elsif f.object.kf_course_item_type_id == 4 %>
+
+      <%= f.inputs  "待办事项列表" ,:id => "items" do %>
+        <%= f.fields_for :kf_course_todo do |fform| %>
+          <table class="table table-bordered table-hover">
+            <tr>
+              <td>
+                <%= fform.input :order_level %>
+                <%= fform.input :title %>
+                <div class="control-group"><%= raw get_ecimg_tag( fform.object[:image_cover] , 80 , 80 ) if !fform.object.image_cover.blank? %></div>
+                <%= fform.input :image_cover %>
+              </td>
+              <td>
+                <%= fform.input :content %>
+              </td>
+              <td>
+                <%= fform.link_to_remove "删除" %>
+              </td>
+            </tr>
+          </table>
+        <% end %>
+      <% end %>
+      <p><%= f.link_to_add "添加待办事项", :kf_course_todo %></p>
+
+    <% elsif f.object.kf_course_item_type_id == 5 %>
+
+      <%= f.inputs  "表单列表" ,:id => "items" do %>
+        <%= f.fields_for :kf_course_form do |fform| %>
+          <table class="table table-bordered table-hover">
+            <tr>
+              <td>
+                <%= fform.input :order_level %>
+                <%= fform.input :title %>
+                <div class="control-group"><%= raw get_ecimg_tag( fform.object[:image_cover] , 80 , 80 ) if !fform.object.image_cover.blank? %></div>
+                <%= fform.input :image_cover %>
+                <%= fform.input :description %>
+              </td>
+              <td>
+                <%= fform.input :form_type ,:as => :select , :collection => JSON.parse( Kf::GlobalConfig.where(:key => "course_form_types").first.value ) %>
+                <%= fform.input :content %>
+                <%= fform.input :answer %>
+              </td>
+              <td>
+                <%= fform.link_to_remove "删除" %>
+              </td>
+            </tr>
+          </table>
+        <% end %>
+      <% end %>
+      <p><%= f.link_to_add "添加表单", :kf_course_form %></p>
+
+    <% end %>
+
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit ,:label => params[:action]=="edit" ? "修改" : "添加" %>
+  <% end %>
+
+<% end %>

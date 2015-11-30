@@ -1,0 +1,11 @@
+<%= stylesheet_link_tag "webapps/_gradeView" %>
+<ul class="gradeView nav nav-list">
+<% @item_list.each do |item| %>
+  <li>
+    <div class="grade_image">
+      <a href="<%= url_for(:controller => params[:controller], :action => "show" , :contentid=>item["id"])%>"><img class="img-polaroid" src="<%= get_ecimg_url( :imagename =>item["image_cover"], :width=>120 , :height => 120) %>"/></a>
+    </div>
+    <div><%= item["title"] %></div>
+  </li>
+<% end%>
+

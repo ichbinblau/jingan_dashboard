@@ -1,0 +1,104 @@
+<%= stylesheet_link_tag "admins/tools_adminuser"%>
+
+<script>
+  _nested_user = true;
+  _nested_project = true;
+  _nested_plugin = true;
+  _nested_sort = true;
+  _nested_app = true;
+</script>
+<%= semantic_bootstrap_nested_form_for  @content_item , :url => url_for( :page=>params[:page],:action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <%= f.semantic_errors %>
+  <%= f.inputs do %>
+    <h5>公司信息</h5>
+
+    <%= f.input :id ,:as => :hidden %>
+    <%= f.input :name  ,:label=> "公司名称"%>
+    <%= f.input :address  ,:label=> "公司地址"%>
+    <%= f.input :phone  ,:label=> "公司电话"%>
+    <%= f.input :description  ,:label=> "公司说明" %>
+    <hr/>
+    <!-- 项目 -->
+    <%= f.fields_for :project_info do |pi| %>
+      <h5>项目信息</h5>
+      <%= pi.input :cnname  ,:label=> "项目名称" %>
+      <%= pi.input :description ,:label=> "项目说明" %>
+      <%= raw "<img style='height:200px;margin-left:100px;' src='http://is.hudongka.com/#{pi.object.project_logo}'/>" if !pi.object.project_logo.blank? %>
+      <%= pi.input :project_logo ,:label=> "项目logo" %>
+      <script> _nested_project = false; </script>
+      <hr/>
+      <!-- 用户 -->
+      <%= pi.fields_for :admin_user do |pc| %>
+        <h5>登录信息</h5>
+        <%= pc.input :email  %>
+        <%= pc.input :password  %>
+        <script> _nested_user = false; </script>
+        <%= pc.link_to_remove "删除用户" %>
+        <hr/>
+      <% end %>
+      <p><%= pi.link_to_add "添加用户", :admin_user ,:hidden_tag =>"admin_user" %></p>
+
+      <!-- 插件 -->
+      <%= pi.fields_for :plugincfg_info do |ppi| %>
+        <h5 class="module_title">模块信息</h5>
+        <%= ppi.input :show_name ,:label=> "模块名称" %>
+        <%= ppi.input :configs ,:as => :hidden ,:input_html => { :value =>"{ \"order\" : 1 }",:hidden_tag =>"plugin_config" } if ppi.object.configs.blank? %>
+        <%= ppi.input :plugincfg_type_id,:label => "模块类型", :as => :select,:collection => PlugincfgType.select("id , concat(plugincfg_sort_id,' - ',' - ',name)  as name").where("plugincfg_sort_id<=3").order("plugincfg_sort_id") %>
+        <script> _nested_plugin = false; </script>
+
+        <!-- 分类 -->
+        <%= ppi.fields_for :cms_sorts do |cs| %>
+          <%= cs.input :cnname,:label=> "分类名称" %>
+          <%= cs.input :project_info_id ,:as => :hidden ,:input_html => { :value => pi.object.id } %>
+          <script> _nested_sort = false; </script>
+          <%= cs.link_to_remove "删除分类" %>
+        <% end %>
+        <p><%= ppi.link_to_add "添加分类", :cms_sorts ,:hidden_tag =>"cms_sorts" %></p>
+        <%= ppi.link_to_remove "删除模块" %>
+      <% end %>
+      <p><%= pi.link_to_add "添加模块", :plugincfg_info ,:hidden_tag =>"plugincfg_info" %></p>
+
+      <hr/>
+      <!-- app -->
+      <%= pi.fields_for :project_app do |pa| %>
+        <h5 class="app_title">app类型</h5>
+        <%= pa.input :cnname  %>
+        <%= pa.input :phonetype ,:as =>:select , :collection => { "iphone" => "ios", "安卓" => "android", "网页版(必选)" => "webapp", "微信app（必选）" => "weixinapp" } %>
+        <script> _nested_app = false; </script>
+        <%= pa.link_to_remove "删除app" %>
+      <% end %>
+      <p><%= pi.link_to_add "添加app", :project_app ,:hidden_tag =>"project_app" %></p>
+
+      <%= pi.link_to_remove "删除项目" %>
+    <% end %>
+    <p><%= f.link_to_add "添加项目", :project_info ,:hidden_tag =>"project_info" %></p>
+  <% end %>
+
+</div></div>
+
+  <script>
+    $(function($) {
+      if (_nested_project)
+        $('a[hidden_tag=project_info]').click()
+      if (_nested_user)
+        $('a[hidden_tag=admin_user]').click()
+      if( <%= params[:action] == "new" ? "false" : "true" %> ){
+        while ($(".module_title").length < 10){
+          $('a[hidden_tag=plugincfg_info]').click()
+          $('a[hidden_tag=cms_sorts]:last').click()
+        }
+        while ($(".app_title").length < 4)
+          $('a[hidden_tag=project_app]').click()
+      }
+      $('a[hidden_tag=project_app]').hide()
+      $('a[hidden_tag=plugincfg_info]').hide()
+      $('a[hidden_tag=cms_sorts]').hide()
+      $('a[hidden_tag=project_info]').hide()
+      $('a[hidden_tag=admin_user]').hide()
+    })
+  </script>
+
+  <%= f.actions do %>
+    <%= f.action :submit ,:label =>"确定"%>
+  <% end %>
+<% end %>

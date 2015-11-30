@@ -1,0 +1,2 @@
+module Webapps::PhotoHelper
+end

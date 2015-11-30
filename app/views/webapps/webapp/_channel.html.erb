@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs">
+<% @channels.each do |item| %>
+  <li class="<%= 'active' if item[:id].to_s == @sort_id.to_s %>"><a href="<%= url_for(:sort_id =>item[:id])%>"><%= item[:cnname]%></a></li>
+<% end%>
+</ul>

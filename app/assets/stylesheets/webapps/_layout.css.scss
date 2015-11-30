@@ -1,0 +1,47 @@
+// Place all the styles related to the dashboard controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// 全局设置
+@import "webapps/vars";
+html, body {
+	height: 100%;
+}
+body {
+	margin: 0;
+	font-size: $font_size;
+	line-height: $line_height;
+	color: $font_color;
+	background-color: $background_color;
+	position: relative;
+	padding: 0px;
+}
+#main{
+	min-height: 300px;
+}
+#footer{
+  padding: 20px;
+}
+.navbar {
+  min-width: 320px;
+  margin-bottom: 0px;
+  .navbar-inner {
+      padding: 0 0 0 5px;
+    .brand{
+    	width: 30px;
+    	padding: 5px 5px 5px 5px;
+    }
+    .nav{
+      margin:0;
+    }
+  }
+}
+.nav-tabs{
+  margin: 10px 0 -1px 0;
+}
+.navbar-static-top{
+  margin: 0;
+}
+.row-fluid{
+  // max-width: 960px;
+}

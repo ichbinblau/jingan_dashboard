@@ -1,0 +1,39 @@
+<%= javascript_include_tag "jquery-ui/jquery.ui.core" ,"jquery-ui/jquery.ui.widget" ,"jquery-ui/jquery.ui.mouse","jquery-ui/jquery.ui.sortable" %>
+<h1>模块设置</h1>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>模块</th>
+      <th>微信版模块显示</th>
+    </tr>
+  </thead>
+<tbody>
+<% @content_item.each do |content_item| %>
+  <tr class="sort" id="item_<%= content_item.id %>">
+    <td><input id="plugin_<%= content_item.id %>" type="hidden" value="<%= content_item.id %>"/><%= content_item.show_name %></td>
+    <td><input onclick="set_weixin_visible(this)" id="check_<%= content_item.id %>" type="checkbox" <%= content_item.configs["isWeiXin"] ? "checked" : ""%> value="<%= content_item.id %>"/></td>
+  </tr>
+<% end%>
+</tbody>
+</table>
+<script>
+function set_weixin_visible(obj){
+  $.get("<%= url_for :controller =>'admins/sys_appconfig' ,:action => 'set_weixin_visible' ,:format =>'json' %>?id="+$(obj).attr("id").substr(6)+"&checked="+($(obj).attr("checked")=="checked") , function(data){
+    // alert(data)
+  })
+}
+$(function() {
+  $( ".table" ).sortable({
+      items: "tr.sort",
+      update: function( event, ui ) {
+        // alert(1)
+        orders = []
+        $("tr.sort").each(function(i,o){
+          orders.push(i+":"+$(o).attr("id").substr(5))
+        });
+        $.get("<%= url_for :controller =>'admins/sys_appconfig' ,:action => 'set_order' ,:format =>'json' %>?orders="+orders.join(","),function(){})
+      }
+    });
+  $( "#sortable" ).disableSelection();
+});
+</script>

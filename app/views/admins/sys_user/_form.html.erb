@@ -1,0 +1,68 @@
+<script>
+    var _nested_form = true;
+</script>
+<%= semantic_bootstrap_nested_form_for  @content_item , :url => url_for( :page=>params[:page],:sort_id=>params[:sort_id], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+    <%= f.semantic_errors %>
+
+    <%= f.inputs do %>
+        <%= f.input :id ,:as => :hidden %>
+        <%= f.input :project_info_id  ,:collection =>ProjectInfo.where(:project_info_id =>@admin_info.project_info_id),:as => :hidden%>
+        <%= f.input :user_group_id ,:input_html => {:value => 0} ,:as => :hidden %>
+        <%= f.input :user_role_id ,:input_html => {:value => 0} ,:as => :hidden %>
+
+        <% if @content_distitle["email"].to_s!="1"  %>
+            <%= f.input :email ,:as => :email %>
+        <% end%>
+        <% if @content_distitle["phone_number"].to_s!="1"  %>
+            <%= f.input :phone_number ,:as => :phone %>
+        <% end%>
+        <% if @content_distitle["password"].to_s!="1"  %>
+            <%= f.input :password ,:as => :hidden %>
+        <% end%>
+        <% if @content_distitle["name"].to_s!="1"  %>
+            <%= f.input :name %>
+        <% end%>
+        <% if @content_distitle["nickname"].to_s!="1"  %>
+            <%= f.input :nickname %>
+        <% end%>
+        <% if @content_distitle["description"].to_s!="1"  %>
+            <%= f.input :description %>
+        <% end%>
+        <% if @content_distitle["birthday"].to_s!="1"  %>
+            <%= f.input :birthday ,:as =>:string ,:format =>:long, :input_html =>{:class=>"datetimepicker-input"} %>
+        <% end%>
+        <% if @content_distitle["password"].to_s!="1"  %>
+            <%= f.input :password ,:as =>:password  %>
+        <% end%>
+        <% if @content_distitle["height"].to_s!="1"  %>
+            <%= f.input :height %>
+        <% end%>
+        <% if @content_distitle["weight"].to_s!="1"  %>
+            <%= f.input :weight %>
+        <% end%>
+        <% if @content_distitle["cnname"].to_s!="1"  %>
+            <%= f.input :cnname %>
+        <% end%>
+        <% if @content_distitle["sex"].to_s!="1"  %>
+            <%= f.input :sex ,:as=>:hidden %>
+        <% end%>
+        <% if @content_distitle["admingroup"].to_s!="1"  %>
+            <%= f.input :admingroup ,:input_html => {:value => 0} ,:as => :hidden %>
+        <% end%>
+        <% if @content_distitle["integral"].to_s!="1"  %>
+            <%= f.input :integral %>
+        <% end%>
+        <% if @content_distitle["push_apn_token"].to_s!="1"  %>
+            <%= f.input :push_apn_token ,:as => :hidden  %>
+        <% end%>
+        <% if @content_distitle["push_android_token"].to_s!="1"  %>
+            <%= f.input :push_android_token ,:as => :hidden  %>
+        <% end%>
+            <hr/>
+    <% end %>
+
+
+    <%= f.actions do %>
+        <%= f.action :submit %>
+    <% end %>
+<% end %>

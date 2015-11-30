@@ -1,0 +1,17 @@
+{
+	"icon": {
+		"style_name":"中式典雅",
+		"album":"icon/1/album.png",
+		"bless":"icon/1/bless.png",
+		"card":"icon/1/card.png",
+		"my":"icon/1/my.png",
+		"now":"icon/1/now.png",
+		"btn_map":"icon/1/btn_map.png",
+		"loading":"icon/1/big_load.gif",
+		"avatar":"icon/1/avatar.png"
+	},
+	"tools": {
+		"shadow_left":"icon/1/shadow_left.png",
+		"shadow_right":"icon/1/shadow_right.png"
+	}
+}

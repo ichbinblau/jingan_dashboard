@@ -1,0 +1,57 @@
+<h1><%=@module_info.show_name%></h1>
+<style>
+  #form-ctl{width: 100%;}
+  #form-ctl span{ float: left;,white-space:nowrap }
+</style>
+
+<%= form_tag nil,method:'GET',id:'form-search' do%>
+
+  <div id="form-ctl">
+    <span>
+       <label>赛事名称 </label><input type="text" name="title" value="<%= params[:title]%>" >
+    </span>
+    <span>
+       <%= submit_tag "查询", :class =>"btn btn-primary"%>
+    </span>
+  </div>
+<%end%>
+<div style="clear: both;"></div>
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails  %>
+<table class="table table-bordered table-hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>主题</th>
+    <th>姓名</th>
+    <th>性别</th>
+    <th>年龄</th>
+    <th>电话</th>
+    <th>单位</th>
+    <th>创建时间</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @content_items.each do |content_item|%>
+      <tr>
+        <td>
+          <%= content_item.id%>
+        </td>
+        <td><%= content_item.title%></td>
+        <td><%= content_item.username %></td>
+        <% if content_item.gender == 1 %>
+          <td>男</td>
+        <% else %>
+          <td>女</td>
+        <% end %>
+        <td><%= content_item.age %> </td>
+        <td><%= content_item.phone %> </td>
+        <td><%= content_item.address %> </td>
+        <td><%= content_item.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+      </tr>
+  <% end %>
+  
+  </tbody>
+</table>
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<br/>

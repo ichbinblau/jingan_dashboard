@@ -1,0 +1,57 @@
+<style>
+    h1 {}
+    h2 {color: #999}
+    a.download-btn {
+        display: block;
+        margin: 10px auto;
+        width: 200px;
+        text-decoration: none;
+        font-size: 28px;
+        padding: 7px 25px;
+        background-color: #52a8e8;
+        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #52a8e8), color-stop(100%, #377ad0));
+        background-image: -webkit-linear-gradient(top, #52a8e8, #377ad0);
+        background-image: -moz-linear-gradient(top, #52a8e8, #377ad0);
+        background-image: -ms-linear-gradient(top, #52a8e8, #377ad0);
+        background-image: -o-linear-gradient(top, #52a8e8, #377ad0);
+        background-image: linear-gradient(top, #52a8e8, #377ad0);
+        border-top: 1px solid #4081af;
+        border-right: 1px solid #2e69a3;
+        border-bottom: 1px solid #20559a;
+        border-left: 1px solid #2e69a3;
+        border-radius: 16px;
+        -webkit-box-shadow: inset 0 1px 0 0 #72b9eb, 0 1px 4px 0 #b3b3b3;
+        box-shadow: inset 0 1px 0 0 #72b9eb, 0 1px 4px 0 #b3b3b3;
+        color: #fff;
+        text-align: center;
+        text-shadow: 0 -1px 1px #3275bc;
+        -webkit-background-clip: padding-box;
+
+    }
+
+    .qrcode img {width: 66%; max-width: 320px; display: block; margin: 0 auto}
+    .desc {text-align: center; margin: 10px auto;}
+    .desc a {color: #20559a}
+</style>
+<h1><%= @title %></h1>
+<h2><%= @desc %></h2>
+
+<% if browser.name == 'iPhone' %>
+    <a href="<%= @ios_url %>" class="download-btn">立即下载安装</a>
+<% end %>
+
+<% if browser.name == 'Android' %>
+    <a href="<%= @android_url %>" class="download-btn">立即下载安装</a>
+<% end %>
+
+<div class="qrcode">
+    <% if not @logo_pic.empty? %>
+        <img src="http://cs.hudongka.com/?size=10&border=1&data=http://d.nowapp.cn/<%= @appnum %>&imgurl=http://admin.nowapp.cn<%= @logo_pic %>" />
+    <% else %>
+        <img src="http://cs.hudongka.com/?size=10&border=1&data=http://d.nowapp.cn/<%= @appnum %> />
+    <% end %>
+</div>
+<div class="desc">
+    可以使用二维码扫描软件拍摄上面二维码 <br />
+    <a href="http://d.nowapp.cn/<%= @appnum %>">http://d.nowapp.cn/<%= @appnum %></a>
+</div>

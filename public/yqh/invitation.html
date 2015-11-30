@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Invitation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/reveal.min.css?v=2"/>
+    <link rel="stylesheet" href="css/invitation.css?v=2"/>
+    <link rel="stylesheet" href="css/idangerous.swiper.css?v=2">
+    <script>
+        //weixin
+
+        var imgUrl = 'http://www.ecloudiot.com/yqh/imgs/icon.jpg';
+        var lineLink = 'http://www.ecloudiot.com/yqh/invitation.html';
+        var descContent = "喜德瑞 第三届高峰论坛 2014中国•博鳌";
+        var shareTitle = '微信邀请函';
+        var appid = '';
+
+        function shareFriend() {
+            WeixinJSBridge.invoke('sendAppMessage',{
+                "appid": appid,
+                "img_url": imgUrl,
+                "img_width": "100",
+                "img_height": "100",
+                "link": lineLink,
+                "desc": descContent,
+                "title": shareTitle
+            }, function(res) {
+                _report('send_msg', res.err_msg);
+            })
+        }
+        function shareTimeline() {
+            WeixinJSBridge.invoke('shareTimeline',{
+                "img_url": imgUrl,
+                "img_width": "100",
+                "img_height": "100",
+                "link": lineLink,
+                "desc": descContent,
+                "title": shareTitle
+            }, function(res) {
+                _report('timeline', res.err_msg);
+            });
+        }
+        function shareWeibo() {
+            WeixinJSBridge.invoke('shareWeibo',{
+                "content": descContent,
+                "url": lineLink
+            }, function(res) {
+                _report('weibo', res.err_msg);
+            });
+        }
+        //通过关注微信好友
+        function WeiXinAddContact(wxid, cb)
+        {
+            if (typeof WeixinJSBridge == 'undefined') return false;
+            WeixinJSBridge.invoke('addContact', {
+                webtype: '1',
+                username: wxid
+            }, function(d) {
+                // 返回d.err_msg取值，d还有一个属性是err_desc
+                // add_contact:cancel 用户取消
+                // add_contact:fail　关注失败
+                // add_contact:ok 关注成功
+                // add_contact:added 已经关注
+                WeixinJSBridge.log(d.err_msg);
+                cb && cb(d.err_msg);
+            });
+        };
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.on('menu:share:appmessage', function(argv){
+                shareFriend();
+            });
+
+            WeixinJSBridge.on('menu:share:timeline', function(argv){
+                shareTimeline();
+            });
+
+            WeixinJSBridge.on('menu:share:weibo', function(argv){
+                shareWeibo();
+            });
+        }, false);
+
+    </script>
+    <script src="src/reveal.min.js?v=2"></script>
+    <script src="src/classList.js?v=2"></script>
+    <script src="src/zepto.min.js?v=2"></script>
+
+    <script src="src/widget.js"></script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <section data-page="cover-page" data-background="imgs/cover.jpg">
+            </section>
+            <section data-page="intro-page">
+                <div class="page">
+                    <div class="flag">
+                        会议<br />介绍
+                    </div>
+
+                    <img src="imgs/cover2.jpg" style="position: absolute; top: 50%; left: 50%; width: 85%; max-width: 85%; max-height: 85%" id="intro-pic"/>
+                    <script>
+                        $(function(){
+                            var $intro_pic = $('#intro-pic');
+                            var time = setInterval(function(){
+                                if ($intro_pic.height()){
+                                    $intro_pic.css({'margin-top': $intro_pic.height() / -2, 'margin-left': $intro_pic.width() / -2});
+                                    clearInterval(time);
+                                }
+                            }, 200)
+                        });
+                    </script>
+                    <div class="intro-content">
+                        博鳌，亚洲新思维之巅，精英阶层智慧碰撞的舞台，6月25-27日第三届喜德瑞中国供暖高峰论坛将在此上演。我们邀请您莅临论坛，与供暖暨舒适家居行业上下游的优秀企业家、专家学者一道，感受行业发展的日新月异，把脉新的财富商机，探讨企业经营管理新思路，共襄新的行业格局！
+                    </div>
+                </div>
+            </section>
+            <section data-page="guest-page" class="guest-page">
+                <div class="page">
+                    <div class="flag">
+                        演讲<br />嘉宾
+                    </div>
+                    <div class="intro-wrap">
+                        <div class="guest-intro-block" style="">
+                            <img src="imgs/guests/guest2.png" alt=""/>
+                            <div class="bar" style="background-color: #b280ac">Fulvio Menegotto</div>
+                        </div>
+                        <div class="guest-intro-block">
+                            <img src="imgs/guests/guest1.png" alt=""/>
+                            <div class="bar" style="background-color: #b280ac">谢新天</div>
+                        </div>
+                        <div class="guest-intro-block">
+                            <img src="imgs/guests/guest6.png" alt=""/>
+                            <div class="bar" style="background-color: #8eb076">刘江</div>
+                        </div>
+                        <div class="guest-intro-block">
+                            <img src="imgs/guests/guest3.png" alt=""/>
+                            <div class="bar" style="background-color: #8eb076">John McCarth</div>
+                        </div>
+                        <div class="guest-intro-block">
+                            <img src="imgs/guests/guest7.png" alt=""/>
+                            <div class="bar" style="background-color: #246179">王宇彤 </div>
+                        </div>
+                        <div class="guest-intro-block">
+                            <img src="imgs/guests/guest5.png" alt=""/>
+                            <div class="bar" style="background-color: #246179">王振江</div>
+                        </div>
+                        <div class="guest-intro-block">
+                            <img src="imgs/guests/guest8.png" alt=""/>
+                            <div class="bar" style="background-color: #794909">李长健</div>
+                        </div>
+                        <div class="guest-intro-block">
+                            <img src="imgs/guests/guest4.png" alt=""/>
+                            <div class="bar" style="background-color: #794909">张华春</div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    var guest_ani_tasks = new aniTasks();
+                    $(function(){
+                        var words = [
+                            '<div style="padding:10px;line-height:150%"><h3>Fulvio Menegotto</h3>喜德瑞集团海外事业部执行总裁 <br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;意大利帕多瓦大学的文学哲学本科学位。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Menegotto先生多年来从事涉及多个行业的海外业务，加入意大利欧仙股份有限公司后出任出口部总监一职，2002年被任命为BAXI海外事业部执行总裁。BAXI并入喜德瑞集团后，再次被任命为喜德瑞集团海外事业部执行总裁，管理集团旗下所有品牌，负责所有包括中国在内的集团子公司和出口合资企业。</div>',
+                            '<div style="padding:10px;line-height:150%"><h3>谢新天(Eric Xie)</h3>喜德瑞热能集团中国区执行总裁<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中欧国际商学院工商管理硕士。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历经飞利浦、通用等多家跨国公司的历练，积累了丰富的管理经验，在阿里斯顿集团任职副总的12年期间，创造了锅炉从零到业内销量排名第一的奇迹。2011年8月担任喜德瑞集团中国区总裁, 自此翻开了喜德瑞中国的新篇章。</div>',
+                            '<div style="padding:10px;line-height:150%"><h3>刘江</h3>武汉广华供暖工程有限公司总经理<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本科学历。武汉市装饰协会常务副会长，武汉市供暖委员会主任。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;武汉广华是华中地区最早从事户式供暖系统的服务公司，以做足服务，做好服务为要义，经过10多年的艰苦努力和沉稳积淀，现已发展成为华中地区规模最大的集家庭供暖、中央热水、家居服务于一体的集成专业服务公司，并成为业内的佼佼者和一面旗帜。</div>',
+                            '<div style="padding:10px;line-height:150%"><h3>John McCarthy</h3>喜德瑞集团海外事业部出口经理<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现代欧洲学本科学位及市场营销硕士学位。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;John McCarthy先生多年来一直致力于国际商务运作，涉及多个行业，目前受邀担任喜德瑞热能集团海外事业部出口经理一职。</div>',
+                            '<div style="padding:10px;line-height:150%"><h3>王宇彤</h3>江苏科宁舒适家居系统集成有限公司董事长<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本科学历，学士学位，经济师。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;王宇彤董事长于2002至今，其带领团队打造的“科宁和暖”营销理念，创造了2013年近3亿的销售业绩。堪称奇迹，成为长三角供暖领域的领军企业。</div>',
+                            '<div style="padding:10px;line-height:150%"><h3>王振江</h3>上海永乐楼宇执行董事<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1993年山东大学毕业，2004年毕业于中欧国际工商学院（EMBA）。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历任过澳柯玛南方大区经理，海信集团营销总公司总经理，2004年担任永乐电器副总经理，2007年至今担任永乐楼宇执行董事。永乐楼宇致力于为更多消费者的生活环境提供健康、舒适、安全的整体解决方案，业已在上海斥巨资打造了10家体验中心和服务中心。</div>',
+                            '<div style="padding:10px;line-height:150%"><h3>李长健</h3>湖南华成爱尚家总经理<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;华南工学院毕业。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;凭借近二十年的专业涵养和前瞻的商业视角，率领团队率先在业内制定6S施工标准，首推提高能源利用率40%的节能系统， 2014年，历经多年积累和研究，突破性和颠覆式地开发创造了第三代采暖工程工艺，并相继推出了四大发明专利，轰动业界。</div>',
+                            '<div style="padding:10px;line-height:150%"><h3>张华春</h3>成都美景暖通舒适家居有限公司总经理<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中文系毕业。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1998年创立美景建材、此后不断升级为美景采暖、美景暖通、美景舒适家，从1998年至今，美景公司经过16年的发展，在舒适家居行业已经成为全国领先，的专业公司，不断引领舒适家居行业发展，并使“舒适家居”成为整个家居行业的重要组成部分。</div>'
+                        ];
+                        var $guest_blocks = $('.guest-page .guest-intro-block');
+                        var m_top = ($(window).height() - 45 * 8) / 2
+                        var m_left = $(window).width() / 2 - 90 - 10
+                        for (var i = 0, $each; i < $guest_blocks.length; i++){
+                            $each = $guest_blocks.eq(i);
+                            var $bar = $each.find('.bar');
+                            var ani_opt = {};
+                            if (i % 2){
+                                $each.css('left', -80);
+                                $bar.css('right', 20);
+                                $bar.css('text-align', 'right');
+                                ani_opt.left = m_left;
+                            } else {
+                                $each.css('right', -80);
+                                $bar.css('left', 20);
+                                $bar.css('text-align', 'left');
+                                ani_opt.right = m_left;
+                            }
+                            $each.css('top', 45 * (i - (i % 2) + 1) - 50 + m_top);
+
+                            guest_ani_tasks.addTaskPair(new aniMove($each, ani_opt), 500 + (i - (i % 2)) * 70);
+                        }
+
+                        $guest_blocks.tap(function(){
+                            var i = $guest_blocks.index(this);
+                            var $each_intro = $('<div><img src="imgs/guests/g' + (i + 1) + 'b.png" style="width: 100%; display: block">' + words[i] + '</div>');
+
+                            $each_intro.find('p').css({
+                                'padding': '10px 20px'
+                            });
+                            lightbox(introCard($each_intro.css({'color': '#fff'}), {'background': 'rgba(100, 100, 50, 0.8)'}));
+                        });
+                    });
+                </script>
+            </section>
+            <section data-page="arrangement">
+                <div class="page">
+
+                    <div class="flag">
+                        会议<br />安排
+                    </div>
+                    <div class="swiper-container arrange-swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide arrange-block">
+                                <div class="arrange-block-wrapper">
+                                    <p class="title">6月25日</p>
+                                    <p class="time"><br />签到入住</p>
+                                    <p class="content">Register</p>
+                                    <p class="time">18:00-20:00</p>
+                                    <p class="content">自助晚餐<br />Buffet Dinner</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide arrange-block">
+                                <div class="arrange-block-wrapper">
+                                    <p class="title">6月26日上午</p>
+                                    <p class="time">09:05~09:10</p>
+                                    <table>
+                                        <tr>
+                                            <td class="left">
+                                                内容
+                                            </td>
+                                            <td class="right">
+                                                <p class="content">致欢迎辞</p>
+                                                <p class="content">Welcome speech</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                               嘉宾
+                                            </td>
+                                            <td class="right">
+                                                <p class="content">Mr. Menegotto<br />喜德瑞集团海外事业部执行总裁</p>
+                                                <p class="content">MD of BDR Thermea Group Overseas Division</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="swiper-slide arrange-block">
+                                <div class="arrange-block-wrapper">
+                                    <p class="title">6月26日上午</p>
+                                    <p class="time">09:10~10:00</p>
+                                    <table>
+                                        <tr>
+                                            <td class="left">
+                                                内容
+                                            </td>
+                                            <td class="right">
+                                                <p class="content">欧洲供暖行业规模先进服务理念浅析<br />                                         Analysis of European heating volume and advanced service concep </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                嘉宾
+                                            </td>
+                                            <td class="right">
+                                                <p class="content">Mr.John MacCarthy<br/>
+                                                    喜德瑞海外事业部出口经理<br/>
+                                                    Manager of Export Department of BDR Thermea Overseas Division</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="swiper-slide arrange-block">
+                                <div class="arrange-block-wrapper">
+                                    <p class="title">6月26日上午</p>
+                                    <p class="time">10:00~12:00</p>
+                                    <table>
+                                        <tr>
+                                            <td class="left">
+                                                内容
+                                            </td>
+                                            <td class="right">
+                                                <p class="content">新·创未来<br />
+                                                Revolution·Bring Future</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                嘉宾
+                                            </td>
+                                            <td class="right">
+                                                <p class="content">谢新天，喜德瑞中国区执行总裁及团队<br />
+                                                    Mr.Eric,MD of BDR Thermea China & Team</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="swiper-slide arrange-block">
+                                <div class="arrange-block-wrapper">
+                                    <p class="title">6月26日下午</p>
+                                    <p class="time">13:30~16:00</p>
+                                    <table>
+                                        <tr>
+                                            <td class="left">
+                                                内容
+                                            </td>
+                                            <td class="right">
+                                                <p class="content">中国供暖行业生意模式深度解析及供暖企业发展趋势探讨 <br />
+                                                    Deep analysis of China heating business mode and discussion of heating enterprise development</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                嘉宾
+                                            </td>
+                                            <td class="right">
+                                                <p class="content">谢新天，喜德瑞中国区执行总裁及特邀嘉宾<br />
+                                                    Mr.Eric,MD of BDR Thermea China & Invited Guests </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="swiper-slide arrange-block">
+                                <div class="arrange-block-wrapper">
+                                    <p class="title">6月26日下午</p>
+                                    <p class="time">16:20~17:40</p>
+                                    <table>
+                                        <tr>
+                                            <td class="left">
+                                                内容
+                                            </td>
+                                            <td class="right">
+                                                <p class="content">供热节能及先进产品应用技术论坛<br />
+                                                    Heating Energy Saving and Advanced Product Application</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                嘉宾
+                                            </td>
+                                            <td class="right">
+                                                <p class="content">范宇卿，喜德瑞中国技术及服务总监及特邀嘉宾<br />
+                                                    Mr.Fan Yuqing,Technical & Service Director & Invited Guests</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="swiper-slide arrange-block">
+                                <div class="arrange-block-wrapper">
+                                    <p class="title">6月26日晚</p>
+                                    <p class="time">18:00~19:00</p>
+                                    <p class="content" style="font-size: 12px">烟花秀&自助晚宴<br />Fireworks show & Buffet Banquet</p>
+                                    <p class="time">19:00~20:00</p>
+                                    <p class="content" style="font-size: 12px">红毯入场仪式<br />Red-carpet Parade</p>
+                                    <p class="time">20:00~22:00</p>
+                                    <p class="content" style="font-size: 12px">颁奖典礼&香槟舞会<br />Award Ceremony & <br />Champagne Party</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide arrange-block">
+                                <div class="arrange-block-wrapper">
+                                    <p class="title">6月27日</p>
+                                    <p class="time"><br />返程<br />（或自助旅游）</p>
+                                    <p class="content">Back<br/>(DIY Tour)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="arrange-info">
+                        <div class="info-left">
+                            <div class="top">日期</div>
+                            <p>6月<br />June</p>
+                            <p>25-27</p>
+                        </div>
+                        <div class="info-right">
+                            <p>
+                                中国海南博鳌金海岸温泉大酒店<br />
+
+                                <span class="icon"><img style="width:20px;vertical-align: middle" src="imgs/icon/36.png"/></span>&nbsp;0898-62778888<br />
+
+                                <span class="icon"><img style="width:20px;vertical-align: middle" src="imgs/icon/38.png"/></span>&nbsp;海南省琼海博鳌金海岸大道8号
+                            </p>
+                        </div>
+                        <div class="clear:both"></div>
+                    </div>
+                </div>
+            </section>
+            <section data-page="contact-page">
+                <div class="page">
+
+                    <div class="flag">
+                        集团<br />成员
+                    </div>
+                    <div class="contact-card">
+                        <p>
+                            <span class="icon"><img style="width:20px;vertical-align: middle" src="imgs/icon/36.png"/></span>
+                            010-65888700-218
+                        </p>
+                        <p>
+                            <span class="icon"><img style="width:20px;vertical-align: middle" src="imgs/icon/37.png"/></span>
+                            王小姐
+                        </p>
+                        <p>
+                            <span class="icon"><img style="width:20px;vertical-align: middle" src="imgs/icon/35.png"/></span>
+                            Xin.wang@bdrthermeachina.com
+                        </p>
+                        <p>
+                            <span class="icon"><img style="width:20px;vertical-align: middle" src="imgs/icon/38.png"/></span>
+                            北京市朝阳区朝外大街22号泛利大厦1410
+                        </p>
+                        <div class="code-info">
+                            <div class="left"><img src="imgs/icon/qrcode.jpg" width="120px" /></div>
+                            <div class="right">如需关注<br />请点击：<br /><a href="http://117432.m.weimob.com/weisite/channel?pid=117432&bid=35916&wechatid=o7fK7jm1YpNx5ajO4bOLEiUxSHRc&categoryid=495676&wxref=mp.weixin.qq.com">印象•喜德瑞</a></div>
+                        </div>
+                        <div style="clear:both"></div>
+                        <div style="text-align: center"><button class="button join-btn1">嘉宾邀约</button>
+                            <button class="button join-btn2" style="margin-left: 30px">自愿报名</button>
+                        </div>
+                        <div style="text-align: center;margin-top:15px;"><span style="color:red">*</span> 请务必在6月15日前提交您的参会申请</div>
+                    </div>
+
+                </div>
+            </section>
+            <section data-page="travel-1">
+                <div class="page">
+                    <div class="flag">
+                        合作<br />伙伴
+                    </div>
+                    <div class="contact-card-travel">
+                        <h2>论坛度假合作伙伴</h2>
+                        <div style="text-align: center"><img src="imgs/travel/travel_logo.jpg" style="width:100px" /></div >
+                        <p>本次单位为此次论坛独家旅游合作伙伴，在27日自助旅游期间，如有需要，可与该单位取得联系。</p>
+                        <h3>公司名称</h3>
+                        <p>海南海之缘国际旅行社有限公司</p>
+                        <h3>联系方式：</h3>
+                        <p>电话：0898-66668699<br />
+                            传真：0898-68567089
+                        </p>
+                        <h3>24小时服务热线：</h3>
+                        <p>黄小雪  13627558503<br />
+                            崔  佳  18889557766<br />
+                            陈兴华  18789127456
+                        </p>
+                        <h3>在线咨询：</h3>
+                        <p>QQ：23339906，1017177192，1370031561</p>
+                    </div>
+                </div>
+            </section>
+            <section data-page="travel-1">
+                <div class="page">
+                    <div class="flag">
+                        合作<br />伙伴
+                    </div>
+                    <div class="contact-card-travel">
+                        <h2>旅游线路A：<br />博鳌幸福田园之旅<br />（海口往返专线）</h2>
+                        <p><span class="bf">行程安排：</span>酒店出发--琼海谭门风情小镇--享受海鲜大餐--琼海龙寿洋田野公园--琼海博鳌美雅村--定安泡冷泉观古树--享农家大风味--文笔峰--观演印象海南岛--骑楼享海南本土特色美食--送机场
+                        </p>
+                        <p><span class="bf">推荐亮点：</span>椰奶清朴凉，红糖鸡屎藤，糯米糍粑，海南粉，椰子糕，田园农家乐，渔港爱国海鲜，让您一路有享不尽的美食……</p>
+                        <p> <span class="bf">优惠报价：</span>30人/团预报价格：1050元/人<br />
+                            <span class="bf">酒店：</span>琼海金海岸酒店+海口挂四酒店（海口太阳城或同级）<br />
+                            <span class="bf">景点：</span>全程所列景点含第一道大门票<br />
+                            <span class="bf">用餐：</span>4正2早，50元/餐<br />
+                            <span class="bf">用车：</span>33座旅游大巴，每人一正座<br />
+                            <span class="bf">导游：</span>全程优秀国语导游服务<br />
+                            <span class="bf">其他：</span>旅行社责任险+10万元旅游意外保险<br />
+                            <span class="bf">质量监督热线：</span>13006006001  曾丽
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section data-page="travel-1">
+                <div class="page">
+                    <div class="flag">
+                        合作<br />伙伴
+                    </div>
+                    <div class="contact-card-travel">
+                        <h2>旅游线路B：<br /> 海岛体验之旅<br />（三亚往返专线）</h2>
+                        <p><span class="bf">行程安排：</span>酒店出发--蜈支洲岛--享用海鲜大餐--呀诺达热带雨林文化区--享用药膳--槟榔谷原生态黎苗文化旅游区 --宋城千古情--亚龙湾国家旅游度假区沙滩--送机场
+                        </p>
+                        <p><span class="bf">推荐亮点：</span>在蜈支洲岛上与跳跳鱼一起在石头上晒太阳，在天然大氧吧呀诺达发现热带丛林的神秘，在槟榔谷感受海南岛最原生态的黎苗文化，在三亚欣赏一生必看的宋城千古情大型实景演出……
+                        </p>
+                        <p> <span class="bf">优惠报价：</span>30人/团预报价格：1320元/人<br />
+                            <span class="bf">酒店：</span>四星或同级酒店<br />
+                            <span class="bf">景点：</span>全程所列景点含第一道大门票<br />
+                            <span class="bf">用餐：</span>4正2早，餐标：海鲜餐100元/人，常规50元/人/餐<br />
+                            <span class="bf">用车：</span>33座旅游大巴，每人一正座<br />
+                            <span class="bf">导游：</span>全程优秀国语导游服务<br />
+                            <span class="bf">其他：</span>旅行社责任险+10万元旅游意外保险<br />
+                            <span class="bf">质量监督热线：</span>13006006001  曾丽
+
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div>
+</div>
+
+<div id="form1" class="form-wrapper form1" style="display: none">
+    <div class="invitation-form" style="overflow-y: hidden">
+        <div class="form-container">
+            <div class="form-part-1">
+
+                <fieldset>
+                    <label>邀约码<span style="color:red">*</span></label>
+                    <input name="code" value=""/>
+                </fieldset>
+                <fieldset>
+                    <label>姓名<span style="color:red">*</span></label>
+                    <input name="name" value=""/>
+                </fieldset>
+                <fieldset>
+                    <label>手机<span style="color:red">*</span></label>
+                    <input name="mobile" value=""/>
+                </fieldset>
+                <fieldset>
+                    <label>公司<span style="color:red">*</span></label>
+                    <input name="comp" value=""/>
+                </fieldset>
+                <fieldset>
+                    <label>职位<span style="color:red">*</span></label>
+                    <input name="add_1" value=""/>
+                </fieldset>
+                <fieldset style="text-align: center;margin-top: 10px;">
+                    <a href="javascript:;" class="button submit" onclick="submit_form1()">提 交</a>
+                    <a href="javascript:;" class="button" onclick="lightbox.hide();$('.form-part-2').hide();$('.form-part-1').show();">取 消</a>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="form2" class="form-wrapper form2" style="display: none">
+    <div class="invitation-form" style="overflow-y: hidden">
+        <div class="form-container">
+            <div class="form-part-1">
+                <fieldset>
+                    <label>姓名<span style="color:red">*</span></label>
+                    <input name="name" value=""/>
+                </fieldset>
+                <fieldset>
+                    <label>手机<span style="color:red">*</span></label>
+                    <input name="mobile" value=""/>
+                </fieldset>
+                <fieldset>
+                    <label>公司<span style="color:red">*</span></label>
+                    <input name="comp" value=""/>
+                </fieldset>
+                <fieldset>
+                    <label>邮箱<span style="color:red">*</span></label>
+                    <input name="email" value=""/>
+                </fieldset>
+                <fieldset>
+                    <label>职位<span style="color:red">*</span></label>
+                    <input name="add_1" value=""/>
+                </fieldset>
+                <fieldset style="text-align: center;margin-top: 10px;">
+                    <a href="javascript:;" class="button" id="form-next" onclick="$('.form-part-1').hide();$('.form-part-2').show();">下一步</a>
+                    <a href="javascript:;" class="button" onclick="lightbox.hide()">取 消</a>
+                </fieldset>
+            </div>
+            <div class="form-part-2" style="display: none">
+                <fieldset>
+                    <label>目前经营的壁挂炉品牌<span style="color:red">*</span></label>
+                    <input name="add_2" value=""/>
+                </fieldset>
+                <fieldset>
+                    <label>企业2013年采暖系统销售规模<span style="color:red">*</span></label>
+                    <input name="add_3" value=""/>
+                </fieldset>
+                <fieldset style="line-height: 1.5"><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本届论坛会务费合计RMB2000，含入住酒店后的所有餐饮及住宿费用。<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提交报名后，经总部审核，我们将与您确认后，即可参与本次大会。<br /><br />
+                </fieldset>
+                <fieldset style="text-align: center;margin-top: 10px;">
+                    <a href="javascript:;" class="button submit" onclick="submit_form2()">提 交</a>
+                    <a href="javascript:;" class="button" onclick="lightbox.hide();$('.form-part-2').hide();$('.form-part-1').show();">取 消</a>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="arrow arrow-up" style="opacity: 0" onclick="Reveal.prev()">
+    <img src="imgs/arrow-down.png"/>
+</div>
+
+<div class="arrow arrow-down" onclick="Reveal.next()">
+    <img src="imgs/arrow-up.png"/>
+</div>
+
+<script>
+    Reveal.initialize({
+
+        width: '100%',
+
+        height: '100%',
+
+     // Display controls in the bottom right corner
+        controls: false,
+
+        // Display a presentation progress bar
+        progress: false,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // Turns fragments on and off globally
+        fragments: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // Hides the address bar on mobile devices
+        hideAddressBar: true,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'slide', // default/none/slide/concave/convex/zoom
+
+        // Number of slides away from the current that are visible
+        viewDistance: 6,
+
+        // Parallax background image
+        parallaxBackgroundImage: 'imgs/bg.jpg', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+        // Parallax background size
+        parallaxBackgroundSize: '100% 100%' // CSS syntax, e.g. "2100px 900px"
+
+
+    });
+
+    $(function(){
+        $('.page').css({'width': $(window).width(), 'height': $(window).height()});
+    });
+</script>
+<script src="src/idangerous.swiper-2.0.min.js"></script>
+<script src="src/invitation.js"></script>
+</body>
+</html>

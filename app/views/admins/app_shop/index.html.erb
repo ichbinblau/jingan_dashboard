@@ -1,0 +1,50 @@
+<%= render 'admins/appchannel' %>
+
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <th width="30">显示</th>
+      <th>封面</th>
+      <% if @content_distitle["video_url"].to_s!="1"  %>
+          <th>视频</th>
+      <% end%>
+      <th>标题</th>
+      <th>内容</th>
+      <th>地址</th>
+      <th>电话</th>
+      <th width="30">排序</th>
+      <th width="30">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @content_items.each do |content_item| %>
+    <tr>
+      <td><%= content_item.id %></td>
+      <td><%= raw content_item.is_show ? "<font color='green'>是</font>" : "<font color='red'>否</font>" %></td>
+      <td>
+        <%= raw "<img style='height:80px;' src='#{get_ecimg_url( :imagename =>content_item[:image_cover], :height=>80)}'/>" if !content_item.image_cover.blank? %>
+      </td>
+      <% if @content_distitle["video_url"].to_s!="1"  %>
+          <td title="<%= content_item.video_url %>"><%= raw content_item.video_url.blank? ? "<font color='red'>否</font>" : "<font color='green'>是</font>" %></td>
+      <% end%>
+      <td title="<%= content_item.title %>"><%= content_item.title.truncate(10) %></td>
+      <td title="<%= content_item.content %>"><%= content_item.content.truncate(10) %></td>
+      <td title="<%= content_item.cms_info_shop.address %>"><%= content_item.cms_info_shop.address.truncate(10) %></td>
+      <td><%= content_item.cms_info_shop.phone_num %></td>
+      <td><%= content_item.order_level %></td>
+      <td>
+        <%= link_to '编辑',  :action => "edit" , :id =>content_item.id , :page => params[:page], :sort_id => params[:sort_id] %>
+        <br />
+        <%= link_to '删除', { :action => "destroy", :id =>content_item.id , :page => params[:page], :sort_id => params[:sort_id]},  method: :delete, data: { confirm: '确定删除？' } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<br />
+

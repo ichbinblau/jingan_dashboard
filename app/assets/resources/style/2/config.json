@@ -1,0 +1,84 @@
+{
+	"actionbar":{
+		"background-color" : "#CE2A2F",
+		"font-color" : "#ffffff",
+		"font-size" : "34px"
+	},
+	"index":{
+		"cover-alpha" : "0.3",
+		"icon-font-color" : "#ffffff",
+		"icon-font-size" : "24px"
+	},
+	"chat":{
+		"bubble-background-color":"#ffffff",
+		"bubble-font-color":"#333333",
+		"bubble-font-size":"28px",
+		"bubble-des-font-color":"#808080",
+		"bubble-des-font-size":"22px"
+	},
+	"card":{
+		"style_name": "土色古香",
+		"background-image" : "style/2/card.png",
+		"btn_map":{
+			"left": "18px",
+			"top": "720px",
+			"width": "81px",
+			"height": "81px"
+		},
+		"name1":{
+			"font-color":"#ffffff",
+			"font-size":"40px",
+			"font-weight":"bold",
+			"top":"76px",
+			"left":"62px",
+			"transform": "rotate(90deg)" 
+		},
+		"name2":{
+			"font-color":"#ffffff",
+			"font-size":"40px",
+			"font-weight":"bold",
+			"top":"76px",
+			"left":"104px",
+			"transform": "rotate(90deg)"
+		},
+		"words1":{
+			"font-color":"#ffffff",
+			"font-size":"28px",
+			"top":"76px",
+			"left":"212px",
+			"transform": "rotate(90deg)" 
+		},
+		"words2":{
+			"font-color":"#ffffff",
+			"font-size":"28px",
+			"top":"76px",
+			"left":"250px",
+			"transform": "rotate(90deg)" 
+		},
+		"words3":{
+			"font-color":"#ffffff",
+			"font-size":"28px",
+			"top":"76px",
+			"left":"288px",
+			"transform": "rotate(90deg)" 
+		},
+		"time":{
+			"font-color":"#ffffff",
+			"font-size":"28px",
+			"top":"696px",
+			"left":"63px"
+		},
+		"address":{
+			"font-color":"#ffffff",
+			"font-size":"28px",
+			"top":"760px",
+			"left":"63px"
+		},
+		"place":{
+			"font-color":"#ffffff",
+			"font-size":"28px",
+			"top":"790px",
+			"left":"63px"
+		}
+	}
+}

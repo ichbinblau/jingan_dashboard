@@ -1,0 +1,726 @@
+<%= javascript_include_tag 'jquery.json-2.4.js' %>
+<%= stylesheet_link_tag "jquery.handsontable/jquery.handsontable.full.css" %>
+<%= javascript_include_tag "jquery.handsontable/jquery.handsontable.full.js" %>
+<%= stylesheet_link_tag "jquery-easyui/themes/icon.css" %>
+<%= stylesheet_link_tag "jquery-easyui/themes/default/easyui.css" %>
+<%= javascript_include_tag "jquery-easyui/jquery.easyui.min.js" %>
+<%= javascript_include_tag "jquery-easyui/locale/easyui-lang-zh_CN" %>
+
+<style>
+
+    #tbl_area_status table.htCore th { width: 50px;}
+    #tbl_area_status table.htCore td { width: 50px;height: 50px;padding: 0px 0px 0px 0px}
+    .state-wait{background-color: greenyellow;}
+    .state-order{background-color:orange;}
+    .state-locked{background-color:darkkhaki;}
+    .block-fit{width: 100%;height:100%;display:block;}
+</style>
+
+
+<h1><%= @module_info.show_name %> <%= link_to '返回', {:action => "index", :sort_id => params[:sort_id], :page => params[:page]}, :class => "btn btn-primary" %></h1>
+<hr/>
+<div class="controls">
+  <div>套餐</div>
+  <div id="tbl_taocan_price">
+  </div>
+</div>
+<div class="controls">
+  <div>场地设置</div>
+  <label for="sel_week_day" class=" control-label"> 星期<abbr title="required">*</abbr></label>
+  <select id="sel_week_day" style="height: 30px;">
+    <option selected="selected" value="1">一</option>
+    <option value="2">二</option>
+    <option value="3">三</option>
+    <option value="4">四</option>
+    <option value="5">五</option>
+    <option value="6">六</option>
+    <option value="0">日</option>
+  </select>
+
+  <div id="tbl_excel_price"></div>
+</div>
+
+<div class="controls">
+  <div>
+    <table id="tbl_area_admin" title="管理员锁定设置" style="width:700px;height:auto">
+    </table>
+    <div id="tb" style="height:auto">
+      <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="add_locked();">添加</a>
+      <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit_locked();">编辑</a>
+      <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="remove_locked();">删除</a>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <div>预定状态</div>
+  <label for="txt_area_date" class=" control-label"> 星期<abbr title="required">*</abbr></label>
+
+  <input class="easyui-datebox" id="txt_area_date" />
+
+  <div><span class="state-locked">锁定</span> <span class="state-order">已预定</span> <span class="state-wait">空闲</span></div>
+  <div id="tbl_area_status">
+
+  </div>
+</div>
+
+
+<div id="dlg" class="easyui-dialog" style="width:400px;height:450px;padding:10px 20px" closed="true" buttons="#dlg-buttons">
+  <div class="ftitle">锁定信息</div>
+
+   <form id="fm" method="PUT" novalidate>
+    <input name="id"  type="hidden">
+
+    <input name="cms_content_id"  type="hidden" value="<%= @content_id %>" >
+    <div class="fitem">
+      <label>场地:</label>
+      <input class="easyui-combobox" name="p_1"   data-options="valueField:'id',textField:'cnname',data:area_config.p_1" required="required">
+    </div>
+    <div class="fitem">
+      <label>时段:</label>
+      <input class="easyui-combobox"  name="p_0"   data-options="valueField:'id',textField:'cnname',data:area_config.p_0" required="required">
+    </div>
+    <div class="fitem">
+      <label>日期范围:</label>
+      <input name="date" type="text" class="easyui-datebox" required="required">-
+      <input name="end_date"  type="text" class="easyui-datebox" required="required">
+    </div>
+    <div class="fitem">
+      <label>锁定状态:</label>
+      <input name="locked" type="checkbox"  checked="true" value="1">
+    </div>
+
+    </form>
+</div>
+<div id="dlg-buttons">
+  <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="save_locked();">保存</a>
+  <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+</div>
+
+
+<script>
+    //JSON.parse JSON.stringify
+
+    var area_config = <%= raw @area_config.to_json %>;
+    var package_config = <%=raw  @package_config.to_json %>;
+    var content_id =<%=raw @content_id.to_json %>;
+
+    /**********************价格设置*****************************/
+    var cl_price_table = function (options) {
+        var context = this;
+        this.handsontable = null;
+
+        this.el = $("#tbl_excel_price");
+        this.el_week_day = $("#sel_week_day");
+        this.content_id = content_id;
+
+        this.url_load_price_cfg = "<%= url_for  :action => 'price_config_data' %>";
+        this.url_load_price_data_cfg = "<%= url_for  :action => 'price_data' %>";
+        this.url_save_price = "<%= url_for :action => 'price_set' %>";
+
+        this.column_dic = null;
+        this.row_dic = null;
+        this.column_sorts = null;
+        this.row_sorts = null;
+
+        this.el_week_day.change(function () {
+            context.load_data();
+        });
+        this.get_week_day = function () {
+            return context.el_week_day.val();
+        };
+
+        this.init = function () {
+            if (!context.content_id)return;
+            context.load_config();
+        };
+        this.load_config = function () {
+
+            context.on_init_config(area_config);
+
+//            $.ajax({
+//                context: context,
+//                url: context.url_load_price_cfg,
+//                data: {id: context.content_id}, //returns all cells' data
+//                dataType: 'json',
+//                type: 'POST',
+//                success: function (res) {
+//                    context.on_init_config(res)
+//                },
+//                error: function () {
+//                    var args = arguments;
+//                    alert("请求失败")
+//                }
+//            });
+        };
+        this.on_init_config = function (res) {
+            //场地-> colHeaders X
+            //时段-> rowheads Y
+            var column_sorts = context.column_sorts = res["p_1"],
+                    row_sorts = context.row_sorts = res["p_0"];
+
+            var colHeaders = [""], //此名称 可能是2个分类组合名称
+                    columns = [
+                        {data: "name", readOnly: true}
+                    ],
+                    column_dic = context.column_dic = {};
+
+            for (var i = 0; i != column_sorts.length; i++) {
+                var item = column_sorts[i];
+                column_dic[item.id] = item;
+
+                colHeaders.push(item["cnname"]);
+                columns.push({type: 'numeric', data: item["id"].toString()});
+            }
+
+            console.log("::colHeaders::" + JSON.stringify(colHeaders));
+            console.log("::columns::" + JSON.stringify(columns));
+            context.handsontable = context.el.handsontable({
+                colHeaders: colHeaders,
+                columns: columns,
+
+                data: [],
+                afterChange: function (change, source) {
+                    if (source === 'loadData') return;
+                    console.log("::save_source::" + source);
+                    context.save_data(change)
+                }
+            });
+            console.log(("::price_table_handlers::" + this.handsontable == null ))
+            context.load_data();
+        };
+        this.load_data = function () {
+            var week_day = context.get_week_day;
+            $.ajax({
+                context: context,
+                url: context.url_load_price_data_cfg,
+                data: {id: context.content_id, week_day: week_day}, //returns all cells' data
+                dataType: 'json',
+                type: 'POST',
+                success: function (res) {
+                    context.on_load_data(res)
+                },
+                error: function () {
+                    var args = arguments;
+                    alert("请求数据失败")
+                }
+            });
+        };
+        this.on_load_data = function (res) {
+
+            var prices_data = res,
+                    column_sorts = context.column_sorts ,
+                    row_sorts = context.row_sorts,
+                    row_dic = context.row_dic = {},
+                    price_dic = {},
+                    data = [];
+
+            //set price_dic
+            for (var i = 0; i != prices_data.length; i++) {
+                var price_item = prices_data[i],
+                        price_key = price_item["p_0"] + "_" + price_item["p_1"];
+                price_dic[price_key] = price_item;
+            }
+            for (var i = 0; i != row_sorts.length; i++) {
+                var row_item = row_sorts[i],
+                        o = {"name": row_item.cnname, id: row_item.id};
+
+                row_dic[row_item.id] = row_item;
+                data.push(o);
+
+                for (var j = 0; j != column_sorts.length; j++) {
+                    var column_item = column_sorts[j],
+                            price_key = row_item.id + "_" + column_item.id,
+                            price_item = price_dic[price_key];
+
+                    if (price_item) o[column_item.id] = price_item.price;
+                }
+            }
+
+            console.log("::data::" + JSON.stringify(data));
+            context.el.handsontable("loadData", data);
+            console.log("::data_load_end::" + JSON.stringify(data));
+        };
+        this.save_data = function (change) {
+            var
+                    week_day = context.get_week_day(),
+                    column_sorts = context.column_sorts ,
+                    row_sorts = context.row_sorts,
+                    price_items = [];
+
+            if (!change || !change.length)return;
+            //changes [ 行(index), 列(index|name),  old_value, new_value]
+            for (var i = 0; i != change.length; i++) {
+                var c = change[i],
+                        row_index = c[0],
+                        row_sort_id = row_sorts[row_index].id,
+                        column_sort_id = parseInt(c[1]);
+
+                o = {price: c[3], p_0: row_sort_id, p_1: column_sort_id, week_day: parseInt(week_day) };
+                price_items.push(o);
+            }
+
+            console.log("::price_items ::" + JSON.stringify(price_items));
+            if (context.is_saving) return;
+            context.is_saving = true;
+            $.ajax({
+                url: context.url_save_price,
+                data: {content_id: context.content_id, week_day: context.get_week_day(), price_items: JSON.stringify(price_items)}, //returns all cells' data
+                dataType: 'json',
+                type: 'POST',
+                success: function (res) {
+                    //{:success=>msg.nil?,:count=> buf.length,:msg=>msg}
+                    if (res.success) {
+
+                    } else {
+                        alert(res.msg);
+                    }
+                },
+                error: function () {
+                    var args = arguments;
+                    alert("请求失败")
+                },
+                complete: function (xhr, ts) {
+                    context.is_saving = false;
+                }
+            });
+        }
+    }
+    /**********************套餐设置*****************************/
+    var cl_price_packages_table = function (options) {
+        var context = this;
+        this.handsontable = null;
+        this.el = $("#tbl_taocan_price");
+        this.content_id =<%=raw @content_id.to_json %>;
+
+        this.url_load_price_cfg = "<%= url_for  :action => 'price_packages_config_data' %>";
+        this.url_load_price_data_cfg = "<%= url_for  :action => 'price_packages_data' %>";
+        this.url_save_price = "<%= url_for :action => 'price_packages_set' %>";
+
+        this.column_dic = null;
+        this.row_dic = null;
+        this.row_sorts = null;
+
+        this.init = function () {
+            if (!context.content_id)return;
+            context.load_config();
+        };
+
+        this.load_config = function () {
+            context.on_init_config(package_config);
+        };
+        this.on_init_config = function (res) {
+            var row_sorts = context.row_sorts = res["p_0"];
+
+            var colHeaders = ["套餐", "一", "二", "三", "四", "五", "六", "日"], //此名称 可能是2个分类组合名称
+                    columns = [
+                        {data: "name", readOnly: true},
+                        {type: 'numeric', data: "1"},
+                        {type: 'numeric', data: "2"},
+                        {type: 'numeric', data: "3"},
+                        {type: 'numeric', data: "4"},
+                        {type: 'numeric', data: "5"},
+                        {type: 'numeric', data: "6"},
+                        {type: 'numeric', data: "0"}
+                    ];
+            context.handsontable = context.el.handsontable({
+                colHeaders: colHeaders,
+                columns: columns,
+                data: [],
+                afterChange: function (change, source) {
+                    if (source === 'loadData') return;
+                    console.log("::save_source::" + source);
+                    context.save_data(change)
+                }
+            });
+            context.load_data();
+        };
+        this.load_data = function () {
+
+            $.ajax({
+                context: context,
+                url: context.url_load_price_data_cfg,
+                data: {id: context.content_id}, //returns all cells' data
+                dataType: 'json',
+                type: 'POST',
+                success: function (res) {
+                    context.on_load_data(res)
+                },
+                error: function () {
+                    var args = arguments;
+                    alert("请求数据失败")
+                }
+            });
+        };
+        this.on_load_data = function (res) {
+
+            var prices_data = res,
+                    row_sorts = context.row_sorts,
+                    row_dic = context.row_dic = {},
+                    price_dic = {},
+                    data = [];
+
+            //set price_dic
+            for (var i = 0; i != prices_data.length; i++) {
+                var price_item = prices_data[i],
+                    price_key =  price_item["p_0"].toString()+price_item["week_day"].toString();
+                    price_dic[price_key]= price_item;
+            }
+
+            for (var i = 0; i != row_sorts.length; i++) {
+                var row_item = row_sorts[i],
+                    o = {"name": row_item.cnname, id: row_item.id};
+
+                row_dic[row_item.id] = row_item;
+                data.push(o);
+
+                for(var j=0;j!=7;j++){
+                    price_key = row_item.id.toString() + j.toString() ,
+                    price_item = price_dic[price_key];
+                    if (price_item) o[j.toString()] = price_item.price;
+                }
+            }
+
+            console.log("::data::" + JSON.stringify(data));
+            context.el.handsontable("loadData", data);
+            console.log("::data_load_end::" + JSON.stringify(data));
+        };
+        this.save_data = function (change) {
+            var row_sorts = context.row_sorts,
+                price_items = [];
+
+            if (!change || !change.length)return;
+            //changes [ 行(index), 列(index|name),  old_value, new_value]
+            for (var i = 0; i != change.length; i++) {
+                var c = change[i],
+                    row_index = c[0],
+                    column_index = c[1],
+                    row_sort_id = row_sorts[row_index].id;
+
+                o = {price: c[3], p_0: row_sort_id,week_day:column_index };
+
+                price_items.push(o);
+            }
+
+
+
+            if (context.is_saving) return;
+            context.is_saving = true;
+
+            $.ajax({
+                url: context.url_save_price,
+                data: {content_id: context.content_id, price_items: JSON.stringify(price_items)}, //returns all cells' data
+                dataType: 'json',
+                type: 'POST',
+                success: function (res) {
+                    //{:success=>msg.nil?,:count=> buf.length,:msg=>msg}
+                    if (res.success) {
+
+                    } else {
+                        alert(res.msg);
+                    }
+                },
+                error: function () {
+                    var args = arguments;
+                    alert("请求失败")
+                },
+                complete: function (xhr, ts) {
+                    context.is_saving = false;
+                }
+            });
+        }
+    }
+
+    /**********************锁定操作*****************************/
+    var locked_params ={
+        form:$('#fm'),
+        dialog:$('#dlg'),
+        grid: $('#tbl_area_admin'),
+        record:null,
+        mode:null,
+        update_url: "<%= url_for  :action =>  'locked_update' %>",
+        add_url: "<%= url_for  :action => 'locked_create'%>",
+        remove_url:"<%= url_for  :action => 'locked_destroy' %>",
+        list_url:"<%= url_for  :action => 'locked_index' %>",
+        current_url:""
+    };
+
+
+    var add_locked=function(){
+        locked_params.dialog.dialog('open').dialog('setTitle','添加');
+        locked_params.form.form('clear');
+        locked_params.mode="add";
+        locked_params.record = null;
+        locked_params.form.find('[name=cms_content_id]').val(content_id);
+        locked_params.form.find('[name=locked]').prop('checked',true);
+
+    }
+    var remove_locked=function(){
+        var row = locked_params.grid.datagrid('getSelected');
+        if (row){
+            $.messager.confirm('Confirm','确定要删除吗?',function(r){
+                if (r){
+                    $.post(locked_params.remove_url,{id:row.id},function(result){
+                        if (result.success){
+                            locked_params.grid.datagrid('reload');	// reload the user data
+                        } else {
+                            $.messager.show({	// show error message
+                                title: 'Error',
+                                msg: result.msg
+                            });
+                        }
+                    },'json');
+                }
+            });
+        }
+
+    }
+    var edit_locked=function(){
+        var row = locked_params.grid.datagrid('getSelected');
+        if (row){
+            locked_params.mode="edit";
+            locked_params.record = row;
+            locked_params.dialog.dialog('open').dialog('setTitle','编辑');
+            locked_params.form.form('load',row).find("[name=locked]").prop('checked',row.locked);
+
+        }
+
+    }
+    var save_locked= function(){
+        var url = locked_params.mode=="add"?  locked_params.add_url:locked_params.update_url;
+
+
+        locked_params.form.form('submit',{
+            url: url,
+            onSubmit: function(){
+                $(this).find('[name=cms_content_id]').val(content_id);
+                return $(this).form('validate');
+            },
+            success: function(result){
+
+                var result = eval('('+result+')');
+                if (result.success){
+                    locked_params.dialog.dialog('close');		// close the dialog
+                    locked_params.grid.datagrid('reload');	// reload the user data
+                } else {
+                    $.messager.show({
+                        title: 'Error',
+                        msg: result.msg
+                    });
+                }
+            }
+        });
+    }
+
+
+     /**********************场地状态(日期)*****************************/
+    var cl_area_status_table = function (options) {
+        var context = this;
+        this.handsontable = null;
+
+
+        this.el = $("#tbl_area_status");
+        this.el_date = $("#txt_area_date");
+        this.content_id = content_id;
+
+        this.url_load_data = "<%= url_for  :action => 'locked_items_by_date' %>";
+
+        this.column_dic = null;
+        this.row_dic = null;
+        this.column_sorts = null;
+        this.row_sorts = null;
+        this.date = null;
+
+        this.el_date.datebox({onSelect:function (date) {
+            //context.date=date;
+            context.date = context.el_date.datebox('getValue');
+            context.load_data();
+        }});
+
+        this.init = function () {
+            if (!context.content_id)return;
+            context.load_config();
+        };
+        this.load_config = function () {
+            context.on_init_config(area_config);
+        };
+
+        this.cell_Renderer = function (instance, td, row, col, prop, value, cellProperties) {
+            //状态 0=空闲 1=预定 2=锁定        state-wait   state-order     state-locked
+             var cell_html =[],item= null,td_cls;
+             if(value){
+                for(var i=0;i!=value.length;i++){
+                   item = value[i];
+                   if(item.created_source==0){
+                       cell_html.push('<span class="state-order block-fit">已预定</span>')
+                   }else{
+                       cell_html.push('<span class="state-locked block-fit">锁定</span>')
+                   }
+                   break;
+                }
+             }else{
+                 cell_html.push('<span class="state-wait block-fit"> 空闲</span>')
+             }
+
+//             var escaped = Handsontable.helper.stringify(value);
+//             escaped = strip_tags(escaped, '<em><b><a>');
+             td.innerHTML = cell_html.join('');
+             return td;
+        };
+
+
+        this.on_init_config = function (res) {
+            //场地-> colHeaders X
+            //时段-> rowheads Y
+            var column_sorts = context.column_sorts = res["p_1"],
+                    row_sorts = context.row_sorts = res["p_0"];
+
+            var colHeaders = [""], //此名称 可能是2个分类组合名称
+                    columns = [
+                        {data: "name", readOnly: true}
+                    ],
+                    column_dic = context.column_dic = {};
+
+            for (var i = 0; i != column_sorts.length; i++) {
+                var item = column_sorts[i];
+                column_dic[item.id] = item;
+
+                colHeaders.push(item["cnname"]);
+                columns.push({ type:{renderer:context.cell_Renderer},data: item["id"].toString(),readOnly: true});
+            }
+
+
+            console.log("::colHeaders::" + JSON.stringify(colHeaders));
+            console.log("::columns::" + JSON.stringify(columns));
+            context.handsontable = context.el.handsontable({
+                colHeaders: colHeaders,
+                columns: columns,
+                data: [],
+                afterChange: function (change, source) {
+                    if (source === 'loadData') return;
+                    console.log("::save_source::" + source);
+                    context.save_data(change)
+                }
+            });
+            console.log(("::price_table_handlers::" + this.handsontable == null ))
+            context.load_data();
+        };
+        this.load_data = function () {
+            var date = context.date ;
+            if(!date)return;
+            context.el.handsontable("loadData", []);
+            $.ajax({
+                context: context,
+                url: context.url_load_data,
+                data: {id: context.content_id, date: date }, //returns all cells' data
+                dataType: 'json',
+                type: 'POST',
+                success: function (res) {
+                    context.on_load_data(res)
+                },
+                error: function () {
+                    var args = arguments;
+                    alert("请求数据失败")
+                }
+            });
+        };
+        this.on_load_data = function (res) {
+
+            var locked_data = res,
+                column_sorts = context.column_sorts ,
+                row_sorts = context.row_sorts,
+                row_dic = context.row_dic = {},
+                locked_dic = {},
+                data = [];
+
+            //在每个单元格放入锁定信息
+            for (var i = 0; i != locked_data.length; i++) {
+                var item = locked_data[i],
+                     key = item["p_0"] + "_" + item["p_1"],
+                     cell_lockeds =locked_dic[key];
+
+                if (!cell_lockeds)    locked_dic[key] = cell_lockeds=[]
+                cell_lockeds.push(item)
+            }
+
+            for (var i = 0; i != row_sorts.length; i++) {
+                var row_item = row_sorts[i],
+                    o = {"name": row_item.cnname, id: row_item.id};
+
+                row_dic[row_item.id] = row_item;
+                data.push(o);
+
+                for (var j = 0; j != column_sorts.length; j++) {
+                    var column_item = column_sorts[j],
+                        key = row_item.id + "_" + column_item.id,
+                        item = locked_dic[key];//cell -> locked_items
+                    o[column_item.id] = item;
+                }
+            }
+            console.log("::data::" + JSON.stringify(data));
+            context.el.handsontable("loadData", data);
+            console.log("::data_load_end::" + JSON.stringify(data));
+        };
+
+    }
+
+
+    $(function () {
+
+        var area = new cl_price_table();
+        area.init();
+
+        var packages = new cl_price_packages_table();
+        packages.init();
+        var area_status =new cl_area_status_table();
+        area_status.init();
+
+        var current_grid = $('#tbl_area_admin');
+
+        current_grid.datagrid({
+            singleSelect: true,
+            colWidths:80,
+            toolbar: "#tb",
+            url: locked_params.list_url+"?id="+content_id,
+            columns: [
+                [
+                    {field: 'id', title: 'id', width: 100},
+                    {field: 'p_1', title: '场地', width: 100,
+                        formatter: function (value, row) {
+                            var item=null;
+                             for(var i=0;i!= area_config.p_1.length ;i++) {
+                                 item = area_config.p_1[i];
+                                 if(item.id.toString() == value.toString()){
+                                     break;
+                                 }
+                                 item=null;
+                             }
+                            return item? item.cnname:"";
+                        }
+                    },
+                    {field: 'p_0', title: '时段', width: 100,
+                        formatter: function (value, row) {
+                            var item=null;
+                            for(var i=0;i!= area_config.p_0.length ;i++) {
+                                item = area_config.p_0[i];
+                                if(item.id.toString() == value.toString()){
+                                    break;
+                                }
+                                item=null;
+                            }
+                            return item? item.cnname:"";
+                        }},
+                    {field: 'date', title: '开始时间', width: 100},
+                    {field: 'end_date', title: '结束时间', width: 100},
+                    {field: 'locked', title: '锁定状态', width: 100,formatter: function (value, row){return value?'是':'否';}}
+                ]
+            ]
+
+        });
+
+
+
+    });
+
+
+</script>

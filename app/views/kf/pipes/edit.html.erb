@@ -1,0 +1,9 @@
+<h1>编辑<%= @kf_pipe.class.model_name.human %> </h1>
+
+<%=
+	@pipe_config = nil
+	@viewconfig = JSON.parse( Kf::GlobalConfig.where(:key => "pipe_config").first.value )
+	@pipe_config = @viewconfig[@kf_pipe.top_id.to_s][@kf_pipe.deep.to_s] if !@viewconfig[@kf_pipe.top_id.to_s].blank? && !@viewconfig[@kf_pipe.top_id.to_s][@kf_pipe.deep.to_s].blank?
+	@pipe_config = @viewconfig[@kf_pipe.id.to_s] if @kf_pipe.top_id == 0 && !@viewconfig[@kf_pipe.id.to_s].blank?
+	render !@pipe_config.nil? && @pipe_config["admin_view_form"] ? @pipe_config["admin_view_form"] : "form" 
+%>

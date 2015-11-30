@@ -1,0 +1,23 @@
+<%= stylesheet_link_tag "webapps/_listviewOneline" %>
+<ul class="listviewOneline nav nav-list">
+<% 
+if !item_list.blank?
+item_list.each do |item|  %>
+<li>
+  <a href="<%= url_for :controller => params[:controller]!="webapps/pcmain" ? params[:controller] : module_info[:tname].to_s , :action => "show" , :contentid=>item["id"] , :module_id => params[:controller]!="webapps/pcmain" ? params[:module_id] : module_info[:id].to_s %>">
+    <i class="icon-chevron-right"></i>
+    
+    <div class="list_left">
+      
+    </div>
+    <div class="list_right">
+      <div class="list_title"><%= item["title"] %></div>
+      <div class="list_des"><%= item["abstracts"].truncate(60) %></div>
+    </div>
+  </a>
+</li>
+<% 
+end
+end
+%>
+</ul>

@@ -1,0 +1,20 @@
+<header class="bar bar-nav">
+  <a class="icon icon-left-nav pull-left"  href="subject" data-ignore="push" data-transition="slide-out"></a>
+  <h1 class="title"><%= @project_cfg["subjects_sort"]["name"] %></h1>
+</header>
+<div class="content">
+	<div class="card train-title"></div>
+	<ul class="options train-options"></ul>
+	<div class="card train-des"></div>
+</div>
+<div class="bar bar-standard bar-footer">
+	<h1 class="title"><input class="train-num-now" value="1" onchange="go_topic($(this).val())"/> / <span class="train-num-all">0</span></h1>
+	<button class="btn btn-positive pull-left train-pageleft" onclick="pre_topic()"> 上一题 </button>
+	<button class="btn btn-positive pull-right train-pageright" onclick="next_topic()"> 下一题 </button>
+	<span class="badge badge-primary train-num-error">0 / 0</span>
+</div>
+<script>
+$(document).ready(function(){
+	start_train('<%= params[:sort_id] %>' , '<%= @counts %>')
+});
+</script>

@@ -1,0 +1,16 @@
+<%= link_to raw('<img id="_logo" src="'+get_ecimg_url(:imagename =>@appinfo[:image_icon] , :width=>30 ,:height=>30) +'"/> ') ,
+  url_for( :controller => "webapp" ,:action => "main" ), :class => 'brand' if !@appinfo[:image_icon].blank?%>
+<script>
+// 小尺寸手机，宽度太小时隐藏logo
+if($(window).width()<=360) $("#_logo").hide();
+</script>
+<ul class="nav">
+  <% @modules.each do |md| %>
+  <li class="<%= 'active' if md[:id].to_s==params[:module_id].to_s %>">
+    <%= link_to( md[:show_name], :controller => md[:tname] ,:action => "index" ,:module_id => md[:id] ) %>
+  </li>
+  <% end%>
+</ul>
+<ul class="nav pull-right">
+  <!-- 用户 -->
+</ul>

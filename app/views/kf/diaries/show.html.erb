@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User info:</b>
+  <%= @kf_diary.user_info_id %>
+</p>
+
+<p>
+  <b>Order level:</b>
+  <%= @kf_diary.order_level %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @kf_diary.title %>
+</p>
+
+<p>
+  <b>Image cover:</b>
+  <%= @kf_diary.image_cover %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @kf_diary.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_kf_diary_path(@kf_diary) %> |
+<%= link_to 'Back', kf_diaries_path %>

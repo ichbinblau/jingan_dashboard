@@ -1,0 +1,557 @@
+<%= javascript_include_tag 'jquery.json-2.4.js' %>
+<%= stylesheet_link_tag "jquery.handsontable/jquery.handsontable.full.css" %>
+<%= javascript_include_tag "jquery.handsontable/jquery.handsontable.full.js" %>
+
+<script>
+    var _nested_form = true;
+</script>
+<%= semantic_bootstrap_nested_form_for @content_item, :url => url_for(:page => params[:page], :sort_id => params[:sort_id], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+    <%= f.semantic_errors %>
+    <%= f.inputs do %>
+        <%= f.input :id, :as => :hidden %>
+        <% if @content_distitle["cms_sorts"].to_s!="1" %>
+            <%= f.input :cms_sorts, :collection => @sorts %>
+        <% end %>
+        <% if @content_distitle["title"].to_s!="1" %>
+            <%= f.input :title %>
+        <% end %>
+        <% if @content_distitle["abstract"].to_s!="1" %>
+            <%= f.input :abstract, :input_html => {:class => "small-textarea"} %>
+        <% end %>
+        <% if @content_distitle["content"].to_s!="1" %>
+            <%= f.input :content %>
+        <% end %>
+        <% if @content_distitle["order_level"].to_s!="1" %>
+            <%= f.input :order_level, :input_html => {:class => "small-text"} %>
+        <% end %>
+        <% if @content_distitle["is_push"].to_s!="1" %>
+            <%= f.input :is_push %>
+        <% end %>
+        <% if @content_distitle["is_show"].to_s!="1" %>
+            <%= f.input :is_show %>
+        <% end %>
+
+        <% if @content_distitle["shop_contents"].to_s!="1" %>
+            <hr/>
+            <%= f.input :shop_contents, :collection => ProductContentsShopContents.select("cms_contents.*").joins("left join cms_contents on (product_contents_shop_contents.shop_content_id = cms_contents.id)").where("product_contents_shop_contents.product_content_id='#{@content_item.id}'").all.map { |b| [b[:title], b[:id]] }, :input_html => {:class => "search_shop"} %>
+        <% end %>
+        <% if @content_distitle["relproduct_contents"].to_s!="1" %>
+            <hr/>
+            <%= f.input :relproduct_contents, :collection => ProductContentsRelproductContents.select("cms_contents.*").joins("left join cms_contents on (product_contents_relproduct_contents.relproduct_content_id = cms_contents.id)").where("product_contents_relproduct_contents.product_content_id='#{@content_item.id}'").all.map { |b| [b[:title], b[:id]] }, :input_html => {:class => "search_relproduct"} %>
+        <% end %>
+
+        <% if @content_distitle["video_url"].to_s!="1" %>
+            <hr/>
+            <div><%= f.object.video_url %></div>
+            <%= f.input :video_url %>
+        <% end %>
+        <% if @content_distitle["image_cover"].to_s!="1" %>
+            <hr/>
+            <%= raw "<img style='height:200px;margin-left:100px;' src='http://is.hudongka.com/#{(@content_item.image_cover)}'/>" if !@content_item.image_cover.blank? %>
+            <%= f.input :image_cover %>
+            <hr/>
+            <%= f.fields_for :cms_content_img do |imgf| %>
+                <%= raw "<img style='height:200px;margin-left:100px;' src='http://is.hudongka.com/#{imgf.object.image}'/>" if !imgf.object.image.blank? %>
+                <%= imgf.input :image %>
+                <%= imgf.input :description, :input_html => {:class => "small-textarea"} %>
+                <%= imgf.input :project_info_id, :as => :hidden, :collection => @admin_info.project_info_id %>
+                <%= imgf.link_to_remove "删除" %>
+                <hr/>
+            <% end %>
+            <p><%= f.link_to_add "添加图片", :cms_content_img %></p>
+        <% end %>
+    <% end %>
+    <!--产品 -->
+    <% if @content_distitle["cms_info_product"].to_s!="1" %>
+        <%= f.fields_for :cms_info_product do |cf| %>
+            <hr/>
+            <%= cf.input :member_limit, :input_html => {:class => "small-text"} %>
+            <%= cf.input :is_buy, :input_html => {:class => "buy_check"} %>
+            <div class="buy_check_content" style="display:none">
+              <%= cf.input :price, :input_html => {:class => "small-text"} %>
+              <%= cf.input :price_old, :input_html => {:class => "small-text"} %>
+            </div>
+            <%= cf.input :apply_type, :as => :boolean, :input_html => {:class => "point_check"} %>
+            <div class="point_check_content" style="display:none">
+              <%= cf.input :apply_point, :input_html => {:class => "small-text"} %>
+            </div>
+            <script>
+                _nested_form = false;
+            </script>
+        <% end %>
+        <p><%= f.link_to_add "附加内容", :cms_info_product, :hidden_tag => "content_add_nested_fields" %></p>
+    <% end %>
+
+    <!--
+    <% if @content_distitle["cms_info_product_prices"].to_s!="1" %>-->
+        <!--<%= f.fields_for :cms_info_product_prices do |cf| %>-->
+            <!--<hr>-->
+            <!--<%= cf.input :level, :as => :hidden, :collection => 0 %>-->
+            <!--<%= cf.input :week_day, :input_html => {:class => "small-text"} %>-->
+            <!--<%= cf.input :price, :input_html => {:class => "small-text"} %>-->
+            <!--<%= cf.input :p_0, :input_html => {:class => "small-text"} %>-->
+            <!--<%= cf.input :p_1, :input_html => {:class => "small-text"} %>-->
+            <!--
+        <% end %>-->
+        <!--
+    <% end %>-->
+    <hr>
+
+    <div class="controls">
+      <div>套餐价格</div>
+      <label  class=" control-label"><abbr title="required">*</abbr></label>
+      <div>
+
+      </div>
+    </div>
+
+    <div class="controls">
+      <div>套餐</div>
+      <div id="tbl_taocan_price">
+      </div>
+    </div>
+
+    <div class="controls">
+      <div>场地设置</div>
+      <label for="sel_week_day" class=" control-label"> 星期<abbr title="required">*</abbr></label>
+      <select id="sel_week_day" style="height: 30px;">
+        <option selected="selected" value="1" >一</option>
+        <option value="2">二</option>
+        <option value="3">三</option>
+        <option value="4">四</option>
+        <option value="5">五</option>
+        <option value="6">六</option>
+        <option value="0">日</option>
+      </select>
+
+      <div id="tbl_excel_price"></div>
+    </div>
+
+    <script>
+        //JSON.parse JSON.stringify
+        var cl_price_table = function (options) {
+            var context = this;
+            this.handsontable = null;
+
+            this.el = $("#tbl_excel_price");
+            this.el_week_day = $("#sel_week_day");
+            this.content_id =<%=raw @content_id.to_json %>;
+
+            this.url_load_price_cfg = "<%= url_for  :action => 'price_config_data' %>";
+            this.url_load_price_data_cfg = "<%= url_for  :action => 'price_data' %>";
+            this.url_save_price = "<%= url_for :action => 'price_set' %>";
+
+            this.column_dic = null;
+            this.row_dic = null;
+            this.column_sorts = null;
+            this.row_sorts = null;
+
+            this.el_week_day.change(function(){
+               context.load_data();
+            });
+            this.get_week_day = function () {
+                return context.el_week_day.val();
+            };
+
+            this.init = function () {
+                if (!context.content_id)return;
+                context.load_config();
+            };
+            this.load_config = function () {
+                $.ajax({
+                    context: context,
+                    url: context.url_load_price_cfg,
+                    data: {content_id: context.content_id}, //returns all cells' data
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        context.on_init_config(res)
+                    },
+                    error: function () {
+                        var args = arguments;
+                        alert("请求失败")
+                    }
+                });
+            };
+            this.on_init_config = function (res) {
+                //场地-> colHeaders X
+                //时段-> rowheads Y
+                var
+                    column_sorts = context.column_sorts = res["p_1"],
+                    row_sorts = context.row_sorts = res["p_0"];
+
+                var colHeaders = ["场地"], //此名称 可能是2个分类组合名称
+                        columns = [
+                            {data: "name", readOnly: true}
+                        ],
+                        column_dic = context.column_dic = {};
+
+                for (var i = 0; i != column_sorts.length; i++) {
+                    var item = column_sorts[i];
+                    column_dic[item.id] = item;
+
+                    colHeaders.push(item["cnname"]);
+                    columns.push({type: 'numeric', data: item["id"].toString()});
+                }
+
+                console.log("::colHeaders::" + JSON.stringify(colHeaders));
+                console.log("::columns::" + JSON.stringify(columns));
+                context.handsontable = context.el.handsontable({
+                    colHeaders: colHeaders,
+                    columns: columns,
+                    data: [],
+                    afterChange: function (change, source) {
+                        if (source === 'loadData') return;
+                       console.log("::save_source::"+source);
+                        context.save_data(change)
+                    }
+                });
+                console.log(("::price_table_handlers::" + this.handsontable == null ))
+                context.load_data();
+            };
+            this.load_data = function () {
+                var week_day = context.get_week_day;
+                $.ajax({
+                    context: context,
+                    url: context.url_load_price_data_cfg,
+                    data: {content_id: context.content_id, week_day: week_day}, //returns all cells' data
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        context.on_load_data(res)
+                    },
+                    error: function () {
+                        var args = arguments;
+                        alert("请求数据失败")
+                    }
+                });
+            };
+            this.on_load_data = function (res) {
+
+                var prices_data = res,
+                    column_sorts = context.column_sorts ,
+                    row_sorts = context.row_sorts,
+                    row_dic = context.row_dic = {},
+                    price_dic = {},
+                    data = [];
+
+                //set price_dic
+                for (var i = 0; i != prices_data.length; i++) {
+                    var price_item = prices_data[i],
+                            price_key = price_item["p_0"] + "_" + price_item["p_1"];
+                    price_dic[price_key] = price_item;
+                }
+                for (var i = 0; i != row_sorts.length; i++) {
+                    var row_item = row_sorts[i],
+                            o = {"name": row_item.cnname, id: row_item.id};
+
+                    row_dic[row_item.id] = row_item;
+                    data.push(o);
+
+                    for (var j = 0; j != column_sorts.length; j++) {
+                        var column_item = column_sorts[j],
+                                price_key = row_item.id + "_" + column_item.id,
+                                price_item = price_dic[price_key];
+
+                        if (price_item) o[column_item.id] = price_item.price;
+                    }
+                }
+
+                console.log("::data::" + JSON.stringify(data));
+                context.el.handsontable("loadData", data);
+                console.log("::data_load_end::" + JSON.stringify(data));
+            };
+            this.save_data = function (change) {
+                var
+                    week_day = context.get_week_day(),
+                    column_sorts = context.column_sorts ,
+                    row_sorts = context.row_sorts,
+                    price_items = [];
+
+                if (!change || !change.length)return;
+                //changes [ 行(index), 列(index|name),  old_value, new_value]
+                for (var i = 0; i != change.length; i++) {
+                    var c = change[i],
+                            row_index = c[0],
+                            row_sort_id=row_sorts[row_index].id,
+                            column_sort_id = parseInt( c[1]);
+
+                    o={price:c[3],p_0:row_sort_id ,p_1:column_sort_id,week_day:parseInt(week_day) };
+                    price_items.push(o);
+                }
+
+                console.log("::price_items ::"+JSON.stringify(price_items));
+                if (context.is_saving) return;
+                context.is_saving=true;
+                $.ajax({
+                    url:context.url_save_price ,
+                    data: {content_id:context.content_id,week_day:context.get_week_day(),price_items:JSON.stringify(price_items)}, //returns all cells' data
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        //{:success=>msg.nil?,:count=> buf.length,:msg=>msg}
+                        if(res.success){
+
+                        }else{
+                            alert(res.msg);
+                        }
+                    },
+                    error: function () {
+                        var args  = arguments;
+                        alert("请求失败")
+                    },
+                    complete:function(xhr, ts){
+                        context.is_saving=false;
+                    }
+                });
+            }
+        }
+
+        var cl_price_packages_table = function (options) {
+            var context = this;
+            this.handsontable = null;
+            this.el = $("#tbl_taocan_price");
+            this.content_id =<%=raw @content_id.to_json %>;
+
+            this.url_load_price_cfg = "<%= url_for  :action => 'price_packages_config_data' %>";
+            this.url_load_price_data_cfg = "<%= url_for  :action => 'price_packages_data' %>";
+            this.url_save_price = "<%= url_for :action => 'price_packages_set' %>";
+
+            this.column_dic = null;
+            this.row_dic = null;
+            this.row_sorts = null;
+
+            this.init = function () {
+                if (!context.content_id)return;
+                context.load_config();
+            };
+
+            this.load_config = function () {
+                $.ajax({
+                    context: context,
+                    url: context.url_load_price_cfg,
+                    data: {content_id: context.content_id}, //returns all cells' data
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        context.on_init_config(res)
+                    },
+                    error: function () {
+                        var args = arguments;
+                        alert("请求失败")
+                    }
+                });
+            };
+            this.on_init_config = function (res) {
+                var row_sorts = context.row_sorts = res["p_0"];
+
+                var colHeaders = ["套餐","价格"], //此名称 可能是2个分类组合名称
+                    columns = [
+                        {data: "name", readOnly: true},
+                        {type: 'numeric', data: "1"}
+                    ];
+                context.handsontable = context.el.handsontable({
+                    colHeaders: colHeaders,
+                    columns: columns,
+                    data: [],
+                    afterChange: function (change, source) {
+                        if (source === 'loadData') return;
+                        console.log("::save_source::"+source);
+                        context.save_data(change)
+                    }
+                });
+                context.load_data();
+            };
+            this.load_data = function () {
+                $.ajax({
+                    context: context,
+                    url: context.url_load_price_data_cfg,
+                    data: {content_id: context.content_id}, //returns all cells' data
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        context.on_load_data(res)
+                    },
+                    error: function () {
+                        var args = arguments;
+                        alert("请求数据失败")
+                    }
+                });
+            };
+            this.on_load_data = function (res) {
+
+                var prices_data = res,
+                    row_sorts = context.row_sorts,
+                    row_dic = context.row_dic = {},
+                    price_dic = {},
+                    data = [];
+
+                //set price_dic
+                for (var i = 0; i != prices_data.length; i++) {
+                    var price_item = prices_data[i],
+                        price_key = price_item["p_0"].toString();
+                    price_dic[price_key] = price_item;
+                }
+                for (var i = 0; i != row_sorts.length; i++) {
+                    var row_item = row_sorts[i],
+                        o = {"name": row_item.cnname, id: row_item.id};
+
+                    row_dic[row_item.id] = row_item;
+                    data.push(o);
+
+                    price_key = row_item.id ,
+                    price_item = price_dic[price_key];
+
+                    if (price_item) o["0"] = price_item.price;
+                }
+
+                console.log("::data::" + JSON.stringify(data));
+                context.el.handsontable("loadData", data);
+                console.log("::data_load_end::" + JSON.stringify(data));
+            };
+            this.save_data = function (change) {
+
+                var
+                    row_sorts = context.row_sorts,
+                    price_items = [];
+
+                if (!change || !change.length)return;
+                //changes [ 行(index), 列(index|name),  old_value, new_value]
+                for (var i = 0; i != change.length; i++) {
+                    var c = change[i],
+                            row_index = c[0],
+                            row_sort_id=row_sorts[row_index].id;
+
+                    o={price:c[3],p_0:row_sort_id };
+                    price_items.push(o);
+                }
+                console.log("::price_items ::"+JSON.stringify(price_items));
+                if (context.is_saving) return;
+                context.is_saving=true;
+                $.ajax({
+                    url:context.url_save_price ,
+                    data: {content_id:context.content_id,price_items:JSON.stringify(price_items)}, //returns all cells' data
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        //{:success=>msg.nil?,:count=> buf.length,:msg=>msg}
+                        if(res.success){
+
+                        }else{
+                            alert(res.msg);
+                        }
+                    },
+                    error: function () {
+                        var args  = arguments;
+                        alert("请求失败")
+                    },
+                    complete:function(xhr, ts){
+                        context.is_saving=false;
+                    }
+                });
+            }
+        }
+
+        $(function () {
+
+            //price_table_handlers.init();
+            var area = new cl_price_table();
+            area.init();
+
+            var packages = new cl_price_packages_table();
+            packages.init();
+
+        });
+
+
+    </script>
+
+    <script>
+
+
+        $(function ($) {
+            //控制自动打开内容项目
+            if (_nested_form) {
+                $('a[hidden_tag=content_add_nested_fields]').click()
+            }
+            $('a[hidden_tag=content_add_nested_fields]').hide()
+            // 条件显示的隐藏表单
+            function check_buy_check() {
+                if (true == $('.buy_check').prop('checked'))
+                    $('.buy_check_content').show();
+                else
+                    $('.buy_check_content').hide();
+            }
+
+            $('.buy_check').click(check_buy_check);
+            function check_point_check() {
+                if (true == $('.point_check').prop('checked'))
+                    $('.point_check_content').show();
+                else
+                    $('.point_check_content').hide();
+            }
+
+            $('.point_check').click(check_point_check);
+            check_buy_check();
+            check_point_check();
+            // 搜索场所
+            function init_select_shop() {
+                $(".search_shop").after('<br />搜索：<input id="search_shop" type="text" value=""><a href="javascript:;" class="btn" onclick=\'$(".search_shop").empty();\'>清空</a>');
+                $("#search_shop").autocomplete({
+                    source: "<%= url_for :controller=> '/dashboard' , :action => 'search_shop' %>",
+                    select: function (event, ui) {
+                        $('.search_shop').append($("<option></option>").attr("value", ui.item.id).text(ui.item.label))
+                        $('.search_shop option').each(function (index, item) {
+                            item.selected = true
+                        })
+                        setTimeout(function () {
+                            $('#search_shop').val('')
+                        }, 100);
+                        // alert($('#search_shop').val())
+                    }
+                });
+                $('.search_shop').dblclick(function () {
+                    $('.search_shop option:selected').remove()
+                })
+                $('.search_shop option').each(function (index, item) {
+                    if (item.selected != true)
+                        item.selected = true
+                })
+            }
+
+            init_select_shop();
+            // 搜索相关产品
+            function init_select_product() {
+                $(".search_relproduct").after('<br />搜索：<input id="search_relproduct" type="text" value=""><a href="javascript:;" class="btn" onclick=\'$(".search_relproduct").empty();\'>清空</a>');
+                $("#search_relproduct").autocomplete({
+                    source: "<%= url_for :controller=> '/dashboard' , :action => 'search_product' %>",
+                    select: function (event, ui) {
+                        $('.search_relproduct').append($("<option></option>").attr("value", ui.item.id).text(ui.item.label))
+                        $('.search_relproduct option').each(function (index, item) {
+                            item.selected = true
+                        })
+                        setTimeout(function () {
+                            $('#search_relproduct').val('')
+                        }, 100);
+                        // alert($('#search_relproduct').val())
+                    }
+                });
+                $('.search_relproduct').dblclick(function () {
+                    $('.search_relproduct option:selected').remove()
+                })
+                $('.search_relproduct option').each(function (index, item) {
+                    if (item.selected != true)
+                        item.selected = true
+                })
+            }
+
+            init_select_product();
+
+        })
+    </script>
+
+
+    <%= f.actions do %>
+        <%= f.action :submit %>
+    <% end %>
+<% end %>

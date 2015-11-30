@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Kf course:</b>
+  <%= @kf_useraction_history.kf_course_id %>
+</p>
+
+<p>
+  <b>Kf course index:</b>
+  <%= @kf_useraction_history.kf_course_index_id %>
+</p>
+
+<p>
+  <b>Kf course item type:</b>
+  <%= @kf_useraction_history.kf_course_item_type_id %>
+</p>
+
+<p>
+  <b>Action type:</b>
+  <%= @kf_useraction_history.action_type %>
+</p>
+
+<p>
+  <b>Action:</b>
+  <%= @kf_useraction_history.action %>
+</p>
+
+
+<%= link_to 'Edit', edit_kf_useraction_history_path(@kf_useraction_history) %> |
+<%= link_to 'Back', kf_useraction_histories_path %>

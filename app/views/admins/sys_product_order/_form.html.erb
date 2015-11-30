@@ -1,0 +1,150 @@
+<script>
+    var _nested_form = true;
+</script>
+<%= semantic_bootstrap_nested_form_for  @content_item , :url => url_for( :page=>params[:page],:sort_id=>params[:sort_id], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <%= f.semantic_errors %>
+
+    <%= f.inputs do %>
+        <%= f.input :id ,:as => :hidden %>
+        <%= f.input :user_info_id ,:collection =>UserInfo.where(:project_info_id =>@admin_info.project_info_id),:as => :hidden %>
+        <%= f.input :project_companie_id ,:collection =>ProjectCompanie.where(:project_info_id =>@admin_info.project_info_id),:as => :hidden  %>
+        <%= f.input :project_info_id   , :collection =>ProjectInfo.where(:id =>@admin_info.project_info_id),:as => :hidden %>
+
+        <% if @content_distitle["act_status_type_id"].to_s!="1"  %>
+            <%= f.input :act_status_type_id  ,:input_html =>{:class=>"select"} ,:collection =>ActStatusType.where(:name =>"act_buy_order").all.map{|b| [ b[:descption] , b[:id] ]} ,:as=>:select  %>
+        <% end%>
+        <% if @content_distitle["order_number"].to_s!="1"  %>
+            <%= f.input :order_number  %>
+        <% end%>
+        <% if @content_distitle["payment_type"].to_s!="1"  %>
+            <%= f.input :payment_type ,:input_html =>{:class=>"select"} ,:collection =>{ "支付宝" => 1, "其它" => 0 } ,:as=>:select   %>
+        <% end%>
+        <% if @content_distitle["send_type"].to_s!="1"  %>
+            <%= f.input :send_type ,:input_html =>{:class=>"select"} ,:collection =>{ "自取" => 1, "快递" => 2, "送货上门" => 3, "其它" => 0 } ,:as=>:select    %>
+        <% end%>
+        <% if @content_distitle["user_consignee_id"].to_s!="1"  %>
+            <%= f.input :user_consignee_id   %>
+        <% end%>
+        <% if @content_distitle["product_price"].to_s!="1"  %>
+            <%= f.input :product_price    %>
+        <% end%>
+        <% if @content_distitle["fare_price"].to_s!="1"  %>
+            <%= f.input :fare_price   %>
+        <% end%>
+        <% if @content_distitle["must_price"].to_s!="1"  %>
+            <%= f.input :must_price    %>
+        <% end%>
+        <% if @content_distitle["json_property"].to_s!="1"  %>
+            <%= f.input :json_property    %>
+        <% end%>
+
+        <% if @content_distitle["username"].to_s!="1"  %>
+            <%= f.input :username    %>
+        <% end%>
+        <% if @content_distitle["phone"].to_s!="1"  %>
+            <%= f.input :phone    %>
+        <% end%>
+        <% if @content_distitle["home_num"].to_s!="1"  %>
+            <%= f.input :home_num    %>
+        <% end%>
+        <% if @content_distitle["card_id"].to_s!="1"  %>
+            <%= f.input :card_id    %>
+        <% end%>
+        <% if @content_distitle["people_num"].to_s!="1"  %>
+            <%= f.input :people_num    %>
+        <% end%>
+        <% if @content_distitle["check_time"].to_s!="1"  %>
+
+            <% if @content_distitle["txt_check_time"].to_s.length>0  %>
+                <%= f.input :check_time  ,:as =>:string ,:format =>:long, :input_html =>{:class=>"datetimepicker-input"} ,:label => @content_distitle["txt_check_time"].to_s %>
+            <% else %>
+                <%= f.input :check_time  ,:as =>:string ,:format =>:long, :input_html =>{:class=>"datetimepicker-input"}  %>
+            <% end%>
+        <% end%>
+
+
+        <% if @content_distitle["departure_time"].to_s!="1"  %>
+
+            <% if @content_distitle["txt_departure_time"].to_s.length>0  %>
+                <%= f.input :departure_time  ,:as =>:string ,:format =>:long, :input_html =>{:class=>"datetimepicker-input"},:label => @content_distitle["txt_departure_time"].to_s  %>
+            <% else %>
+                <%= f.input :departure_time  ,:as =>:string ,:format =>:long, :input_html =>{:class=>"datetimepicker-input"}  %>
+            <% end%>
+
+        <% end%>
+        <% if @content_distitle["about_time"].to_s!="1"  %>
+            <%= f.input :about_time ,:as =>:string ,:format =>:long, :input_html =>{:class=>"datetimepicker-input"}   %>
+        <% end%>
+        <% if @content_distitle["sex"].to_s!="1"  %>
+            <%= f.input :sex  ,:input_html =>{:class=>"select"} ,:collection =>{ "男" => 1, "女" => 0 } ,:as=>:select    %>
+        <% end%>
+        <% if @content_distitle["come_from"].to_s!="1"  %>
+            <%= f.input :come_from    %>
+        <% end%>
+        <% if @content_distitle["age"].to_s!="1"  %>
+            <%= f.input :age    %>
+        <% end%>
+        <% if @content_distitle["address"].to_s!="1"  %>
+            <%= f.input :address    %>
+        <% end%>
+        <% if @content_distitle["source"].to_s!="1"  %>
+            <%= f.input :source ,:input_html =>{:class=>"select"} ,:collection =>{"携程" => 3,"艺龙" => 2, "酒店" => 1, "手机app" => 0 } ,:as=>:select   %>
+        <% end%>
+        <% if @content_distitle["cms_content_id"].to_s!="1"  %>
+            <%= f.input :cms_content_id   ,:as=>:select, :collection => CmsContent.select("cms_contents.*").joins("left join cms_contents_cms_sorts on cms_contents_cms_sorts.cms_content_id =cms_contents.id").where("cms_contents.type='ProductContent' and cms_contents.project_info_id= #{@admin_info.project_info_id} and cms_contents_cms_sorts.cms_sort_id=#{@sort_id}").all.map{|b| [ b[:title] , b[:id] ] } ,:input_html =>{:class=>"select"}   %>
+        <% end%>
+        <% if @content_distitle["remarks"].to_s!="1"  %>
+            <%= f.input :remarks     %>
+        <% end%>
+      <% end %>
+
+    <% if @content_distitle["act_buy_people_order"].to_s!="1" and params[:action]=="edit" %>
+        <hr/>
+        <%= f.fields_for :act_buy_people_order do |fa| %>
+            <%= fa.input :age  %>
+            <%= fa.input :project_info_id ,:collection =>ProjectInfo.where(:id =>@admin_info.project_info_id),:as => :hidden  %>
+            <%= fa.input :username  %>
+            <%= fa.input :phone  %>
+            <%= fa.input :card_id  %>
+            <%= fa.input :sex  ,:input_html =>{:class=>"select"} ,:collection =>{ "男" => 1, "女" => 0 } ,:as=>:select    %>
+            <%= fa.input :address  %>
+            <%= fa.link_to_remove "删除" %>
+        <% end %>
+        <p><%= f.link_to_add "添加房间订单同住人信息", :act_buy_people_order %></p>
+     <% end %>
+
+    <% if @content_distitle["cms_content_product_detail"].to_s!="1" and params[:action]=="edit" %>
+        <hr/>
+
+        <% for val in @order_items do %>
+
+            <%= f.fields_for val  do |cf| %>
+                <%= cf.input :title ,:label => "商品标题", :input_html => { :disabled => true }%>
+                <%= cf.input :product_num ,:label => "商品数量", :input_html => { :disabled => true }%>
+                <br/>
+                <script>
+                    _nested_form = false;
+                </script>
+            <% end %>
+        <% end %>
+    <% end %>
+
+    <% if @content_distitle["sys_user_consignee"].to_s!="1" and params[:action]=="edit" %>
+        <%= f.fields_for @consignee_item  do |cf| %>
+            <hr/>
+            <%= cf.input :consignee_name ,:label => "姓名", :input_html => { :disabled => true }%>
+            <%= cf.input :phone ,:label => "联系电话", :input_html => { :disabled => true }%>
+            <%= cf.input :consignee_address ,:label => "收货地址", :input_html => { :disabled => true }%>
+            <%= cf.input :consignee_zip ,:label => "邮编", :input_html => { :disabled => true }%>
+            <script>
+                _nested_form = false;
+            </script>
+        <% end %>
+    <% end %>
+
+    <hr/>
+
+      <%= f.actions do %>
+        <%= f.action :submit %>
+      <% end %>
+<% end %>

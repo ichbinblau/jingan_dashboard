@@ -1,0 +1,55 @@
+<!-- 标题 索引 -->
+<%
+  @pipes = []
+  now_pipe = @kf_pipe
+  while now_pipe.top_id != 0
+    @pipes.push now_pipe if now_pipe.id != @kf_pipe.id
+    now_pipe = now_pipe.father
+  end
+  @pipes.push now_pipe if now_pipe.id != @kf_pipe.id
+%>
+<h3>
+  <% while item = @pipes.pop %>
+    <a href="/kf/pipes/<%= item.id %>"><%= item.title %></a> > 
+  <% end %>
+  <%= @kf_pipe.title %>
+</h3>
+
+<%
+if @kf_pipe.top_id == 0
+  @children_top_id = @kf_pipe.id
+else
+  @children_top_id = @kf_pipe.top_id
+end
+%>
+<h3>
+  <%= link_to '新建子管道',new_kf_pipe_path({ :pipe_top_id => @children_top_id , :pipe_deep => (@kf_pipe.deep + 1) , :pipe_father_id => @kf_pipe.id }) , :class =>"btn btn-success" %>
+</h3>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <th width="60"><%= Kf::Pipe.human_attribute_name("order_level") %></th>
+      <th><%= Kf::Pipe.human_attribute_name("title") %></th>
+      <th><%= Kf::Pipe.human_attribute_name("description") %></th>
+      <th width="150">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @kf_pipe.children.each do |content_item| %>
+    <tr>
+      <td><%= content_item.id %></td>
+      <td><%= content_item.order_level %></td>
+      <td><%= content_item.title %></td>
+      <td><%= content_item.description %></td>
+      <td>
+        <%= link_to '子管道',  "/kf/pipes/#{content_item.id}" %> 
+        &nbsp;&nbsp;&nbsp;
+        <%= link_to '编辑',  "/kf/pipes/#{content_item.id}/edit?pipe_top_id=#{@children_top_id}&pipe_deep=#{(@kf_pipe.deep + 1)}&pipe_father_id=#{@kf_pipe.id}" %>
+        &nbsp;&nbsp;&nbsp;
+        <%= link_to '删除', "/kf/pipes/#{content_item.id}?pipe_top_id=#{@children_top_id}&pipe_deep=#{(@kf_pipe.deep + 1)}&pipe_father_id=#{@kf_pipe.id}",  method: :delete, data: { confirm: '确定删除？' } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Kf course:</b>
+  <%= @kf_course_knowledge.kf_course_id %>
+</p>
+
+<p>
+  <b>Kf course index:</b>
+  <%= @kf_course_knowledge.kf_course_index_id %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @kf_course_knowledge.title %>
+</p>
+
+<p>
+  <b>Image cover:</b>
+  <%= @kf_course_knowledge.image_cover %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @kf_course_knowledge.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_kf_course_knowledge_path(@kf_course_knowledge) %> |
+<%= link_to 'Back', kf_course_knowledges_path %>

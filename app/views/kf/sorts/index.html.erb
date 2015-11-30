@@ -1,0 +1,45 @@
+<h1>
+  <%= Kf::Sort.model_name.human %>管理 
+  <%= link_to "新建#{ Kf::Sort.model_name.human }",  { :action => "new", :page => params[:page]} ,:class =>"btn btn-primary"%>
+  <span><form action="<%= url_for%>">
+    <input name="search" id="search_list_input" value="<%= params[:search]%>" type="text" />
+    <input name="page"  type="hidden" value="<%= params[:page]%>"/>
+    <input name="per_page" type="hidden" value="<%= params[:per_page]%>"/>
+    <button href="javascript:;" onclick="search_list" class="btn" >搜索</button>
+  </form></span>
+</h1>
+<%= will_paginate @kf_sorts , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <tr>
+    <th width="30">ID</th>
+    <th><%= Kf::Sort.human_attribute_name("order_level") %></th>
+    <th><%= Kf::Sort.human_attribute_name("top_id") %></th>
+    <th><%= Kf::Sort.human_attribute_name("father_id") %></th>
+    <th><%= Kf::Sort.human_attribute_name("deep") %></th>
+    <th><%= Kf::Sort.human_attribute_name("name") %></th>
+    <th><%= Kf::Sort.human_attribute_name("image_cover") %></th>
+    <th><%= Kf::Sort.human_attribute_name("description") %></th>
+    <th width="90">操作</th>
+  </tr>
+
+<% @kf_sorts.each do |kf_sort| %>
+  <tr>
+    <td><%= kf_sort.id %></td>
+    <td><%= kf_sort.order_level %></td>
+    <td><%= kf_sort.top_id %></td>
+    <td><%= kf_sort.father_id %></td>
+    <td><%= kf_sort.deep %></td>
+    <td><%= kf_sort.name %></td>
+    <td><%= kf_sort.image_cover %></td>
+    <td><%= kf_sort.description %></td>
+    <td>
+        <%= link_to '子分类',  :action => "show" , :id =>kf_sort.id , :page => params[:page]%>
+        <br />
+        <%= link_to '编辑',  :action => "edit" , :id =>kf_sort.id , :page => params[:page]%>
+        <br />
+        <%= link_to '删除', { :action => "destroy", :id =>kf_sort.id , :page => params[:page]},  method: :delete, data: { confirm: '确定删除？' } %>
+    </td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @kf_sorts , renderer: BootstrapPagination::Rails %>

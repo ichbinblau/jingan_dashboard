@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Kf course:</b>
+  <%= @kf_course_form.kf_course_id %>
+</p>
+
+<p>
+  <b>Kf course index:</b>
+  <%= @kf_course_form.kf_course_index_id %>
+</p>
+
+<p>
+  <b>Order level:</b>
+  <%= @kf_course_form.order_level %>
+</p>
+
+<p>
+  <b>Form type:</b>
+  <%= @kf_course_form.form_type %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @kf_course_form.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @kf_course_form.description %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @kf_course_form.content %>
+</p>
+
+<p>
+  <b>Answer:</b>
+  <%= @kf_course_form.answer %>
+</p>
+
+
+<%= link_to 'Edit', edit_kf_course_form_path(@kf_course_form) %> |
+<%= link_to 'Back', kf_course_forms_path %>

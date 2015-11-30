@@ -1,0 +1,1 @@
+CONFIG_WEBAPP = YAML.load_file("#{Rails.root}/config/webapp.yml")[Rails.env]

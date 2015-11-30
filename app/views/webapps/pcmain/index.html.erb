@@ -1,0 +1,59 @@
+<style>
+.module-nav .brand{
+  font-size:18px;
+}
+.module-nav .brand,.module-nav .pull-right{
+  line-height:38px;
+}
+#myCarousel{
+  height:300px;
+  overflow:hidden;
+}
+#myCarousel .carousel-caption{
+  padding: 10px;
+  top:260px;
+}
+#myCarousel .carousel-caption p{
+  line-height: 28px;
+}
+</style>
+
+<%= render :partial => 'webapps/webapp/channel' , :locals => {:channels => @channels} if @channels.size > 1 %>
+<% if  !@modules_info[0][:datas][:item_list].blank?%>
+<div class="row-fluid" style="margin-top:10px;">
+  <div id="myCarousel" class="carousel slide" style="margin-top:10px">
+    <div class="carousel-inner">
+      <% @modules_info[0][:datas][:item_list][0..5].each_with_index do |item ,k| %>
+        <div class="item <%= 'active' if k == 0 %>">
+          <a href="<%= url_for :controller => @modules_info[0][:module_info][:tname].to_s ,:action => "show", :contentid=>item["id"] , :module_id => @modules_info[0][:module_info][:id].to_s %>"><img src="<%= get_ecimg_url( :imagename =>item["image_cover"]) %>"/></a>
+          <% if !item["abstracts"].blank? %>
+            <div class="carousel-caption">
+              <p><%=item["abstracts"]%></p>
+            </div>
+          <%end%>
+        </div>
+      <%end%>
+    </div>
+    <!-- Carousel nav -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+  </div>
+</div>
+<%end%>
+
+<% @modules_info.each_with_index do | module_info , index | 
+  if index >0 
+    per_row = (@modules_info.size-1>4 || 3==@modules_info.size-1) ? 3 : 2
+    %>
+  <%= raw '<div class="row-fluid" style="margin-top:10px;">' if (index-1)%per_row==0 %>
+    <div class="span<%= 12 / per_row %>">
+      <div class="navbar-inner module-nav">
+        <span class="brand"><%= module_info[:module_info][:show_name] %></span>
+        <%= link_to "更多.." ,{:controller=>module_info[:module_info][:tname], :action=>"index",:module_id => module_info[:module_info][:id] }, {:class=>"pull-right"} %></div>
+        <%= render :partial => 'webapps/webapp/'+module_info[:module_tpl] , :locals => {:item_list => module_info[:datas][:item_list][0..5] , :module_info => module_info[:module_info] }  if !module_info[:datas][:item_list].nil? && module_info[:datas][:item_list].size > 1  %>
+        <%= render :partial => "webapps/#{module_info[:module_info][:tname]}/show" , :locals => {:item_info => module_info[:datas][:item],:baidu_key => @baidu_key }  if !module_info[:datas][:item_list].nil? && module_info[:datas][:item_list].size == 1  %>
+    </div>
+  <%= raw "</div>" if (index)%per_row==0 && index!=0%>
+<% end
+end %>
+</div>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @title || "医师定期考核培训" %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link href="http://static.nowapp.cn/ratchet/css/ratchet.min.css" rel="stylesheet">
+  <%= stylesheet_link_tag "yixue/train"%>
+  <script src="http://libs.baidu.com/zepto/0.8/zepto.min.js"></script>
+</head>
+<body>
+
+<%= yield %>
+
+<script src="http://static.nowapp.cn/ratchet/js/ratchet.min.js"></script>
+<%= javascript_include_tag "yixue/train" %>
+</body>
+</html>

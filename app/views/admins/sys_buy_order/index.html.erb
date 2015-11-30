@@ -1,0 +1,200 @@
+<%= javascript_include_tag "admins/global" ,"jquery.json-2.4" %>
+
+<h1>
+  <%=@module_info.show_name%>
+
+</h1>   <span><form action="<%= url_for%>">
+  场&nbsp;&nbsp;馆&nbsp;&nbsp;名:
+  <select name="sel_shop" id="sel_shop">
+  <option value="0" >全部</option>
+  <% CmsContent.joins("join `cms_contents_cms_sorts` on (`cms_contents`.`id` = `cms_contents_cms_sorts`.`cms_content_id`)  join cms_sorts on (cms_contents_cms_sorts.cms_sort_id =cms_sorts.id)").where("cms_contents.type = 'ShopContent' and cms_contents.cms_sort_type_id =8 and cms_contents.project_info_id = 63 and (cms_sorts.id = 1087 or cms_sorts.father_id=1087)").all.each do |zhx|%>
+
+      <% if  zhx.id.to_s == params[:sel_shop].to_s  %>
+          <option value="<%= zhx.id %>" selected="selected" ><%= zhx.title %></option>
+      <% else %>
+          <option value="<%= zhx.id %>"><%= zhx.title %></option>
+      <% end %>
+  <% end %>
+</select><br>
+  项&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目:
+  <select name="sel_product" id="sel_product">
+    <option value="0" >全部</option>
+    <% CmsContent.joins("join `cms_contents_cms_sorts` on (`cms_contents`.`id` = `cms_contents_cms_sorts`.`cms_content_id`)  join cms_sorts on (cms_contents_cms_sorts.cms_sort_id =cms_sorts.id)").where("cms_contents.type = 'ProductContent' and cms_contents.cms_sort_type_id =5 and cms_contents.project_info_id = 63 and (cms_sorts.id = 1040 or cms_sorts.father_id=1040)").all.each do |zhx|%>
+
+        <% if  zhx.id.to_s == params[:sel_product].to_s  %>
+            <option value="<%= zhx.id %>" selected="selected" ><%= zhx.title %></option>
+        <% else %>
+            <option value="<%= zhx.id %>"><%= zhx.title %></option>
+        <% end %>
+    <% end %>
+  </select><br>
+  订单状态:
+  <select name="sel_statutype" id="sel_statutype">
+  <option value="0" >全部</option>
+  <% ActStatusType.all.each do |zhx|%>
+
+      <% if  zhx.id.to_s == params[:sel_statutype].to_s  %>
+          <option value="<%= zhx.id %>" selected="selected" ><%= zhx.descption %></option>
+      <% else %>
+          <option value="<%= zhx.id %>"><%= zhx.descption %></option>
+      <% end %>
+  <% end %>
+</select><br>
+  时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;间:
+  <span class="datetimepicker">
+    <input name="starttime" id="starttime" type="text" class="datetimepicker-input" value="<%= params[:starttime]%>" />
+  </span>到
+  <span class="datetimepicker">
+    <input name="endtime" id="endtime" type="text" class="datetimepicker-input" value="<%= params[:endtime]%>" />
+  </span>&nbsp;&nbsp;&nbsp;&nbsp;
+
+  <% if  "1"== params[:theme].to_s  %>
+      <input id="theme_0" name="theme" type="radio" value="0">下单时间
+      <input checked="checked" id="theme_1" name="theme" type="radio" value="1">消费时间
+  <% else %>
+      <input checked="checked" id="theme_0" name="theme" type="radio" value="0">下单时间
+      <input id="theme_1" name="theme" type="radio" value="1">消费时间
+  <% end %>
+
+
+  <br>
+  用户信息:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  姓名:<input name="username" id="username" type="text" value="<%= params[:username]%>" />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp手机:<input name="userphone" id="userphone" type="text" value="<%= params[:userphone]%>" /> <br>
+  订&nbsp;&nbsp;单&nbsp;&nbsp;号: <input name="ordernum" id="ordernum" type="text" value="<%= params[:ordernum]%>" /> &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+  <!--<input name="words" id="search_list_input" value="<%= params[:words]%>" type="text" />-->
+  <input name="page"  type="hidden" value="<%= params[:page]%>"/>
+  <input name="per_page" type="hidden" value="<%= params[:per_page]%>"/>
+  <input name="sort_id" type="hidden" value="<%= params[:sort_id]%>"/>
+
+  <button href="javascript:;" onclick="search_list" class="btn" >搜索</button>
+</form>
+<form action="exports">
+  <span style="float:right">
+    <div style="display:none;">
+  <select name="sel_shop" id="sel_shop">
+    <option value="0" >全部</option>
+    <% CmsContent.joins("join `cms_contents_cms_sorts` on (`cms_contents`.`id` = `cms_contents_cms_sorts`.`cms_content_id`)  join cms_sorts on (cms_contents_cms_sorts.cms_sort_id =cms_sorts.id)").where("cms_contents.type = 'ShopContent' and cms_contents.cms_sort_type_id =8 and cms_contents.project_info_id = 63 and (cms_sorts.id = 1087 or cms_sorts.father_id=1087)").all.each do |zhx|%>
+
+        <% if  zhx.id.to_s == params[:sel_shop].to_s  %>
+            <option value="<%= zhx.id %>" selected="selected" ><%= zhx.title %></option>
+        <% else %>
+            <option value="<%= zhx.id %>"><%= zhx.title %></option>
+        <% end %>
+    <% end %>
+  </select>
+  <select name="sel_product" id="sel_product" >
+    <option value="0" >全部</option>
+    <% CmsContent.joins("join `cms_contents_cms_sorts` on (`cms_contents`.`id` = `cms_contents_cms_sorts`.`cms_content_id`)  join cms_sorts on (cms_contents_cms_sorts.cms_sort_id =cms_sorts.id)").where("cms_contents.type = 'ProductContent' and cms_contents.cms_sort_type_id =5 and cms_contents.project_info_id = 63 and (cms_sorts.id = 1040 or cms_sorts.father_id=1040)").all.each do |zhx|%>
+
+        <% if  zhx.id.to_s == params[:sel_product].to_s  %>
+            <option value="<%= zhx.id %>" selected="selected" ><%= zhx.title %></option>
+        <% else %>
+            <option value="<%= zhx.id %>"><%= zhx.title %></option>
+        <% end %>
+    <% end %>
+  </select>
+  <select name="sel_statutype" id="sel_statutype" >
+    <option value="0" >全部</option>
+    <% ActStatusType.all.each do |zhx|%>
+
+        <% if  zhx.id.to_s == params[:sel_statutype].to_s  %>
+            <option value="<%= zhx.id %>" selected="selected" ><%= zhx.descption %></option>
+        <% else %>
+            <option value="<%= zhx.id %>"><%= zhx.descption %></option>
+        <% end %>
+    <% end %>
+  </select>
+  <span class="datetimepicker">
+    <input name="starttime" id="starttime" type="text" class="datetimepicker-input" value="<%= params[:starttime]%>" />
+  </span>
+  <span class="datetimepicker">
+    <input name="endtime" id="endtime" type="text" class="datetimepicker-input" value="<%= params[:endtime]%>" />
+  </span>
+  <input name="username" id="username" type="text" value="<%= params[:username]%>" />
+  <input name="userphone" id="userphone" type="text" value="<%= params[:userphone]%>" />
+  <input name="ordernum" id="ordernum" type="text" value="<%= params[:ordernum]%>" />
+
+
+  <input name="joins" type="hidden" value="<%= params[:joins]%>"/>
+  <input name="search" type="hidden" value="<%= params[:search]%>"/>
+    </div>
+  <button href="javascript:;" onclick="search_list" class="btn btn-info" >导出数据</button> </span><br>
+   </form>
+
+<script>
+jQuery(function($) {
+    $('.datetimepicker-input').each(function(i,o){
+        o.value = o.value.replace(" UTC","")
+    }).attr('data-format',"yyyy-MM-dd hh:mm:ss").parent().addClass("datetimepicker input-append date").append('<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>')
+    $('.datetimepicker').datetimepicker();
+})
+</script>
+
+
+
+<div id="edit_sort" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>编辑分类</h3>
+  </div>
+  <div class="modal-body" id="sort_div">
+
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:;"  data-dismiss="modal" aria-hidden="true" class="btn btn-primary">关闭</a>
+  </div>
+</div>
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <thead>
+  <tr>
+    <th>订单号</th>
+    <th width="80">项目</th>
+    <th width="80">场馆名</th>
+    <th width="80">姓名</th>
+    <th>手机号</th>
+    <th width="80">下单时间</th>
+    <th width="80">消费时间</th>
+    <th width="140">场次</th>
+    <th>金额</th>
+    <th width="80">订单状态</th>
+    <th width="30">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @content_items.each do |content_item|%>
+      <tr>
+        <td><%= content_item.order_number %></td>
+        <td><%= content_item.projecttitle %></td>
+        <td><%= content_item.title %></td>
+        <td><%= content_item.char_value_0 %></td>
+        <td><%= content_item.phone_number %></td>
+        <td><%= content_item.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <% if content_item.act_status_type_id!=8  %>
+            <td>没有消费</td>
+        <% else %>
+            <td><%= content_item.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <% end%>
+
+        <td><%= raw JSON.parse(content_item.json_property)["orderDetails"]  %></td>
+
+
+        <td><%= content_item.must_price %></td>
+        <td><%= ActStatusType.where(:id =>content_item.act_status_type_id).first.descption %></td>
+        <td>
+          <%= link_to '编辑',  :action => "edit" , :id =>content_item.id , :page => params[:page], :sort_id => params[:sort_id],:sel_shop=> params[:sel_shop],:sel_product=> params[:sel_product],:sel_statutype=> params[:sel_statutype],:starttime=> params[:starttime],:endtime=> params[:endtime],:theme=> params[:theme],:username=> params[:username],:userphone=> params[:userphone],:ordernum=> params[:ordernum] %>
+          <br />
+          <%= link_to '删除', { :action => "destroy", :id =>content_item.id , :page => params[:page], :sort_id => params[:sort_id]},:sel_shop=> params[:sel_shop],:sel_product=> params[:sel_product],:sel_statutype=> params[:sel_statutype],:starttime=> params[:starttime],:endtime=> params[:endtime],:theme=> params[:theme],:username=> params[:username],:userphone=> params[:userphone],:ordernum=> params[:ordernum],  method: :delete, data: { confirm: '确定删除？' } %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<br />

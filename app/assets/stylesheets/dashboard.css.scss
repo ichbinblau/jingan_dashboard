@@ -1,0 +1,43 @@
+// Place all the styles related to the dashboard controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+$font_size: 14px;
+$font_color: #333;
+$line_height: 20px;
+$font_color: #555;
+$background_color: #fff;
+$left_bar_width: 230;
+$radius: 6px;
+body{
+  background:#fff;
+}
+#wrapper{
+  padding:0px;
+}
+#sidebar{
+  margin:0px;
+  padding: 5px;
+  position: absolute;
+  top: 82px;
+  width: #{$left_bar_width}px;
+  bottom: 0;
+  // border: 1px solid #ccc;
+  height: auto;
+  overflow:auto;
+}
+#main-frame-content{
+  position: absolute;
+  top: 82px;
+  left: #{$left_bar_width + 20}px;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: 4;
+}
+#main-frame{
+  position: absolute;
+  width: 100%;
+  _width: expression(document.body.offsetWidth - #{$left_bar_width} + 'px');
+  height: 100%;
+  z-index: 5;
+}

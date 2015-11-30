@@ -1,0 +1,10 @@
+development:
+  key:    "098b617998cb77821ca2246cca626686"
+  secret: "6333cc413768ead6"
+  url:    "http://ruby_general_admin.dev/"
+  callback: "http://ruby_general_admin.dev/syncs/douban/callback"
+production:
+  key:    "098b617998cb77821ca2246cca626686"
+  secret: "6333cc413768ead6"
+  url:    "http://admin.nowapp.cn"
+  callback: "http://admin.nowapp.cn/syncs/douban/callback"

@@ -1,0 +1,19 @@
+<%= semantic_bootstrap_nested_form_for @kf_status , :url => url_for( :page=>params[:page] , :status_type => params[:status_type], :relation_id => params[:relation_id], :count_type => params[:count_type] , :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <% if @kf_status.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kf_status.errors.count, "error") %> prohibited this kf_status from being saved:</h2>
+
+      <ul>
+      <% @kf_status.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.inputs do %>
+    <%= f.input :date %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit ,:label => params[:action]=="edit" ? "更新" : "添加" %>
+  <% end %>
+<% end %>

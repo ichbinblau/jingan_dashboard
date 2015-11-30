@@ -1,0 +1,17 @@
+development: 
+  ecloud_acc:
+    aliyun:
+      access_key: "0bUxHj9VOpU5rZmm"
+      access_key_secret: "v8G5uTohQ4ChEQvbb6DVyOEMeDpewI"
+  editor:
+    basepath: "public/uploads/workspace/"
+    baseurl: "/uploads/workspace/"
+
+production: 
+  ecloud_acc:
+    aliyun:
+      access_key: "0bUxHj9VOpU5rZmm"
+      access_key_secret: "v8G5uTohQ4ChEQvbb6DVyOEMeDpewI"
+  editor:
+    basepath: "public/uploads/workspace/"
+    baseurl: "/uploads/workspace/"

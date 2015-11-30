@@ -1,0 +1,100 @@
+<style>
+#content{
+	background-color: #2673BF;
+}
+#content .icon{
+	margin-top:100px;
+}
+#content h1{
+	margin-top:60px;
+	color: #ffffff;
+	font-size: 70px;
+}
+#content h3{
+	color: #81befb;
+	font-size: 28px;
+}
+#content .download-btn{
+	margin:30px;
+	margin-bottom: 120px;
+}
+#download{
+	margin-top: 50px;
+	width: 250px;
+}
+#d_android{
+	float:left;
+	margin-right:50px;
+}
+#d_android img ,#d_iphone img {
+	width:100px;
+	height:100px;
+}
+
+.btn-outline{
+	color: #fff;
+	font-size:28px;
+	background-color: #2673BF;
+	border-color: #ffffff;
+	padding: 16px 58px;
+	border-radius:35px;
+}
+.btn-outline:hover, .btn-outline:focus, .btn-outline:active {
+	color: #2673BF;
+	background-color: #fff;
+	border-color: #2673BF;
+}
+.modal .qrcode{
+	width:260px;
+	height:260px;
+}
+</style>
+<div id="content">
+  <div class="container">
+    <center><img class="icon" src="/images/kfzs/icon_120.png"></center>
+    <center><h1>康复助手</h1></center>
+    <center><h3>住院、康复 必备神器</h3></center>
+    <center><button onclick="openDlg()" class="btn btn-lg btn-outline download-btn" >立即下载</button></center>
+    
+  </div>
+</div>
+<div id="footer">
+  <div class="container">
+    <center><div id="download">
+	    <div id="d_android"><a target="_blank" href="<%= @android_url %>"><img src="/images/kfzs/icon_android.png" /></a><br />Android版下载</div>
+	    <div id="d_iphone"><a target="_blank" href="<%= @iphone_url %>"><img src="/images/kfzs/icon_iphone.png" /></a><br />iPhone版下载</div>
+	</div></center>
+    
+  </div>
+</div>
+
+
+
+
+<div class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" onclick="closeDlg()"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        <center><h2 class="modal-title">拍摄二维码下载</h2></center>
+      </div>
+      <div class="modal-body">
+        <center><p>使用手机上的二维码扫描软件拍摄以下二维码即可立即下载</p></center>
+        <center><img class="qrcode" src="<%= raw @qrcode_url %>"/></center>
+        <center><p>或者</p></center>
+        <center><a target="_blank" href="<%= @android_url %>">点击下载到本地</a></center>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="closeDlg()" class="btn btn-primary">关闭</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+<script>
+function openDlg(){
+	$(".modal").show()
+}
+function closeDlg(){
+	$(".modal").hide()
+}
+</script>

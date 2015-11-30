@@ -1,0 +1,78 @@
+
+<%= stylesheet_link_tag "admins/tools_qrcode" %>
+<%= javascript_include_tag "admins/tools_qrcode" %>
+<h2>二维码管理</h2>
+<a class="btn btn-small" href="download?page=<%=params[:page]%>&perpage=<%=params[:per_page]%>">下载</a>
+<button class="btn btn-small" onclick="showCodeAddForm()">添加</button>
+
+<%= will_paginate @code_infos , renderer: BootstrapPagination::Rails %>
+<div class="row">
+<% @code_infos.each do |item| %>
+  <div class="qrcode_div">
+    <img class="codeimg" src="http://cs.hudongka.com/?level=L&size=10&border=1&data=http://a.nowapp.cn/<%= item[:code]%>" />
+    <div><input type="text" value="http://a.nowapp.cn/<%= item[:code]%>"/></div>
+    <div>
+      <%= item[:id]%> : 
+      <button class="btn btn-small" onclick="codeActionForm('<%= item[:id]%>')">绑定数据</button>
+      <button class="btn btn-small" onclick="getCodeInfo('<%= item[:id]%>')">查看</button>
+    </div>
+  </div>
+<% end %>
+</div>
+<%= will_paginate @code_infos , renderer: BootstrapPagination::Rails %>
+
+<!-- 二维码信息对应 -->
+<div id="code_action" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>二维码信息对应</h3>
+  </div>
+  <div class="modal-body">
+    <input id="codeid" type="hidden" value="" />
+    <p >对应id：<input id="contentid" type="text" value="" hint="对应对象的id，可能是任何一种对象"/></p>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:;" class="btn" onclick="$('#code_action').modal('hide')">关闭</a>
+    <a href="javascript:;" class="btn btn-primary" onclick="saveCodeAction()">数据对应</a>
+  </div>
+</div>
+
+
+<!-- 查看二维码信息 -->
+<div id="code_info" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>二维码信息</h3>
+  </div>
+  <div class="modal-body">
+    <p >数据：<span id="modal_data"></span></p>
+    <p >url：<span id="modal_url"></span></p>
+    <p >项目：<span id="modal_project"></span></p>
+    <p >批次：<span id="modal_batch_value"></span></p>
+    <p >生成日期：<span id="modal_created_at"></span></p>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:;" class="btn" onclick="$('#code_info').modal('hide')">关闭</a>
+  </div>
+</div>
+
+<!-- 添加二维码 -->
+<div id="code_add" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>二维码信息</h3>
+  </div>
+  <div class="modal-body">
+    <form id="code_add_form" >
+      <p>批次：<input id="batch_value" type="text" value="" hint="每次生成二维码的一个批次（数字）"/></p>
+      <p>项目：<input id="project_info_id" type="text" value="" hint="每次生成二维码的一个批次（数字）"/></p>
+      <p>url：<input id="url" type="text" value="" hint=""/></p>
+      <p>启用：<input id="enabled" type="text" value="" hint="每次生成二维码的一个批次（数字）"/></p>
+      <p>数量：<input id="num" type="text" value="" hint="每次生成二维码的一个批次（数字）"/></p>
+  </form>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:;" class="btn" onclick="$('#code_add').modal('hide')">关闭</a>
+    <a href="javascript:;" class="btn btn-primary" onclick="saveCodeAddForm()">创建二维码</a>
+  </div>
+</div>

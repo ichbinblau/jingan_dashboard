@@ -1,0 +1,9 @@
+<h1>编辑<%= @kf_sort.class.model_name.human %> </h1>
+
+<%=
+	@sort_config = nil
+	@viewconfig = JSON.parse( Kf::GlobalConfig.where(:key => "sort_config").first.value )
+	@sort_config = @viewconfig[@kf_sort.top_id.to_s][@kf_sort.deep.to_s] if !@viewconfig[@kf_sort.top_id.to_s].blank? && !@viewconfig[@kf_sort.top_id.to_s][@kf_sort.deep.to_s].blank?
+	@sort_config = @viewconfig[@kf_sort.id.to_s] if @kf_sort.top_id == 0 && !@viewconfig[@kf_sort.id.to_s].blank?
+	render !@sort_config.nil? && @sort_config["admin_view_form"] ? @sort_config["admin_view_form"] : "form" 
+%>

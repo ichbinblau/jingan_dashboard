@@ -1,0 +1,82 @@
+<script>
+  var _nested_form = true;
+  var _source = {};
+  _source["shop"] = "<%= url_for :controller=> '/dashboard' , :action => 'search_shop' %>";
+  _source["activity"] = "<%= url_for :controller=> '/dashboard' , :action => 'search_activity' %>";
+  $(function() {
+    function init_select_search( type ){
+      $(".search_"+type).after('<br />搜索：<input id="search_'+type+'" type="text" value=""><a href="javascript:;" class="btn" onclick=\'$(".search_'+type+'").empty();\'>清空</a>');
+      $( "#search_"+type ).autocomplete({
+        source: _source[type],
+        select: function( event, ui ) {
+          $('.search_'+type).append( $("<option></option>").attr("value",ui.item.id).text(ui.item.label) )
+          $('.search_'+type+' option').each(function(index,item){
+            item.selected = true
+          })
+          setTimeout(function(){
+            $('#search_'+type+'').val('')
+          },100);
+          // alert($('#search_shop').val())
+        }
+      });
+      $('.search_'+type+'').dblclick(function(){
+        $('.search_'+type+' option:selected').remove()
+      })
+      $('.search_'+type+' option').each(function(index,item){
+        if(item.selected != true)
+          item.selected = true
+      })
+    }
+    init_select_search("shop")
+    init_select_search("activity")
+    // init_select_shop();
+  });
+</script>
+<%= semantic_bootstrap_nested_form_for  @content_item , :url => url_for( :page=>params[:page],:sort_id=>params[:sort_id], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <%= f.semantic_errors %>
+
+  <%= f.inputs do %>
+    <%= f.input :id ,:as => :hidden %>
+    <%= f.input :title ,:label => "姓名" %>
+    <!-- <div class="string input stringish control-group" id="news_content_nickname_input"><label class=" control-label" for="news_content_nickname">昵称</label><div class="controls"><input id="news_content_nickname" maxlength="200" name="nickname" type="text" value="<%= @user_info.nickname%>"></div></div> -->
+    <div class="string input stringish control-group" id="news_content_mobile_input"><label class=" control-label" for="news_content_mobile">手机号码</label><div class="controls"><input id="news_content_mobile" maxlength="200" name="mobile" type="text" value="<%= @user_s_info.char_value_0%>"></div></div>
+    <div class="string input stringish control-group" id="news_content_passwd_input"><label class=" control-label" for="news_content_passwd">密码</label><div class="controls"><input id="news_content_passwd" maxlength="200" name="passwd" type="text" value="<%= @user_s_info.char_value_1%>"></div></div>
+    <% Rails.logger.info "============="+@user_info.sex.to_s %>
+    <div class="controls">
+      <label class=" checkbox" style="float:left;" for="news_content_is_show"><input <%="checked" if @user_info.sex.to_s == 1.to_s %> id="news_content_is_show" name="sex_m" type="radio" value="1">男</label>
+      <label class=" checkbox" for="news_content_is_show"><input <%= "checked" if @user_info.sex.to_s == 0.to_s %> id="news_content_is_show" name="sex_f" type="radio" value="1">女</label>
+    </div>
+    <div style="clear:both"></div>
+    <hr />
+    <%= f.input :cms_sorts ,:collection =>@sorts %>
+    <%= f.input :abstract ,:input_html =>{:class=>"small-textarea"} %>
+    <%= f.input :content %>
+    <%= f.input :order_level ,:input_html =>{:class=>"small-text"} %>
+    <%= f.input :is_push %>
+    <%= f.input :is_show %>
+    <hr/>
+    <% shops = NewsContentsShopContents.select("cms_contents.*").joins("left join cms_contents on (news_contents_shop_contents.shop_content_id = cms_contents.id)").where("news_contents_shop_contents.news_content_id='#{@content_item.id}'").all.map{|b| [ b[:title] , b[:id] ] if !b[:title].nil? } %>
+    <%= f.input :shop_contents  , :collection => shops ,:input_html =>{:class=>"search_shop"}%>
+    <hr/>
+    <% acts = ActivityContentsNewsContents.select("cms_contents.*").joins("left join cms_contents on (activity_contents_news_contents.activity_content_id = cms_contents.id)").where("activity_contents_news_contents.news_content_id='#{@content_item.id}'").all.map{|b| [ b[:title] , b[:id] ] if !b[:title].nil? } %>
+    <%= f.input :activity_contents  , :collection => acts,:input_html =>{:class=>"search_activity"}, :label => "相关活动"%>
+    <hr/>
+    <div><%= f.object.video_url %></div>
+    <%= f.input :video_url %>
+    <hr/>
+    <%= raw "<img style='height:200px;margin-left:100px;' src='http://is.hudongka.com/#{@content_item.image_cover}'/>" if !@content_item.image_cover.blank? %>
+    <%= f.input :image_cover %>
+    <%= f.fields_for :cms_content_img do |imgf| %>
+      <%= raw "<img style='height:200px;margin-left:100px;' src='http://is.hudongka.com/#{imgf.object.image}'/>" if !imgf.object.image.blank? %>
+      <%= imgf.input :image  %>
+      <%= imgf.input :description ,:input_html =>{:class=>"small-textarea"} %>
+      <%= imgf.input :project_info_id , :as => :hidden ,:collection => @admin_info.project_info_id %>
+      <%= imgf.link_to_remove "删除" %>
+    <% end %>
+    <p><%= f.link_to_add "添加图片", :cms_content_img %></p>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit %>
+  <% end %>
+<% end %>

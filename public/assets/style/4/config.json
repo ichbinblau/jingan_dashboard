@@ -1,0 +1,85 @@
+{
+  "actionbar": {
+    "background-color": "#CE2A2F",
+    "font-color": "#ffffff",
+    "font-size": "34px"
+  },
+  "index": {
+    "cover-alpha": "0.3",
+    "icon-font-color": "#ffffff",
+    "icon-font-size": "24px"
+  },
+  "chat": {
+    "bubble-background-color": "#ffffff",
+    "bubble-font-color": "#333333",
+    "bubble-font-size": "28px",
+    "bubble-des-font-color": "#808080",
+    "bubble-des-font-size": "22px"
+  },
+  "card": {
+    "style_name": "永恒的承诺",
+    "background-image": "style/4/card.png",
+    "btn_map": {
+      "left": "88px",
+      "top": "480px",
+      "width": "81px",
+      "height": "81px"
+    },
+    "name1": {
+      "font-color": "#7e0538",
+      "font-size": "48px",
+      "font-weight": "bold",
+      "top": "388px",
+      "left": "275px"
+    },
+    "name2": {
+      "font-color": "#7e0538",
+      "font-size": "48px",
+      "font-weight": "bold",
+      "top": "290px",
+      "left": "275px"
+    },
+    "words1": {
+      "font-color": "#7e0538",
+      "font-size": "28px",
+      "top": "210px",
+      "width": "640px",
+      "left": "0px"
+    },
+    "words2": {
+      "font-color": "#7e0538",
+      "font-size": "28px",
+      "top": "170px",
+      "width": "640px",
+      "left": "0px"
+    },
+    "words3": {
+      "font-color": "#7e0538",
+      "font-size": "28px",
+      "top": "130px",
+      "width": "640px",
+      "left": "0px"
+    },
+    "time": {
+      "font-color": "#7e0538",
+      "font-size": "28px",
+      "width": "640px",
+      "top": "480px",
+      "left": "0px"
+    },
+    "address": {
+      "text-align": "left",
+      "font-color": "#7e0538",
+      "font-size": "28px",
+      "width": "300px",
+      "top": "570px",
+      "left": "185px"
+    },
+    "place": {
+      "font-color": "#7e0538",
+      "font-size": "28px",
+      "top": "520px",
+      "left": "185px"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<%= stylesheet_link_tag "admins/sys_outlink/cus_mapview"%>
+<style>
+/* tooltip styling. by default the element to be styled is .tooltip  */
+  .tooltip {
+    display:none;
+    background:rgba(10,10,10,0.5);
+    border:1px solid #ccc;
+    font-size:12px;
+    padding:5px;
+    color:#eee;
+  }
+  #sorts{
+  	position:absolute;
+  	top:30px;
+  	right:30px;
+  	background:rgba(10,10,10,0.5);
+  	padding:5px;
+    color:#eee;
+    cursor:pointer;
+  }
+</style>
+<div id="allmap"></div>
+
+<div id="sorts">
+  <div onclick='addpoints()' id='sort_0'>全部</div>
+</div>
+
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=71aac234b85bab5e1d48691ba0b6ab0e"></script>
+<script src="http://libs.baidu.com/jquerytools/1.2.7/jquery.tools.min.js"></script>
+<%= javascript_include_tag "admins/sys_outlink/cus_mapview"%>

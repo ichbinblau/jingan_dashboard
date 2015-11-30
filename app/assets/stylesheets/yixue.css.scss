@@ -1,0 +1,71 @@
+body{
+	background-color: #F1F1F3;
+}
+.navbar{
+	margin-bottom: 10px;
+}
+.title-unit{
+	margin: 5px;
+	>div{
+		padding: 10px;
+		font-size: 16px;
+		line-height: 1.2;
+	}
+}
+.options{
+	margin: 5px  0 0 10px;
+	label{
+		padding:3px;
+		list-style-type:none;
+		label{
+			font-size: 14px;
+			display: inline;
+		}
+	}
+	label:active{
+		background-color: #dbddf3;
+	}
+	label.error{
+		color: #c7586c;
+		.iradio_square-blue{
+			background-image: url("/assets/yixue/icon/error_small.png");
+			background-size: 22px 22px;
+			background-position: 0 0;
+		}
+	}
+	label.success{
+		color: #80C878;
+		.iradio_square-blue{
+			background-image: url("/assets/yixue/icon/check_small.png");
+			background-size: 22px 22px;
+			background-position: 0 0;
+		}
+	}
+}
+.alert{
+	margin:10px;
+}
+.actions{
+	position:absolute;
+	bottom:10px;
+	right:10px;
+}
+.now-notice{
+	position:absolute;
+	bottom:10px;
+	left:10px;
+}
+.topic{
+	position:absolute;
+	width:100%;
+	top:43px;
+	bottom:41px;
+	overflow: auto;
+	.topic-sum{
+		display: none;
+		margin: 0 10px 0 10px;
+	}
+	.topic-des{
+		display:none;
+	}
+}

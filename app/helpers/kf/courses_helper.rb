@@ -1,0 +1,2 @@
+module Kf::CoursesHelper
+end

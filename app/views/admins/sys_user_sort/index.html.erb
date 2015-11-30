@@ -1,0 +1,62 @@
+<%= javascript_include_tag "admins/global" ,"jquery.json-2.4" %>
+
+<h1>
+  <%=@module_info.show_name%>
+</h1>
+<span><form action="<%= url_for%>">
+  姓名: <input name="username" id="username" type="text" value="<%= params[:ordernum]%>" /> &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+  <!--<input name="words" id="search_list_input" value="<%= params[:words]%>" type="text" />-->
+  <input name="page"  type="hidden" value="<%= params[:page]%>"/>
+  <input name="per_page" type="hidden" value="<%= params[:per_page]%>"/>
+  <input name="sort_id" type="hidden" value="<%= params[:sort_id]%>"/>
+
+  <button href="javascript:;" onclick="search_list" class="btn" >搜索</button>
+</form></span>
+
+
+<div id="edit_sort" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>编辑分类</h3>
+  </div>
+  <div class="modal-body" id="sort_div">
+
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:;"  data-dismiss="modal" aria-hidden="true" class="btn btn-primary">关闭</a>
+  </div>
+</div>
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <thead>
+  <tr>
+    <th width="80">姓名</th>
+    <th width="80">身份证</th>
+    <th width="80">图片</th>
+    <th width="30">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @content_items.each do |content_item|%>
+      <tr>
+        <td><%= content_item.char_value_0 %></td>
+        <td><%= content_item.char_value_1 %></td>
+        <td><%= raw "<a href='http://is.hudongka.com/#{content_item.img_0}' target='view_window'><img style='height:80px;' src='http://is.hudongka.com/#{content_item.img_0}'/></a>" if !content_item.img_0.to_s().blank? %></td>
+        <td>
+          <% if content_item.valid_status==1 %>
+            <%= link_to '已验证',  :action => "edit" , :id =>content_item.id , :page => params[:page], :sort_id => params[:sort_id] %>
+          <% else %>
+                <%= link_to raw('<font color="#ff0000">未验证</font>') , :action => "edit" , :id =>content_item.id , :page => params[:page], :sort_id => params[:sort_id]  %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<br />

@@ -1,0 +1,72 @@
+<%= javascript_include_tag "admins/global" ,"jquery.json-2.4" %>
+
+<h1>
+  <%=@module_info.show_name%> <%= link_to "新建#{@module_info.show_name}", { :action => "new", :sort_id => params[:sort_id],:now_district => params[:now_district] , :now_area => params[:now_area]} ,:class =>"btn btn-primary"%>
+  <a href="#" onclick="editSortForm(<%= @main_sortid %>)" class="btn">编辑分类</a>
+  <span><form action="<%= url_for%>">
+    <input name="words" id="search_list_input" value="<%= params[:words]%>" type="text" />
+    <input name="page"  type="hidden" value="<%= params[:page]%>"/>
+    <input name="per_page" type="hidden" value="<%= params[:per_page]%>"/>
+    <input name="sort_id" type="hidden" value="<%= params[:sort_id]%>"/>
+    <button href="javascript:;" onclick="search_list" class="btn" >搜索</button>
+  </form></span>
+</h1>
+
+<div id="area_lists">
+  <!-- 显示区域选择 -->
+  <% if !@city.blank? %>
+    <ul class="nav nav-pills">
+      <li class="<%= 'active' if params[:now_district].blank? %>">
+        <a href="<%= url_for(:sort_id =>params[:sort_id])%>">全<%= @city.cnname %></a>
+      </li>
+      <% @districts.each do |item| %>
+        <li class="<%= 'active' if params[:now_district] == item.id.to_s %>"><a href="<%= url_for(:sort_id =>params[:sort_id] ,:now_district => item.id)%>"><%= item.cnname %></a></li>
+      <% end%>
+    </ul>
+  <% end%>
+  <% if !@areas.blank? %>
+    <ul class="nav nav-pills areas">
+      <li class="<%= 'active' if params[:now_area].blank? %>">
+        <a href="<%= url_for(:sort_id =>params[:sort_id] ,:now_district => params[:now_district] )%>">全<%= @district.name %></a>
+      </li>
+      <% @areas.each do |item| %>
+        <li class="<%= 'active' if params[:now_area] == item.id.to_s %>"><a href="<%= url_for(:sort_id =>params[:sort_id] ,:now_district => params[:now_district] , :now_area => item.id)%>"><%= item.cnname %></a></li>
+      <% end%>
+    </ul>
+  <% end%>
+</div>
+
+<div id="sort_lists">
+  <!-- 频道的情况 -->
+  <% if @properties.blank? %>
+  <ul class="nav nav-pills">
+    <% @channels.each do |item| %>
+      <li class="<%= 'active' if params[:sort_id] == item[:id].to_s %>"><a href="<%= url_for(:sort_id => item[:id].to_s ,:now_district => params[:now_district] , :now_area => params[:now_area] )%>"><%= item[:cnname]%><%= " - #{@content_items.count}" if item[:id].to_s == params[:sort_id] %></a></li>
+    <% end%>
+  </ul>
+  <% end%>
+  <!-- 二级分类的情况 -->
+  <% @properties.each do |property| %>
+    <ul class="nav nav-pills">
+    <li class="<%= 'active' if params[:sort_id] == property.id.to_s %>">
+      <a href="<%= url_for(:sort_id =>property[:id],:now_district => params[:now_district] , :now_area => params[:now_area] )%>">全部<%= property.cnname %><%= " - #{@content_items.count}" if params[:sort_id] == property.id.to_s %></a>
+    </li>
+    <% property[:sort_list].each do |item| %>
+      <li class="<%= 'active' if params[:sort_id] == item[:id].to_s %>"><a href="<%= url_for(:sort_id => item[:id].to_s ,:now_district => params[:now_district] , :now_area => params[:now_area] )%>"><%= item[:cnname]%><%= " - #{@content_items.count}" if item[:id].to_s ==params[:sort_id]%></a></li>
+    <% end%>
+    </ul>
+  <% end%>
+  <!-- 编辑分类对话框 -->
+  <div id="edit_sort" class="modal hide fade">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>编辑分类</h3>
+    </div>
+    <div class="modal-body" id="sort_div">
+      
+    </div>
+    <div class="modal-footer">
+      <a href="javascript:;"  data-dismiss="modal" aria-hidden="true" class="btn btn-primary">关闭</a>
+    </div>
+  </div>
+</div>

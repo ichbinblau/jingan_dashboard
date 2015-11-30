@@ -1,0 +1,60 @@
+@import "webapps/vars";
+.listviewTwoline{
+  padding:0;
+  li{
+    position: relative;
+    z-index: 2;
+    border: 0;
+    a {
+      height:80px;
+      padding: 8px 14px;
+      margin:0 0 -1px;
+      border: 1px solid #e5e5e5;
+      .list_left{
+        float:left;
+        margin-right: 10px;
+        width:120px;
+        height:80px;
+        overflow:hidden;
+        img{
+        }
+      }
+      .list_right{
+        height:80px;
+        overflow:hidden;
+        .list_title{
+          margin-top: 10px;
+          font-size: 14px;
+          height: 20px;
+          overflow:hidden;
+        }
+        .list_des{
+          padding: 5px 0 0 5px;
+          color: $font_color;
+          height: 38px;
+          overflow:hidden;
+        }
+      }
+      .label-success{
+        position: absolute;
+        right:15px;
+        top:5px;
+        // float: right;
+      }
+      .icon-chevron-right{
+        float: right;
+        margin: 35px 5px 0 5px;
+        color: #000;
+        opacity: .5;
+      }
+    }
+  }
+  li:first-child > a{
+    border-top:0px;
+  }
+  li:last-child > a{
+    -webkit-border-radius:0 0 $radius $radius;
+    -moz-border-radius:0 0 $radius $radius;
+    border-radius:0 0 $radius $radius;
+  }
+}

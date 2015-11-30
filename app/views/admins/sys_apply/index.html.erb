@@ -1,0 +1,120 @@
+<h1 ><%= @module_info.show_name %></h1>
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <% if !@title_item[0].int1_des.blank?  %>
+         <th><%=@title_item[0].int1_des %></th>
+      <% end%>
+      <% if !@title_item[0].int2_des.blank?  %>
+          <th><%=@title_item[0].int2_des %></th>
+      <% end%>
+      <% if !@title_item[0].int3_des.blank?  %>
+          <th><%=@title_item[0].int3_des %></th>
+      <% end %>
+      <% if !@title_item[0].int4_des.blank?  %>
+          <th><%=@title_item[0].int4_des %></th>
+      <% end %>
+      <% if !@title_item[0].int5_des.blank?  %>
+          <th><%=@title_item[0].int5_des %></th>
+      <% end %>
+      <% if !@title_item[0].text1_des.blank?  %>
+          <th><%=@title_item[0].text1_des %></th>
+      <% end %>
+      <% if !@title_item[0].text2_des.blank?  %>
+          <th><%=@title_item[0].text2_des %></th>
+      <% end %>
+      <% if !@title_item[0].text3_des.blank?  %>
+          <th><%=@title_item[0].text3_des %></th>
+      <% end %>
+      <% if !@title_item[0].text4_des.blank?  %>
+          <th><%=@title_item[0].text4_des %></th>
+      <% end %>
+      <% if !@title_item[0].text5_des.blank?  %>
+          <th><%=@title_item[0].text5_des %></th>
+      <% end %>
+      <% if !@title_item[0].text6_des.blank?  %>
+          <th><%=@title_item[0].text6_des %></th>
+      <% end %>
+      <% if !@title_item[0].text7_des.blank?  %>
+          <th><%=@title_item[0].text7_des %></th>
+      <% end %>
+      <% if !@title_item[0].text8_des.blank?  %>
+          <th><%=@title_item[0].text8_des %></th>
+      <% end %>
+      <% if !@title_item[0].text9_des.blank?  %>
+          <th><%=@title_item[0].text9_des %></th>
+      <% end %>
+      <% if !@title_item[0].text10_des.blank?  %>
+          <th><%=@title_item[0].text10_des %></th>
+      <% end %>
+      <th>用户id</th>
+      <th>创建时间</th>
+      <th width="30">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @content_items.each do |content_item| %>
+    <tr>
+      <td><%= content_item.id %></td>
+      <% if !@title_item[0].int1_des.blank?  %>
+        <td><%= raw content_item.int1 %></td>
+      <% end %>
+      <% if !@title_item[0].int2_des.blank?  %>
+        <td><%= raw content_item.int2 %></td>
+      <% end %>
+      <% if !@title_item[0].int3_des.blank?  %>
+        <td><%= raw content_item.int3 %></td>
+      <% end %>
+      <% if !@title_item[0].int4_des.blank?  %>
+        <td><%= raw content_item.int4 %></td>
+      <% end %>
+      <% if !@title_item[0].int5_des.blank?  %>
+        <td><%= raw content_item.int5 %></td>
+      <% end %>
+      <% if !@title_item[0].text1_des.blank?  %>
+          <td><%= raw content_item.text1 %></td>
+      <% end %>
+      <% if !@title_item[0].text2_des.blank?  %>
+          <td><%= raw content_item.text2 %></td>
+      <% end %>
+      <% if !@title_item[0].text3_des.blank?  %>
+          <td><%= raw content_item.text3 %></td>
+      <% end %>
+      <% if !@title_item[0].text4_des.blank?  %>
+          <td><%= raw content_item.text4 %></td>
+      <% end %>
+      <% if !@title_item[0].text5_des.blank?  %>
+          <td><%= raw content_item.text5 %></td>
+      <% end %>
+      <% if !@title_item[0].text6_des.blank?  %>
+          <td><%= raw content_item.text6 %></td>
+      <% end %>
+      <% if !@title_item[0].text7_des.blank?  %>
+          <td><%= raw content_item.text7 %></td>
+      <% end %>
+      <% if !@title_item[0].text8_des.blank?  %>
+          <td><%= raw content_item.text8 %></td>
+      <% end %>
+      <% if !@title_item[0].text9_des.blank?  %>
+          <td><%= raw content_item.text9 %></td>
+      <% end %>
+      <% if !@title_item[0].text10_des.blank?  %>
+          <td><%= raw content_item.text10 %></td>
+      <% end %>
+      <td>
+        <%= link_to content_item.user_info_id.to_s, :controller=>"sys_user", :action => "edit" , :id =>content_item.user_info_id , :page => params[:page],:controller_name => "sys_apply", :sort_id => params[:sort_id] %>
+      </td>
+      <td><%= raw content_item.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+      <td>
+        <%= link_to '编辑',  :action => "edit" , :id =>content_item.id , :page => params[:page], :sort_id => params[:sort_id] %>
+        <br />
+        <%= link_to '删除', { :action => "destroy", :id =>content_item.id , :page => params[:page], :sort_id => params[:sort_id]},  method: :delete, data: { confirm: '确定删除？' } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<br />

@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Data:</b>
+  <%= @kf_status.data %>
+</p>
+
+<p>
+  <b>Count type:</b>
+  <%= @kf_status.count_type %>
+</p>
+
+<p>
+  <b>Newuser count:</b>
+  <%= @kf_status.newuser_count %>
+</p>
+
+<p>
+  <b>Newmobileaccount count:</b>
+  <%= @kf_status.newmobileaccount_count %>
+</p>
+
+<p>
+  <b>Activeuser count:</b>
+  <%= @kf_status.activeuser_count %>
+</p>
+
+<p>
+  <b>Indexdone count:</b>
+  <%= @kf_status.indexdone_count %>
+</p>
+
+<p>
+  <b>Course fav count:</b>
+  <%= @kf_status.course_fav_count %>
+</p>
+
+
+<%= link_to 'Edit', edit_kf_status_path(@kf_status) %> |
+<%= link_to 'Back', kf_statuses_path %>

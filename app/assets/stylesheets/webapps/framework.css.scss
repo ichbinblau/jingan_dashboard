@@ -1,0 +1,147 @@
+// Place all the styles related to the webapps/framework controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.abs-center {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+#afui.ios7 {
+	.panel{
+		height: 100%;
+		padding: 0;
+		// display: block;
+	}
+	.insert-type-1{
+		display: block;
+		height: 100%;
+	}
+	.insert-type-2{
+		display: block;
+		width: 100%;
+	}
+	.insert-type-3{
+		display: inline;
+	}
+	.insert-type-4{
+		display: inline;
+	}
+	.button{
+		border-radius: 5px;
+	}
+	.button:active{
+		border-color:rgba(82,155,234,1);
+	}
+	.list {
+		>li.listview-twoline{
+			padding: 10px;
+			~:active{
+			  background:#ccc;
+			}
+			position: relative;
+			.left-img{
+				float:left;
+				width: 100px;
+				height: 75px;
+			}
+			.right-div{
+				padding-left :10px;
+				height:70px;
+				overflow-y: hidden;
+				.title{
+					font-size: 18px;
+					height:23px;
+					overflow-y: hidden;
+					font-weight: bold;
+				}
+				.des{
+					color:#999;
+					padding-left: 10px;
+				}
+			}
+			.badge{
+				position:absolute;
+				bottom:10px;
+				right:20px;
+				color:#ccc;
+				
+				.date,.label{
+					float:right;
+					margin-left: 10px;
+				}
+				.label{
+					display: inline;
+					background-color: #5cb85c;
+					padding: .2em .6em .3em;
+					font-size: 75%;
+					font-weight: bold;
+					line-height: 1;
+					color: #ffffff;
+					text-align: center;
+					white-space: nowrap;
+					vertical-align: baseline;
+					border-radius: .25em;
+				}
+			}
+		}
+		li:first-child:active {
+			background:#ccc;
+		}
+	}
+}
+
+.div-news{
+	pre{
+		padding:20px;
+		font-size: 14px;
+		line-height: 18px;
+		word-wrap: break-word;
+	}
+	h3{
+		font-size: 26px;
+		font-weight: 700;
+		line-height: 40px;
+	}
+	.des{
+		font-size: 12px;
+		line-height: 18px;
+		color: #999;
+	}
+	hr{
+		margin-top:10px;
+		margin-bottom:15px;
+	}
+}
+
+.rel-div{
+	border-radius:5px;
+	border: 1px solid #ccc;
+	padding:5px;
+	margin:10px;
+	.rel-title{
+		font-weight: bold;
+		line-height: 20px;
+	}
+	.rel-items{
+		display: inline-block;
+		.rel-item{
+			float: left;
+			margin-right: 5px;
+			.rel-item-img{
+				width: 100px;
+				height: 75px;
+				overflow: hidden;
+			}
+			.rel-item-title{
+				width: 100px;
+				height:18px;
+				overflow: hidden;
+			}
+		}
+	}
+}
+
+
+
+

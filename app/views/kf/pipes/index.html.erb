@@ -1,0 +1,41 @@
+<h1>
+  <%= Kf::Pipe.model_name.human %>管理 
+  <%= link_to "新建#{ Kf::Pipe.model_name.human }",  { :action => "new", :page => params[:page]} ,:class =>"btn btn-primary"%>
+  <span><form action="<%= url_for%>">
+    <input name="search" id="search_list_input" value="<%= params[:search]%>" type="text" />
+    <input name="page"  type="hidden" value="<%= params[:page]%>"/>
+    <input name="per_page" type="hidden" value="<%= params[:per_page]%>"/>
+    <button href="javascript:;" onclick="search_list" class="btn" >搜索</button>
+  </form></span>
+</h1>
+<%= will_paginate @kf_pipes , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <tr>
+    <th width="30">ID</th>
+    <th><%= Kf::Pipe.human_attribute_name("order_level") %></th>
+    <th><%= Kf::Pipe.human_attribute_name("top_id") %></th>
+    <th><%= Kf::Pipe.human_attribute_name("title") %></th>
+    <th><%= Kf::Pipe.human_attribute_name("image_cover") %></th>
+    <th><%= Kf::Pipe.human_attribute_name("description") %></th>
+    <th width="125">操作</th>
+  </tr>
+
+<% @kf_pipes.each do |kf_pipe| %>
+  <tr>
+    <td><%= kf_pipe.id %></td>
+    <td><%= kf_pipe.order_level %></td>
+    <td><%= kf_pipe.top_id %></td>
+    <td><%= kf_pipe.title %></td>
+    <td><%= kf_pipe.image_cover %></td>
+    <td><%= kf_pipe.description %></td>
+    <td>
+        <%= link_to '子管道',  :action => "show" , :id =>kf_pipe.id , :page => params[:page]%>
+        &nbsp;
+        <%= link_to '编辑',  :action => "edit" , :id =>kf_pipe.id , :page => params[:page]%>
+        &nbsp;
+        <%= link_to '删除', { :action => "destroy", :id =>kf_pipe.id , :page => params[:page]},  method: :delete, data: { confirm: '确定删除？' } %>
+    </td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @kf_pipes , renderer: BootstrapPagination::Rails %>

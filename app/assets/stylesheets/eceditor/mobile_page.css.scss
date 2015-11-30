@@ -1,0 +1,56 @@
+#page{
+	input,textarea{
+		margin-bottom:3px;
+	}
+	textarea.text{
+		height:23px;
+	}
+	.setting-page{
+		padding:5px;
+		.pagecmp{
+
+		}
+	}
+	.setting-panels{
+		padding:5px;
+	}
+	table{
+		width:610px;
+		td{
+			padding:2px;
+		}
+	}
+	.ctl-data-group-children{
+		fieldset{
+			position: relative;
+			margin: 15px 0;
+			padding: 10px;
+			background-color: #fff;
+			border: 1px solid #ddd;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+			margin-left: 2px;
+			float:left;
+			legend {
+			    width:inherit;
+			    padding:0 10px;
+			    border-bottom:none;
+			}
+		}
+	}
+}
+body .modal {
+    /* new custom width */
+    width: 900px;
+    /* must be half of the width, minus scrollbar on the left (30px) */
+    margin-left: -450px;
+}
+#ace_js_editor .modal-body , #ace_json_editor .modal-body{
+	max-height:660px;
+	height:660px;
+	#json_editor,#js_editor{
+		height:660px;
+		width:880px;
+	}
+}

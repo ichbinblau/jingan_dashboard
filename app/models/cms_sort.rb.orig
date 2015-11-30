@@ -1,0 +1,32 @@
+# encoding: utf-8
+class CmsSort < ActiveRecord::Base
+  validates :project_info_id,  :presence => { :message => "不能为空" }
+  validates :cms_sort_type_id,  :presence => { :message => "不能为空" }
+	belongs_to :project_info 
+	belongs_to :cms_sort_type 
+	belongs_to :father ,:class_name =>"CmsSort" , :foreign_key =>"father_id"
+    # has_and_belongs_to_many :activity_content
+    # has_and_belongs_to_many :news_content
+
+    has_and_belongs_to_many :cms_content
+
+  # has_many :cms_contents_cms_sorts,:dependent => :destroy
+  # has_many :cms_contents, :through => :cms_contents_cms_sorts
+  # accepts_nested_attributes_for :cms_contents ,:cms_contents_cms_sorts
+
+
+	attr_accessible :project_info_id , :father_id  , :cms_sort_type_id ,
+			:name ,:cnname , :description #, :level , :top_sort_id
+
+    rails_admin do
+      
+  		navigation_label '项目'
+  		weight 5
+
+      object_label_method do
+        :sort_label_method
+      end
+    end
+end
+
+

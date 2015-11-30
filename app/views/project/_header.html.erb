@@ -1,0 +1,25 @@
+<style>
+/*.nav .navigation{pad}*/
+</style>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+       <a class="brand" href="/" style="padding:5px; padding-left:25px;height:29px;width:156px;"><img src="http://is.hudongka.com/3001257.png"></a>
+      <div class="nav-collapse">
+        <ul class="nav" style="margin-left:20px">
+          <li style="padding-left:20px;" class="<%= ('detail' != params[:action] && 'index' != params[:action]) || 'active' %> navigation"><a href="/project/index"><%= @cmsSortInfos[0][:cnname]%></a></li>
+          <li class="<%= 'product' != params[:action] || 'active' %> navigation"><a href="/project/product"><%= @cmsSortInfos[1][:cnname]%></a></li>
+          <li class="<%= 'example' != params[:action] || 'active' %> navigation"><a href="/project/example?contentid=239"><%= @cmsSortInfos[2][:cnname]%></a></li>
+          <li class="<%= 'about' != params[:action] || 'active' %> navigation"><a href="/project/about"><%= @cmsSortInfos[3][:cnname]%></a></li>
+          <li style="padding-left:20px">
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

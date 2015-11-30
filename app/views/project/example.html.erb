@@ -1,0 +1,95 @@
+
+<style type="text/css">
+  .hero-unit{padding:0px;}
+</style>
+
+<style type="text/css">
+.hero-unit{padding:0px;max-width:960px;}
+/*.navbar-inner .container,.container  {width:960px;}*/
+.content{font-size:12px;color:#595757;font-weight: bold; padding-right:60px}
+.padding-left{padding-left:60px;}
+/*.contents{height:350px;margin-top:10px;}*/
+.content-img{-webkit-box-shadow:1px 1px 5px #848484;-moz-box-shadow:1px 1px 5px #848484; width: 78px; height: 78px}
+.head-li{font-size: 14px}
+.span6{margin-left: 0px;}
+#expage{margin-left: 30px;}
+.span1 .content-img{width:72px;height:72px;}
+/*.row-fluid [class*="span"]:first-child {margin-left: 2.127659574468085%;}*/
+</style>
+
+<style type="text/css">
+  body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+</style>
+
+<%= render "header" %>
+
+<div class="container">
+  <!-- Main hero unit for a primary marketing message or call to action -->
+<!-- <div class="hero-unit" > -->
+  <section class="row" style="background-color:#FFF">
+
+    <!-- 导航 -->
+    <div class="span3">
+      <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+           <% @sort1.each do |cmsSortInfo| %>
+            <li class="nav-header head-li"><%=cmsSortInfo[:cnname]%></li>
+               <% @contentInfoSort.each do |cmsSort3Info| %>
+                   <% if cmsSort3Info[:sort1id] == cmsSortInfo[:id]%>
+                      <% if cmsSort3Info[:id] == @selectContentId %>
+                      <li class="active head-li">
+                      <% end%> 
+                      <% if cmsSort3Info[:id] != @selectContentId %>
+                      <li class="head-li">
+                      <% end%>
+                        <%= link_to(cmsSort3Info[:title],{:controller =>'project',:action => 'example',:contentid =>cmsSort3Info[:id]})%>
+                      </li>
+                  <% end%>
+               <% end%>
+            <% end%>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="span6" >
+      <div>
+        <!-- 内容 -->
+        <div class="contents">
+          <% @examples.each do |projectApp| %>
+            <div class="span1">
+              <img class="content-img" src="http://is.hudongka.com/<%= projectApp[:image_icon]%>">
+              <p style="width:72px"><%= projectApp[:cnname].truncate(7)%></p>
+              <p><a href="http://d.nowapp.cn/<%= projectApp[:project_num]%>" target="blank"><img src="http://is.hudongka.com/3001258.png"></a></p>
+            </div>
+          <% end%>
+        </div>
+        <!-- 分页 -->
+        <div id="expage" class="row-fluid">
+          <div class="span12">
+          <%if @offset!=0%>
+            <%@path_prev="/project/example?off=#{@offset/@local-1}&&contentid=#{params[:contentid]}"%>
+            <%=link_to '上一页', "#{@path_prev}"%>
+          <%end%>
+          <%0.upto((@count-1)/@local) do |i|%>
+            <%@num_path="/project/example?off=#{i}&contentid=#{params[:contentid]}"%>
+            <%=link_to "#{i+1}", "#{@num_path}"%>
+          <%end%>
+          <%if @offset/@local!=(@count-1)/@local%>
+            <%@path_next="/project/example?off=#{@offset/@local+1}&&contentid=#{params[:contentid]}"%>
+            <%if !@examples.blank?  %>
+              <%=link_to '下一页', "#{@path_next}"%>
+            <%end%>
+          <%end%>
+          </div>
+        </div>
+        <!-- 分页结束 -->
+      </div>
+    </div>
+
+  </section>
+<!-- </div>  -->
+</div> 

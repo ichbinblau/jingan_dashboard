@@ -1,0 +1,60 @@
+<h1><%=@module_info.show_name%></h1>
+<style>
+  #form-ctl{width: 100%;}
+  #form-ctl span{ float: left;,white-space:nowrap }
+</style>
+
+<%= form_tag nil,method:'GET',id:'form-search' do%>
+
+  <div id="form-ctl">
+     <span>
+        <label>标题 </label><input type="text" name="title" value="<%= params[:title]%>" >
+     </span>
+     <span>
+        <%= submit_tag "查询", :class =>"btn btn-primary"%>
+     </span>
+  </div>
+<%end%>
+<div style="clear: both;"></div>
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <thead>
+  <tr>
+    <th width="30">ID</th>
+    <th>分类</th>
+    <th width="200">标题</th>
+    <th>创建日期</th>
+    <th>用户评论</th>
+    <th>评论反馈</th>
+    <th width="30">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @content_items.each do |content_item| %>
+      <tr>
+        <td><%= content_item.id %></td>
+        <td><%= content_item.cnname  %></td>
+        <td><%= content_item.title  %></td>
+	<td><%= content_item.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>	
+        <td title="<%= content_item.content %>"><%= content_item.content.truncate(25, omission: '...') %></td>
+        <td title="<%= content_item.admin_reply %>">
+		<% if content_item.admin_reply and content_item.admin_reply.length >= 25 %>
+		 	<%= content_item.admin_reply.truncate(25, omission: '...') %>
+		<% else %>
+			<%= content_item.admin_reply %>
+		<% end %>
+	</td>
+        <td>
+          <% if content_item.admin_reply.blank? %>
+                <%= link_to '回复', :action => "edit" , :id =>content_item.id , :page => params[:page] %>
+          <% else %>
+                <%= link_to '编辑', :action => "edit" , :id =>content_item.id , :page => params[:page] %>
+          <% end %>
+	</td>
+      </tr>
+  <% end %>
+</tbody>
+</table>
+
+<br />

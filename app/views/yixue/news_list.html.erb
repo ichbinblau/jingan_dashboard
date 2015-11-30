@@ -1,0 +1,15 @@
+<header class="bar bar-nav">
+  <a class="icon icon-left-nav pull-left" href="news" data-ignore="push" data-transition="slide-out"></a>
+  <h1 class="title"><%= @sort.cnname %></h1>
+</header>
+<div class="content">
+<ul class="table-view">
+<% @news.each do |item| %>
+  <li class="table-view-cell">
+    <a class="navigate-right" href="news?sort_id=<%= @sort.id %>&item_id=<%= item.id %>" data-ignore="push" data-transition="slide-in">
+      <%= item.title %>
+    </a>
+  </li>
+<% end %>
+</ul>
+</div>

@@ -1,0 +1,44 @@
+zh-CN:
+  datetime:
+    distance_in_words:
+      about_x_hours: "%{count}小时"
+      x_days: "%{count}天"
+      x_minutes: "%{count}分钟"
+
+  support:
+    array:
+      words_connector: " - "
+      last_word_connector: " - "
+      two_words_connector: " - "
+
+  will_paginate:
+      previous_label: "&#8592; 上一页"
+      next_label: "下一页 &#8594;"
+      page_gap: "&hellip;"
+
+      page_entries_info:
+        single_page:
+          zero:  "不存在 %{model} "
+          one:   "显示 1 %{model}"
+          other: "显示所有 %{count} %{model}"
+        single_page_html:
+          zero:  "不存在 %{model} "
+          one:   "显示 <b>1</b> %{model}"
+          other: "显示 <b>所有&nbsp;%{count}</b> %{model}"
+
+        multi_page: "显示 %{model} %{from} - %{to} 共 %{count} 条记录"
+        multi_page_html: "显示 %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> 共 <b>%{count}</b> 条记录"
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%Y-%m-%d"
+      short: "%b%d日"
+      long: "%Y年%b%d日"
+  time:
+    formats:
+      default: "%Y年%b%d日 %A %H:%M:%S"
+      time: "%H:%M"
+      short: "%b%d日 %H:%M"
+      long: "%Y年%b%d日 %H:%M"

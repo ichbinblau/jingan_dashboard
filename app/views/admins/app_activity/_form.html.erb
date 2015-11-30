@@ -1,0 +1,145 @@
+<script>
+  var _nested_form = true;
+
+  $(function() {
+    function init_select_shop(){
+      $(".search_shop").after('<br />搜索：<input id="search_shop" type="text" value=""><a href="javascript:;" class="btn" onclick=\'$(".search_shop").empty();\'>清空</a>');
+      $( "#search_shop" ).autocomplete({
+        source: "<%= url_for :controller=> '/dashboard' , :action => 'search_shop' %>",
+        select: function( event, ui ) {
+          $('.search_shop').append( $("<option></option>").attr("value",ui.item.id).text(ui.item.label) )
+          $('.search_shop option').each(function(index,item){
+            item.selected = true
+          })
+          setTimeout(function(){
+            $('#search_shop').val('')
+          },100);
+          // alert($('#search_shop').val())
+        }
+      });
+      $('.search_shop').dblclick(function(){
+        $('.search_shop option:selected').remove()
+      })
+      $('.search_shop option').each(function(index,item){
+        if(item.selected != true)
+          item.selected = true
+      })
+    }
+    init_select_shop();
+  });
+</script>
+
+
+<%= semantic_bootstrap_nested_form_for  @content_item , :url => url_for( :page=>params[:page],:sort_id=>params[:sort_id], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <%= f.semantic_errors %>
+
+  <%= f.inputs do %>
+    <%= f.input :id ,:as => :hidden %>
+    <% if @content_distitle["cms_sorts"].to_s!="1"  %>
+        <%= f.input :cms_sorts ,:collection =>@sorts %>
+    <% end%>
+    <% if @content_distitle["title"].to_s!="1"  %>
+        <%= f.input :title %>
+    <% end%>
+    <% if @content_distitle["abstract"].to_s!="1"  %>
+        <%= f.input :abstract ,:input_html =>{:class=>"small-textarea"} %>
+    <% end%>
+    <% if @content_distitle["content"].to_s!="1"  %>
+        <%= f.input :content %>
+    <% end%>
+    <% if @content_distitle["order_level"].to_s!="1"  %>
+        <%= f.input :order_level ,:input_html =>{:class=>"small-text"}%>
+    <% end%>
+    <% if @content_distitle["is_push"].to_s!="1"  %>
+        <%= f.input :is_push %>
+    <% end%>
+    <% if @content_distitle["is_show"].to_s!="1"  %>
+        <%= f.input :is_show %>
+    <% end%>
+    <hr/>
+
+    <% if @content_distitle["shop_contents"].to_s!="1"  %>
+        <%= f.input :shop_contents , :collection => ActivityContentsShopContents.select("cms_contents.*").joins("left join cms_contents on (activity_contents_shop_contents.shop_content_id = cms_contents.id)").where("activity_contents_shop_contents.activity_content_id='#{@content_item.id}'").all.map{|b| [ b[:title] , b[:id] ] },:input_html =>{:class=>"search_shop"}%>
+    <% end%>
+    <!-- <div class="select input optional control-group">
+      <label class=" control-label" >搜索地点</label>
+      <div class="controls">
+        <input id="search_shop" type="text" value=""><a href="javascript:;" class="btn" onclick='$(".search_shop").empty();'>清空</a>
+      </div>
+    </div> -->
+
+    <hr/>
+    <% if @content_distitle["video_url"].to_s!="1"  %>
+        <div><%= f.object.video_url %></div>
+        <%= f.input :video_url %>
+    <% end%>
+    <hr/>
+    <% if @content_distitle["image_cover"].to_s!="1"  %>
+        <%= raw "<img style='height:200px;margin-left:100px;' src='http://is.hudongka.com/#{@content_item.image_cover}'/>" if !@content_item.image_cover.blank? %>
+        <%= f.input :image_cover %>
+    <% end%>
+
+    <% if @content_distitle["cms_content_img"].to_s!="1"  %>
+        <%= f.fields_for :cms_content_img do |imgf| %>
+          <%= raw "<img style='height:200px;margin-left:100px;' src='http://is.hudongka.com/#{imgf.object.image}'/>" if !imgf.object.image.blank? %>
+          <%= imgf.input :image  %>
+          <%= imgf.input :description ,:input_html =>{:class=>"small-textarea"} %>
+          <%= imgf.input :project_info_id , :as => :hidden ,:collection => @admin_info.project_info_id %>
+          <%= imgf.link_to_remove "删除" %>
+        <% end %>
+        <p><%= f.link_to_add "添加图片", :cms_content_img %></p>
+    <% end %>
+  <% end %>
+
+
+  <%= f.fields_for :cms_info_activity  do |cf| %>
+    <hr/>
+    <%= cf.input :address  ,:label => "地址"%>
+    <%= cf.input :member_limit  ,:input_html =>{:class=>"small-text"}%>
+    <%= cf.input :start_time ,:as =>:string,:input_html =>{:class=>"datetimepicker-input"}%>
+    <%= cf.input :end_time ,:as =>:string,:input_html =>{:class=>"datetimepicker-input"}%>
+    <%= cf.input :apply_type ,:as =>:boolean ,:input_html =>{:class=>"apply_check"}%>
+    <div class="point_check_content" style="display:none">
+      <%= cf.input :apply_start_time ,:as =>:string ,:format =>:long, :input_html =>{:class=>"datetimepicker-input"}%>
+      <%= cf.input :apply_end_time ,:as =>:string,:input_html =>{:class=>"datetimepicker-input"}%>
+      <%= cf.input :personal_limit  ,:input_html =>{:class=>"small-text"}%>
+      <%= cf.input :apply_point ,:input_html =>{:class=>"small-text"}%>
+      <%= cf.input :apply_money ,:input_html =>{:class=>"small-text"}%>
+    </div>
+    
+    <script>
+      _nested_form = false;
+    </script>
+  <% end %>
+  <p><%= f.link_to_add "附加内容", :cms_info_activity,:hidden_tag=>"content_add_nested_fields"%></p>
+
+  <script>
+    jQuery(function($) {
+      //控制自动打开内容项目
+      if (_nested_form){
+        $('a[hidden_tag=content_add_nested_fields]').click()
+      }
+      $('a[hidden_tag=content_add_nested_fields]').hide()
+      // 设置时间控件
+      $('.datetimepicker-input').each(function(i,o){
+        o.value = o.value.replace(" UTC","")
+      }).attr('data-format',"yyyy-MM-dd hh:mm:ss").parent().addClass("datetimepicker input-append date").append('<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>')
+      $('.datetimepicker').datetimepicker();
+
+      // 是否在线申请
+      function check_apply_check(){
+        if (true ==  $('.apply_check').prop('checked') )
+          $('.point_check_content').show();
+        else
+          $('.point_check_content').hide();
+      }
+      $('.apply_check').click(check_apply_check);
+      check_apply_check();
+
+    })
+  </script>
+
+  <%= f.actions do %>
+    <%= f.action :submit %>
+  <% end %>
+<% end %>

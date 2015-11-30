@@ -1,0 +1,67 @@
+<%= stylesheet_link_tag "admins/info_weixin" %>
+
+<h1>设置微信APP</h1>
+<hr />
+<ul class="nav nav-list docs-sidenav affix">
+  <li><a href="#overview"><i class="icon-chevron-left"></i>功能介绍</a></li>
+  <li><a href="#s1"><i class="icon-chevron-left"></i>第一步，公众账号</a></li>
+  <li><a href="#s2">&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-chevron-left"></i>注册账号</a></li>
+  <li><a href="#s3">&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-chevron-left"></i>邮箱激活</a></li>
+  <li><a href="#s6">&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-chevron-left"></i>信息登记</a></li>
+  <li><a href="#s6_1">&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-chevron-left"></i>公众号信息</a></li>
+  <li><a href="#s7"><i class="icon-chevron-left"></i>第二步，配置接口</a></li>
+  <li><a href="#s8">&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-chevron-left"></i>开发者模式</a></li>
+  <li><a href="#s9">&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-chevron-left"></i>配置接口信息</a></li>
+  <li><a href="#s10"><i class="icon-chevron-left"></i>设置成功</a></li>
+</ul>
+<h3 id="overview">微信APP有什么功能</h3>
+<p>微信APP可以通过设置微信公众账号自动回复功能，实现在微信里使用APP的部分功能：</p>
+<img class="explan" src="/assets/weixin/s11.jpg"/>
+<h3 id="s1">请按如下方法设置微信APP</h3>
+<hr />
+<h3 id="s1">第一步，注册微信公众账号，注册过的直接跳到<a href="#s7">第二步</a></h3>
+<p>登录：<a href="https://mp.weixin.qq.com/" target="_blank">https://mp.weixin.qq.com/</a>，点击右上角的注册按钮。</p>
+<img class="explan" src="/assets/weixin/s1.jpg"/>
+<hr />
+<h3 id="s2">注册账号</h3>
+<p>填写注册信息，点击注册按钮。</p>
+<img class="explan" src="/assets/weixin/s2.jpg"/>
+<hr />
+<h3 id="s3">邮箱激活</h3>
+<p>登录到刚才注册邮箱，打开标题为“激活你的微信公众账号”的邮件，点击链接激活账号。</p>
+<img class="explan" src="/assets/weixin/s3.jpg"/><br /><br />
+<img class="explan" src="/assets/weixin/s4.jpg"/><br /><br />
+<img class="explan" src="/assets/weixin/s5.jpg"/><br /><br />
+<hr />
+<h3 id="s6">信息登记</h3>
+<p>填写用户信息。</p>
+<img class="explan" src="/assets/weixin/s6.jpg"/>
+<hr />
+<h3 id="s6_1">公众号信息</h3>
+<p>填写公众号信息。</p>
+<img class="explan" src="/assets/weixin/s6_1.jpg"/>
+<hr />
+<h3 id="s7">第二步，配置接口</h3>
+<p>注册成功后，先登录到微信公众账号，点击“高级功能”按钮</p>
+<img class="explan" src="/assets/weixin/s7.jpg"/>
+<hr />
+<h3 id="s8">开发者模式</h3>
+<p>选择”开发者模式“</p>
+<img class="explan" src="/assets/weixin/s8.jpg"/>
+<hr />
+<h3 id="s9">配置接口信息</h3>
+<p >填入以下内容到接口配置信息中：<br />
+  <div class="control-group warning">
+    <label class="control-label">Url：</label>
+    <div class="controls"><input type="text" value="<%= @weixin_config["Url"] %>"/></div>
+  </div>
+  <div class="control-group warning">
+    <label class="control-label">Token：</label>
+    <input type="text" value="<%= @weixin_config["Token"] %>"/>
+  </div>
+</p>
+<img class="explan" src="/assets/weixin/s9.jpg"/>
+<hr />
+<h3 id="s10">设置成功</h3>
+<p>看到”你已成为开发者“字样后，点击右上角的”开启“按钮，设置成功！</p>
+<img class="explan" src="/assets/weixin/s10.jpg"/>

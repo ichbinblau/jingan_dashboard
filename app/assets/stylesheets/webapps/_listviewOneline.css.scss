@@ -1,0 +1,52 @@
+@import "webapps/vars";
+.listviewOneline{
+  padding:0;
+  li{
+    position: relative;
+    z-index: 2;
+    border: 0;
+    a {
+      height:52px;
+      padding: 8px 14px;
+      margin:0 0 -1px;
+      border: 1px solid #e5e5e5;
+      .list_left{
+        float:left;
+        margin-right: 10px;
+        width:20px;
+        overflow:hidden;
+        img{
+        }
+      }
+      .list_right{
+        .list_title{
+          margin-top: 10px;
+          font-size: 14px;
+        }
+        .list_des{
+          padding: 5px 0 0 20px;
+          height:22px;
+          overflow:hidden;
+          color: $font_color;
+        }
+      }
+      .label-success{
+        float: right;
+      }
+      .icon-chevron-right{
+        float: right;
+        margin: 23px 5px 0 5px;
+        color: #000;
+        opacity: .5;
+      }
+    }
+  }
+  li:first-child > a{
+    border-top:0px;
+  }
+  li:last-child > a{
+    -webkit-border-radius:0 0 $radius $radius;
+    -moz-border-radius:0 0 $radius $radius;
+    border-radius:0 0 $radius $radius;
+  }
+}

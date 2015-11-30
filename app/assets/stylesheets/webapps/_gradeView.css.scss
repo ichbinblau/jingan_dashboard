@@ -1,0 +1,17 @@
+@import "webapps/vars";
+.gradeView{
+  padding:0;
+  li{
+    float:left;
+    width:138px;
+    height:150px;
+    margin:10px;
+    display: block;
+    z-index: 2;
+    border: 0;
+    .grade_image{
+      width:130px;
+      height:130px;
+    }
+  }
+}

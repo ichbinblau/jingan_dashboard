@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Kf sort:</b>
+  <%= @kf_sickness.kf_sort_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @kf_sickness.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @kf_sickness.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_kf_sickness_path(@kf_sickness) %> |
+<%= link_to 'Back', kf_sicknesses_path %>

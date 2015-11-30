@@ -1,0 +1,16 @@
+<div class="row-fluid" style="padding: 0 10px 0 10px;">
+  <h3><%= @item_info["Title"]%></h3>
+  <div><%= @item_info["Abstract"]%></div>
+  <hr/>
+  <center class="well"><a href="<%= get_ecimg_url( :imagename =>@item_info["ImageCover"]) %>" target="_blank"><img src="<%= get_ecimg_url( :imagename =>@item_info["ImageCover"], :width=>480) %>"></a></center>
+
+  <p><a class="btn btn-primary btn-large" href="http://d.nowapp.cn/<%= params[:appnum]%>" target="_blank">下载APP申领优惠</a></p>
+  <h3>优惠信息</h3>
+  <pre><%= @item_info["Content"]%>
+
+开始时间：<%= @item_info["start_time"]%>
+结束时间：<%= @item_info["end_time"]%>
+  </pre>
+
+
+</div>

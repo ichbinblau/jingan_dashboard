@@ -1,0 +1,2 @@
+module KfzspageHelper
+end

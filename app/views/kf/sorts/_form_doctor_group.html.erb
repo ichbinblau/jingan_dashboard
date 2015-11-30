@@ -1,0 +1,37 @@
+<%= semantic_bootstrap_nested_form_for @kf_sort , :url => url_for( :page=>params[:page], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <% if @kf_sort.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kf_sort.errors.count, "error") %> prohibited this kf_sort from being saved:</h2>
+
+      <ul>
+      <% @kf_sort.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.inputs do %>
+    <!-- <%= f.input :type_id %> -->
+    <%= f.input :top_id , :as => :hidden , :input_html => {:value => params[:sort_top_id].blank? ? 0 : params[:sort_top_id] } %>
+    <%= f.input :deep , :as => :hidden , :input_html => {:value => params[:sort_deep].blank? ? 0 : params[:sort_deep] } %>
+    <%= f.input :father_id , :as => :hidden , :input_html => {:value => params[:sort_father_id].blank? ? 0 : params[:sort_father_id] } %>
+    <%= f.input :order_level %>
+    <%= f.input :name %>
+    <%= f.input :image_cover %>
+    <%= f.input :kf_course , :collection => [] %>
+    <%= f.input :kf_pipe_id ,:as =>:select, :collection => Kf::Pipe.select("id,title").all %>
+    <%= f.input :pipepoint_count %>
+    <script>
+      get_search_selector(
+        $("#kf_sort_kf_course_ids") 
+        ,"/kf/courses"
+        ,<%= raw f.object.kf_course.to_json %> 
+        ,true
+      );
+    </script>
+    <%= f.input :description %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit ,:label => params[:action]=="edit" ? "修改" : "添加" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,12 @@
+module ErrorDefine
+
+  # To change this template use File | Settings | File Templates.
+
+
+  ERROR_CODE_SERVER=3
+  ERROR_CODE_NOT_FIND=1103011
+  ERROR_CODE_FIELD_VALID=110001
+  ERROR_COD_FIELD_EMPTY_OR_NULL=110201
+  ERROR_COD_FIELD_TYPE=110202
+
+end

@@ -1,0 +1,331 @@
+<%= stylesheet_link_tag "eceditor/mobile_page" %>
+<script type="text/javascript" src="/js/page_config.js?<%= rand(999).to_s %>"></script>
+<%= javascript_include_tag "jquery-1.8.2.min", "eceditor/ext-core","eceditor/_km" %>
+<%= javascript_include_tag "bootstrap-tab" , "bootstrap-tooltip" ,"bootstrap-modal" ,"bootstrap-typeahead-modify"%>
+<%= javascript_include_tag "ace/ace" ,"ace/theme-twilight" ,"ace/mode-javascript" ,"ace/mode-json"%>
+
+<form class="form-horizontal">
+  <a href="#" style="right:10px;top:10px;position:absolute;" onclick="top.ec_editor.addTab('../../../public/js/page_config.js')">编辑配置文件</a>
+  <div id="page">
+    <div class="setting-page">
+        <div class="pagecmp"></div>
+    </div>
+    <div id="page-widgets"></div>
+    <br/>
+    <div id="page-top-bar"></div>
+    <div id="setting-panels"></div>
+  </div>
+  <div >
+    <input type="button" value="查看" id="btnShowValue" /><input type="button" value="设置" id="btnSet" /><br />
+    <textarea id="txtResult" style="width: 90%; height: 200px;"><%= @str %></textarea>
+  </div>
+</form>
+
+<!-- javascript编辑器 -->
+<div id="ace_js_editor" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>js编辑器</h3>
+  </div>
+  <div class="modal-body">
+    <div id="js_editor"></div>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:;" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
+    <a href="javascript:;" class="btn btn-primary" onclick="saveJs()">确定</a>
+  </div>
+</div>
+<!-- json编辑器 -->
+<div id="ace_json_editor" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>json编辑器</h3>
+  </div>
+  <div class="modal-body">
+    <div id="json_editor"></div>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:;" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
+    <a href="javascript:;" class="btn btn-primary" onclick="saveJson()">确定</a>
+  </div>
+</div>
+
+<script>
+$(function () {
+var pageCtl = $(".pagecmp"),
+  controlsCtl = $("#main"),
+  tablCtl = $(".tabs");
+
+  var pageCmp = new _KM.Android.Controls.FieldSetControl({ renderTo: pageCtl, configItem: _KM.Android.Configs.PageSetConfig });
+  pageCmp.render();
+
+  var context = this,
+  pageTopBar = $("#page-top-bar"),
+  tabOptEls = $(['<div class="tabs-opt">',
+    '<a href="javascript:;" class="btn button add btn-primary">添加</a>',
+    '<a href="javascript:;" class="btn button prev">←</a>',
+    '<a href="javascript:;" class="btn button next">→</a>',
+    '<a href="javascript:;" class="btn button delete btn-danger">移除</a>',
+    '</div>'].join('')).appendTo(pageTopBar);
+
+  context.notifyChange = false;
+  context.notifyJsonChange = false;
+  context.filename = '<%= @file %>';
+
+  var tabControl = new _KM.Android.Controls.TabControl();
+  tabControl.render("#setting-panels");
+
+  var pageFn = {
+      currentTab: null,
+      add: function (name , xtype) {
+        if (!name) name = "new"
+        if (!xtype) xtype = ""
+
+        var ctx = new _KM.Android.Controls.FieldSetControl({ renderTo: controlsCtl, configItem: _KM.Android.Configs.FieldSetConfig, cls: "fieldset" });
+        tabControl.add({ title: name, control: ctx });
+        obj_cid = $( '.tab-pane.active input[name="control_id"],.tab-pane.active textarea[name="control_id"]').val(name)
+        obj_cid = $( '.tab-pane.active input[name="xtype"],.tab-pane.active textarea[name="xtype"]').val(xtype)
+        ctx.on("inputValueChange", function (me, e) {
+            var el = $(e.el), sourceConfigName = e.configItem.name;
+            if (sourceConfigName == "name" || sourceConfigName == "control_id")
+                tabControl.setTabText(el.val(), me);
+        });
+        return ctx;
+      },
+      getValue: function () {
+          var o = pageCmp.getValue();
+          o.controls = [];
+          for (var i = 0; i < tabControl.items.length; i++) {
+              o.controls.push(tabControl.items[i].getValue());
+          }
+          return o;
+      },
+      setValue: function (value) {
+          var type = $.type(value);
+          var o = type == "string" ? Ext.decode(value) : value;
+          tabControl.clear();
+          pageCmp.setValue(o);
+          var controls = o.controls;
+          if (!controls) return;
+          for (var i = 0; i < o.controls.length; i++) {
+              var cmp = this.add();
+              cmp.setValue(o.controls[i]);
+          }
+
+      }
+  };
+
+  var linkes = tabOptEls.find("a");
+  linkes.filter('.add').click(function () {
+      pageFn.add();
+  });
+  linkes.filter('.delete').click(function () {
+      tabControl.remove();
+      context.controlCheck();
+  });
+  linkes.filter('.prev').click(function () {
+      tabControl.moveToPrev();
+  });
+  linkes.filter('.next').click(function () {
+      tabControl.moveToNext();
+  });
+
+  $("#btnShowValue").click(function () {
+      var value = pageFn.getValue();
+      $("#txtResult").val(Ext.encode(value));
+  });
+
+  $("#btnSet").click(function () {
+      var value = $("#txtResult").val();
+      var o = Ext.decode(value);
+      pageFn.setValue(o);
+  });
+  
+  var xtypeSelect = ".live-xtype", eventSelect = ".live-event" ,jsSelect =".ace_javascript",jsonSelect =".ace_json",controlIdSelect =".live-controlid",controlSelect = ".control_sel";
+
+
+  $(xtypeSelect).live('focus', function (e) {
+      var el = $(this);
+      
+      if (el.data(xtypeSelect)) return;
+      el.typeahead({
+          source: _KM.Android.Configs.XTypeConfig,
+          displayField: 'xtype',
+          valueField: 'xtype'
+      });
+      el.data(xtypeSelect, 1);
+
+  });
+
+  $(eventSelect).live('focus', function (e) {
+      var el = $(this);
+      var config = el.data("fieldSet-config-Item");
+      if (config) {
+          var els = config.control.parent.parent.parent.getTableEls().filter("[dataindex=xtype]"),
+              val = els.val(),
+              result= null;
+          
+          if (val) {
+              var ar = $.grep(_KM.Android.Configs.XTypeConfig, function (n, i) {
+                  return n["xtype"] == val;
+              });
+              result = ar.length ? ar[0]["setEvent"] : [];
+          }
+          el.typeahead({
+              source: result || [],
+              displayField: 'name',
+              valueField: 'name'
+          });
+      }
+  });
+  $(controlIdSelect).live('click', function (e) {
+      var el = $(this);
+      if (el.val()) return;
+      var els = pageCmp.getTableEls();
+      var inputValue = els.filter('[dataindex=page_id]').val();
+      el.val(inputValue+"_");                
+  });
+
+
+  context.initPage = function(){
+    html = '<div class="btn-group" data-toggle="buttons-checkbox">';
+    for (item in PageSetConfig.XTypeConfig)
+      if (PageSetConfig.XTypeConfig[item]["xtype"])
+        html += '<button type="button" class="btn btn-primary" onclick="addControl(this)" value="'+PageSetConfig.XTypeConfig[item]["xtype"]+'">'+PageSetConfig.XTypeConfig[item]["xtype"]+'</button>';
+    html += '</div>'
+    $('#page-widgets').html(html)
+  }
+  context.addControl = function(obj){
+    if ($(obj).hasClass('active'))
+      return;
+    page_id = $('input[name="page_id"],textarea[name="page_id"]').val()
+    xtype = $(obj).val()
+    pageFn.add(page_id+"_"+underscore(xtype) , xtype);
+    context.controlCheck()
+  }
+  function underscore(word) {
+    return word.replace(/::/g, '/')
+               .replace(/([A-Z]+)([A-Z][a-z])/g, '$1_$2')
+               .replace(/([a-z\d])([A-Z])/g, '$1_$2')
+               .replace(/-/g, '_')
+               .toLowerCase();
+  }
+  context.controlCheck = function(){
+    $('.btn-group button').removeClass('active');
+    $('.live-xtype').each(function(k , v){
+      for (item in PageSetConfig.XTypeConfig)
+        if (PageSetConfig.XTypeConfig[item]["xtype"] && $(v).val() == PageSetConfig.XTypeConfig[item]["xtype"]){
+          $('.btn-group button[value="'+$(v).val()+'"]').addClass('active');
+        }
+    })
+  }
+  context.fileChange = function(){
+    if (!context.notifyChange){
+        top.ec_editor.fileChange( context.filename )
+        context.notifyChange = true
+      }
+  }
+  context.saveJs = function( nohide ){
+    el = $('#js_editor').data('el')
+    el.val(context.jseditor.getValue())
+    if (!nohide)
+      $("#ace_js_editor").modal('hide');
+    context.fileChange()
+    console.log("save js")
+  }
+  context.saveJson = function( nohide ){
+    el = $('#json_editor').data('el')
+    el.val(context.jsoneditor.getValue())
+    if (!nohide)
+      $("#ace_json_editor").modal('hide');
+    context.fileChange()
+    if (el.attr('id') == "txtResult")
+      context.notifyJsonChange = true;
+    console.log("save json")
+  }
+  context.jsSelect_focus = function (e) {
+    var el = $(this);
+    if ( e.type == "focusin" )
+      return false;
+    $("#ace_js_editor").modal('show');
+    $('#js_editor').data('el' , el)
+    if (el.val()=="")
+      el.val() = " "
+    context.jseditor.setValue(el.val())
+    context.jseditor.clearSelection();
+    context.jseditor.focus()
+  }
+  context.jsonSelect_focus = function (e) {
+    var el = $(this);
+    $('#json_editor').data('el' , el)
+    if (  e.type == "focusin" )
+      return false;
+    $.post( "pretty_json" , {"json":el.val()} ,openeditor ,'text').fail(openeditor)
+    function openeditor(data){
+      $("#ace_json_editor").modal('show');
+      if (typeof data != "string")
+        data ="{\n}";
+      context.jsoneditor.setValue(data);
+      context.jsoneditor.clearSelection();
+      context.jsoneditor.focus()
+    }
+  }
+  // 设置当前文件为改动状态
+  $('input,textarea:not(#txtResult)').live('change',context.fileChange);
+  $('.btn.add,.btn.delete').live('click',context.fileChange);
+  $(jsSelect).live('focus', context.jsSelect_focus);
+  $(jsSelect).live('dblclick', context.jsSelect_focus);
+  $(jsonSelect+' ,#txtResult').live('focus', context.jsonSelect_focus);
+  $(jsonSelect+' ,#txtResult').live('dblclick', context.jsonSelect_focus);
+
+  $(controlSelect).live( 'focus', function (e) {
+      // debugger;
+      var el = $(this);
+      if (el.data(controlSelect)) return;
+      controls = []
+      $('input[name="control_id"],textarea[name="control_id"]').each(function(k ,v){
+        controls.push({"control_id" : $(v).val()})
+      });
+      el.typeahead({
+          source: controls,
+          displayField: 'control_id',
+          valueField: 'control_id'
+      });
+      el.data(controlSelect, 1);
+  });
+  windowKeyDown=function(event){
+    if((event.metaKey && event.keyCode == 83) || (event.ctrlKey && event.keyCode == 83)){
+      //下面几行是打开js编辑器的时候保存需要的代码
+      if ($("#ace_js_editor").is(':visible')){
+        context.saveJs(true)
+      }
+      if ($("#ace_json_editor").is(':visible')){
+        context.saveJson(true)
+      }
+
+      if( context.notifyJsonChange == false )
+        $("#btnShowValue").click();
+      top.ec_editor.fileSave(context.filename,$('#txtResult').val());
+      context.notifyChange = false
+      context.notifyJsonChange = false
+      return false
+    }
+  }
+  $(window).keydown(windowKeyDown)
+  context.initPage()
+  $("#btnSet").click();
+  context.controlCheck();
+  // 初始化编辑器
+  context.jseditor = ace.edit("js_editor");
+  context.jseditor.setTheme("ace/theme/twilight");
+  context.jseditor.getSession().setMode("ace/mode/javascript");
+
+  context.jsoneditor = ace.edit("json_editor");
+  context.jsoneditor.setTheme("ace/theme/twilight");
+  context.jsoneditor.getSession().setMode("ace/mode/json");
+  //设置界面布局，调整部分界面宽度
+  $("legend:contains('setEvent')").css('width',680)
+});
+
+</script>
+

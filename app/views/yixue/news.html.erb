@@ -1,0 +1,14 @@
+<header class="bar bar-nav">
+  <h1 class="title"><%= @project_cfg["news_sort"]["name"] %></h1>
+</header>
+<div class="content">
+<ul class="table-view">
+<% @sorts.each do |sort| %>
+  <li class="table-view-cell">
+    <a class="navigate-right" href="news?sort_id=<%= sort.id %>" data-ignore="push" data-transition="slide-in">
+      <%= sort.cnname %>
+    </a>
+  </li>
+<% end %>
+</ul>
+</div>

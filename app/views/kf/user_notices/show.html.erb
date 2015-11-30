@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Kf course:</b>
+  <%= @kf_user_notice.kf_course_id %>
+</p>
+
+<p>
+  <b>Kf course index:</b>
+  <%= @kf_user_notice.kf_course_index_id %>
+</p>
+
+<p>
+  <b>Day start type:</b>
+  <%= @kf_user_notice.day_start_type %>
+</p>
+
+<p>
+  <b>Day start:</b>
+  <%= @kf_user_notice.day_start %>
+</p>
+
+<p>
+  <b>Notice date:</b>
+  <%= @kf_user_notice.notice_date %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @kf_user_notice.title %>
+</p>
+
+<p>
+  <b>Action:</b>
+  <%= @kf_user_notice.action %>
+</p>
+
+
+<%= link_to 'Edit', edit_kf_user_notice_path(@kf_user_notice) %> |
+<%= link_to 'Back', kf_user_notices_path %>

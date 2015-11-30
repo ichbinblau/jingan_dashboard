@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User info:</b>
+  <%= @kf_doctor.user_info_id %>
+</p>
+
+<p>
+  <b>Hospital:</b>
+  <%= @kf_doctor.hospital_id %>
+</p>
+
+<p>
+  <b>Office:</b>
+  <%= @kf_doctor.office_id %>
+</p>
+
+<p>
+  <b>Doctor group:</b>
+  <%= @kf_doctor.doctor_group_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @kf_doctor.name %>
+</p>
+
+<p>
+  <b>Image cover:</b>
+  <%= @kf_doctor.image_cover %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @kf_doctor.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_kf_doctor_path(@kf_doctor) %> |
+<%= link_to 'Back', kf_doctors_path %>

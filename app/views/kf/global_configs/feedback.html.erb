@@ -1,0 +1,25 @@
+<h1>
+  意见反馈
+</h1>
+
+<%= will_paginate @feedbacks , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <th>内容</th>
+      <th>联系方式</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @feedbacks.each do |content_item| %>
+    <tr>
+      <td><%= content_item.id %></td>
+      <td><%= content_item.content %></td>
+      <td><%= content_item.contact_info %></td>
+  <% end %>
+  </tbody>
+</table>
+<%= will_paginate @feedbacks , renderer: BootstrapPagination::Rails %>
+<br />
+

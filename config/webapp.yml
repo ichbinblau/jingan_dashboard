@@ -1,0 +1,12 @@
+development:
+  appcfg_url: "/uploads/workspace/"
+  appcfg_path: "public/uploads/workspace/"
+  api_url: "openapi.nowapp.cn"
+  key:
+    ditu_baidu: "7a2c0cc16da969cb5cc4b2510ae4b221"
+production: 
+  appcfg_url: "/uploads/workspace/"
+  appcfg_path: "public/uploads/workspace/"
+  api_url: "openapi.nowapp.cn"
+  key:
+    ditu_baidu: "7a2c0cc16da969cb5cc4b2510ae4b221"

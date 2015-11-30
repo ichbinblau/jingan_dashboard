@@ -1,0 +1,23 @@
+<script>
+    var _nested_form = true;
+</script>
+<%= semantic_bootstrap_nested_form_for  @content_item , :url => url_for( :page=>params[:page],:sort_id=>params[:sort_id], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+    <%= f.semantic_errors %>
+
+    <%= f.inputs do %>
+        <%= f.input :id ,:as => :hidden %>
+
+        <%= f.input :user_info_id  %>
+        <%= f.input :consignee_name  %>
+        <%= f.input :consignee_address %>
+        <%= f.input :consignee_zip%>
+        <%= f.input :phone ,:as => :phone %>
+        <%= f.input :is_default  %>
+        <hr/>
+    <% end %>
+
+
+    <%= f.actions do %>
+        <%= f.action :submit %>
+    <% end %>
+<% end %>

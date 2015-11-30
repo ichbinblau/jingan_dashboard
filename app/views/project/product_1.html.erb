@@ -1,0 +1,96 @@
+
+   <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+
+    <style type="text/css">
+      .hero-unit{padding:0px;}
+    </style>
+    <style type="text/css">
+      .hero-unit{padding:0px;width:960px;}
+    .navbar-inner .container,.container  {width:960px;}
+    .title{font-size:14px; padding-right:10px ;font-weight:bold;color:#595757}
+    .content{font-size:14px; padding-right:10px;color:#595757}
+    </style>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+
+          <a class="brand" href="#" style="padding:5px; padding-left:25px"><img src="img/web-13.png"></a>
+          <div class="nav-collapse">
+            <ul class="nav" style="padding-left:20px">
+             <li class="navigation" ><a href="/project/index"><%= @cmsSortInfos[0][:cnname]%></a></li>
+              <li class="active navigation"><a href="/project/product"><%= @cmsSortInfos[1][:cnname]%></a></li>
+              <li class="navigation"><a href="/project/example"><%= @cmsSortInfos[2][:cnname]%></a></li>
+              <li class="navigation"><a href="#"><%= @cmsSortInfos[3][:cnname]%></a></li>
+              <li style="padding-left:20px">
+            
+                <form class="navbar-search pull-left">
+                  <input type="text" class="search-query" placeholder="您需要寻找什么">
+                </form>
+            
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit" style="background-color:#FFF">
+   			      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+             <% @sort1.each do |cmsSortInfo| %>
+                <li class="nav-header"><%= link_to(cmsSortInfo[:cnname],{:controller =>'project',:action => 'product_1',:id =>cmsSortInfo[:id]})%></li>
+                   <% @sort3.each do |cmsSort3Info| %>
+                       <% if cmsSortInfo[:id] == cmsSort3Info[:sort1Id]%>
+                          <li>
+                            <%= link_to(cmsSort3Info[:cnname],{:controller =>'project',:action => 'product',:id =>cmsSort3Info[:id]})%>  
+                          </li>
+                      <% end%>
+                   <% end%>
+                <% end%>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <% if !@sort2.blank?  %>
+        <div class="span9" style="border: 1px solid #eee; padding-right:60px">
+        <div class="row-fluid">
+				        <div class="span12">
+                  <!-- Example row of columns -->
+                  <div class="row-fluid" style="padding-left:60px; padding-top:20px">
+                          <% @sort2.each do |cmsSort2Info| %>
+                             <%= raw cmsSort2Info[:content]%>
+                           <% end%>
+                  </div>
+          </div>
+        </div>
+   		</div>
+         <% end%>
+      </div>
+</div>
+      <hr>
+
+      <footer>
+        <p>&copy; 上海宜云物联科技有限公司 2013</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+</html>

@@ -1,0 +1,63 @@
+<h1>
+  <%= Kf::Course.model_name.human %>管理 
+  <%= link_to "新建#{Kf::Course.model_name.human}",  { :action => "new", :page => params[:page]} ,:class =>"btn btn-primary"%>
+  <span><form action="<%= url_for%>">
+    <input name="search" id="search_list_input" value="<%= params[:search]%>" type="text" />
+    <input name="page"  type="hidden" value="<%= params[:page]%>"/>
+    <input name="per_page" type="hidden" value="<%= params[:per_page]%>"/>
+    <button href="javascript:;" onclick="search_list" class="btn" >搜索</button>
+  </form></span>
+</h1>
+
+<%= will_paginate @kf_courses , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td>排序：<br />大数靠前</td>
+      <td>二维码</td>
+      <!-- <th width="100"><%= Kf::Course.human_attribute_name("kf_doctor_id") %></th> -->
+      <!-- <th width="100"><%= Kf::Course.human_attribute_name("course_type_id") %></th> -->
+      <th width="100"><%= Kf::Course.human_attribute_name("image_cover") %></th>
+      <th><%= Kf::Course.human_attribute_name("title") %></th>
+      <th><%= Kf::Course.human_attribute_name("content") %></th>
+      <th width="60"><%= Kf::Course.human_attribute_name("fav_count") %></th>
+      <th width="90">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @kf_courses.each do |content_item| %>
+    <tr>
+      <td><%= content_item.id %></td>
+      <td><%= content_item.order_level %></td>
+      <td><img style="width:100px" src="http://cs.hudongka.com/?level=L&size=10&border=1&data=http%3A%2F%2Fkfzs.nowapp.cn%2Fcs%2F%3Fcrouse%3D<%= content_item.code%>"><br /><%= content_item.code%></td>
+      <!-- <td><%= content_item.kf_doctor_id %></td> -->
+      <!-- <td><%= content_item.course_type_id %></td> -->
+      <td><%= raw "<img style='height:80px;' src='#{get_ecimg_url( :imagename =>content_item[:image_cover], :height=>80)}'/>" if !content_item.image_cover.blank? %></td>
+      <td>
+        <%= content_item.title %>
+        <% content_item.kf_children.each do |item| %>
+          <br /><span style="color:green"><%= item.title %></span>
+        <% end %>
+      </td>
+      <td><%= content_item.content %></td>
+      <td><%= content_item.fav_count %></td>
+      <td>
+        <%= link_to '编辑课程内容',  :action => "show" , :id =>content_item.id , :page => params[:page] if content_item.kf_children.size == 0%>
+        <br />
+        <%= link_to '编辑',  :action => "edit" , :id =>content_item.id , :page => params[:page]%>
+        <br />
+        <%= link_to '查看',  {:action => "showtext" , :id =>content_item.id , :page => params[:page]} , target: "_blank"%>
+        <br />
+        <%= link_to '复制',  {:action => "dupe" , :id =>content_item.id , :page => params[:page] }  , data: { confirm: '确定复制？' }%>
+        <br />
+        <br />
+        <%= link_to '删除', { :action => "destroy", :id =>content_item.id , :page => params[:page]},  method: :delete, data: { confirm: '确定删除？' } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= will_paginate @kf_courses , renderer: BootstrapPagination::Rails %>
+<br />
+

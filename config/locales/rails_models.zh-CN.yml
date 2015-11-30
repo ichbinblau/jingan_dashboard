@@ -1,0 +1,1201 @@
+zh-CN:
+  activerecord:
+    models:
+      user:
+        one: 隐藏用户
+        other: 隐藏用户
+      admin_user:
+        one: 管理员
+        other: 管理员
+      admin_permission:
+        one: 权限
+        other: 权限管理
+      user_info:
+        one: 用户
+        other: 用户管理
+      cms_content_comment:
+        one: 评论
+        other: 查看评论
+      cms_content_feedback:
+        one: 意见反馈
+        other: 意见反馈管理
+      cms_info_shops_cms_info_coupon:
+        one: 店铺-优惠关联
+        other: 店铺-优惠关联管理
+      point_access_rule:
+        one: 积分访问规则
+        other: 积分访问规则管理
+      point_excute_rule:
+        one: 积分执行规则
+        other: 积分执行规则管理
+      point_action_type:
+        one: 积分-动作类型
+        other: 积分-动作类型管理
+      cms_content_img:
+        one: 内容图片
+        other: 图片管理
+      act_coupon_order:
+        one: 优惠
+        other: 优惠申领管理
+      act_buy_order:
+        one: 订单
+        other: 订单管理
+      act_limitcoupon_order:
+        one: 限时抢
+        other: 限时抢申领管理
+      sys_push_order:
+        one: 推送
+        other: 推送管理
+      cms_sort:
+        one: 分类
+        other: 分类管理
+      cms_sort_type:
+        one: 分类类型
+        other: 分类类型管理
+      project_app:
+        one: App
+        other: App管理
+      project_info:
+        one: 项目
+        other: 项目管理
+      project_companie:
+        one: 公司
+        other: 公司管理
+      news_content:
+        one: 内容
+        other: 内容管理
+      activity_content:
+        one: 活动
+        other: 活动管理
+      img_content:
+        one: 图集
+        other: 图集管理
+      shop_content:
+        one: 店铺
+        other: 店铺管理
+      customer_content:
+        one: 客户
+        other: 客户管理
+      plan_content:
+        one: 工作计划
+        other: 工作计划管理
+      task_content:
+        one: 任务
+        other: 任务管理
+      act_option_type:
+        one: 报名表项类型
+        other: 报名表项类型管理
+      act_option:
+        one: 报名表项
+        other: 报名表项管理
+      cms_info_apply:
+        one: 报名内容
+        other: 报名内容管理
+      act_apply:
+        one: 报名表
+        other: 报名表管理
+      act_statu:
+        one: 状态
+        other: 状态管理
+      product_content:
+        one: 产品
+        other: 产品管理
+      limitcoupon_content:
+        one: 限时抢
+        other: 限时抢管理
+      coupon_content:
+        one: 优惠
+        other: 优惠管理
+      course_content:
+        one: 课程
+        other: 课程管理
+      teacher_content:
+        one: 教练
+        other: 教练管理
+      schedule_content:
+        one: 课表
+        other: 课表管理
+      plugincfg_field:
+        one: 插件字段
+        other: 插件字段管理
+      plugincfg_field_info:
+        one: 插件字段内容
+        other: 插件字段内容管理
+      plugincfg_info:
+        one: 插件
+        other: 插件管理
+      plugincfg_sort:
+        one: 插件大类
+        other: 插件大类管理
+      plugincfg_type:
+        one: 插件种类
+        other: 插件种类管理
+      user_consignee:
+        one: 用户收货信息
+        other: 用户收货信息管理
+      act_buy_people_order:
+        one: 房间订单同住人信息
+        other: 房间订单同住人信息管理
+      kf/course:
+        one: 课程
+        other: 课程管理
+      kf/course_form:
+        one: 表单
+        other: 表单管理
+      kf/course_index:
+        one: 课程内容
+        other: 课程内容管理
+      kf/course_index_attachment:
+        one: 课程内容附件
+        other: 课程内容附件
+      kf/course_item_type:
+        one: 课程内容类型
+        other: 课程内容类型管理
+      kf/course_knowledge:
+        one: 文章
+        other: 文章管理
+      kf/course_knowledge_attachment:
+        one: 文章附件
+        other: 文章附件
+      kf/course_todo:
+        one: 待办
+        other: 待办管理
+      kf/course_user_fav:
+        one: 用户订阅课程
+        other: 用于订阅课程管理
+      kf/diary:
+        one: 日记
+        other: 日记管理
+      kf/diary_attachment:
+        one: 日记附件
+        other: 日记附件管理
+      kf/doctor:
+        one: 医生
+        other: 医生管理
+      kf/global_config:
+        one: 全局设置
+        other: 全局设置管理
+      kf/sickness:
+        one: 疾病
+        other: 疾病管理
+      kf/sort:
+        one: 分类
+        other: 分类管理
+      kf/user_notice:
+        one: 通知
+        other: 通知管理
+      kf/useraction_history:
+        one: 历史记录
+        other: 历史记录管理
+      kf/useraction_history_type:
+        one: 用户操作类型
+        other: 用户操作类型
+      kf/sort_type:
+        one: 分类类型
+        other: 分类类型
+      kf/status:
+        one: 数据汇总
+        other: 数据汇总
+      kf/pipe:
+        one: 管道汇总
+        other: 管道汇总
+
+    attributes:
+      user:
+        email: 邮件
+        password: 密码
+      act_buy_people_order:
+        created_at: 创建时间
+        updated_at: 更新时间
+        project_info_id: 项目
+        act_buy_order_id: 订单
+        username: 姓名
+        phone: 电话
+        card_id: 身份证
+        sex: 性别
+        age: 年龄
+        address: 地址
+      admin_user:
+        email: 邮件
+        password: 密码
+        project_info: 项目
+        reset_password_sent_at: 密码重置时间
+        remember_created_at: 首次创建时间
+        sign_in_count: 登陆次数
+        current_sign_in_at: 当前登陆时间
+        last_sign_in_at: 最后一次登陆时间
+        current_sign_in_ip: 当前登陆IP
+        last_sign_in_ip: 最后一次登陆IP
+        admin_permissions: 权限管理
+        password_confirmation: 密码确定
+        created_at: 创建时间
+        updated_at: 修改时间
+      product_content:
+        cms_sort_type: 内容分类
+        cms_sorts: 分类
+        shop_contents: 适用地点
+        relproduct_contents: 相关产品
+        type: 类别 
+        project_info: 项目
+        user_info_id: 用户
+        cms_sort_type_id: 内容类型
+        cms_content_info_id: 关联表内容id       
+        order_level: 置顶等级
+        title: 标题
+        abstract: 摘要
+        content: 内容
+        image_cover: 封面图片<2M
+        video_url: 视频
+        is_push: 是否推送
+        is_pushed: 是否已经推送
+        is_show: 是否显示
+        is_bigimage: 列表中显示是否大图
+        vote_all: 评分总数
+        vote_count: 评分次数
+        comment_count: 评论次数
+        images_count: 图片数量
+        up_count: 顶
+        down_count: 踩
+        view_count: 阅读次数
+        cms_content_img: 内容图片
+        cms_info_product: 内容产品
+        cms_content_comment: 内容回复
+      cms_info_product:
+        cms_content_id: 编号
+        is_effective: 当前是否有效
+        is_buy: 是否在线购买
+        is_order: 可预定
+        is_pay: 可在线支付
+        cms_info_shop_id: 商户id
+        price: 现价
+        price_old: 原价
+        discount: 折扣
+        apply_type: 是否积分申请
+        apply_point: 所需积分
+        apply_money: 活动费用
+        apply_start_time: 报名开始时间
+        apply_end_time: 报名结束时间
+        start_time: 活动开始时间
+        end_time: 活动结束时间
+        member_limit: 限制数量
+        personal_limit: 个人次数限制
+        current_count: 当前数量
+        address: 兑换地址
+        longitude: 经度
+        latitude: 纬度
+        created_at: 创建时间
+        updated_at: 修改时间
+      customer_content:
+        cms_sort_type: 内容分类
+        cms_sorts: 分类
+        type: 类别 
+        project_info: 项目
+        user_info_id: 用户
+        cms_sort_type_id: 内容类型
+        cms_content_info_id: 关联表内容id       
+        order_level: 置顶等级
+        title: 标题
+        abstract: 摘要
+        content: 内容
+        image_cover: 封面图片<2M
+        video_url: 视频
+        is_push: 是否推送
+        is_pushed: 是否已经推送
+        is_show: 是否显示
+        is_bigimage: 列表中显示是否大图
+        vote_all: 评分总数
+        vote_count: 评分次数
+        comment_count: 评论次数
+        images_count: 图片数量
+        up_count: 顶
+        down_count: 踩
+        view_count: 阅读次数
+        cms_content_img: 内容图片
+        cms_info_product: 内容产品
+        cms_content_comment: 内容回复
+        cms_info_customer: 客户内容
+      cms_info_customer:
+        user_info: 所属用户
+        user_info_id: 用户id
+        cms_content_id: 关联表内容id
+        name: 姓名
+        nickname: 昵称
+        cardnum: 卡号
+        birthday: 生日
+        sex: 性别
+        picture: 头像
+        phonenumber: 电话
+        email: 邮箱
+        qq: qq
+        detail: 详细
+        product_num: 总课时
+        product_use: 已完成课时
+        cms_info_plans: 所属工作计划
+        created_at: 创建时间
+        updated_at: 修改时间
+      plan_content:
+        cms_sort_type: 内容分类
+        cms_sorts: 分类
+        type: 类别 
+        project_info: 项目
+        user_info_id: 用户
+        cms_sort_type_id: 内容类型
+        cms_content_info_id: 关联表内容id       
+        order_level: 置顶等级
+        title: 标题
+        abstract: 摘要
+        content: 内容
+        image_cover: 封面图片<2M
+        video_url: 视频
+        is_push: 是否推送
+        is_show: 是否显示
+        is_bigimage: 列表中显示是否大图
+        vote_all: 评分总数
+        vote_count: 评分次数
+        comment_count: 评论次数
+        images_count: 图片数量
+        up_count: 顶
+        down_count: 踩
+        view_count: 阅读次数
+        cms_content_img: 内容图片
+        cms_info_product: 内容产品
+        cms_content_comment: 内容回复
+        cms_info_plan: 工作计划内容
+      cms_info_plan:
+        start_time: 开始时间
+        end_time: 结束时间
+        date_ymd: 日期（年月日）
+        summary: 课程小结
+        cms_content_id: 关联表内容id
+        cms_info_customer: 客户
+        act_task: 工作计划任务
+        act_statu: 状态
+        created_at: 创建时间
+        updated_at: 修改时间
+      task_content:
+        cms_sort_type: 内容分类
+        cms_sorts: 分类
+        type: 类别 
+        project_info: 项目
+        user_info_id: 用户
+        cms_sort_type_id: 内容类型
+        cms_content_info_id: 关联表内容id
+        order_level: 置顶等级
+        title: 标题
+        abstract: 摘要
+        content: 内容
+        image_cover: 封面图片<2M
+        video_url: 视频
+        is_push: 是否推送
+        is_pushed: 是否已经推送
+        is_show: 是否显示
+        is_bigimage: 列表中显示是否大图
+        vote_all: 评分总数
+        vote_count: 评分次数
+        comment_count: 评论次数
+        images_count: 图片数量
+        up_count: 顶
+        down_count: 踩
+        view_count: 阅读次数
+        cms_content_img: 内容图片
+        cms_info_product: 内容产品
+        cms_content_comment: 内容回复
+        act_task: 任务内容
+      act_task:
+        cms_content: 内容id
+        user_info: 所属用户
+        name: 任务名
+        cms_info_plans: 所属工作计划
+      act_statu:
+        user_info: 所属用户
+        name: 状态
+        descption: 描述
+        cms_info_plans: 所属工作计划
+      cms_info_apply:
+        int1: 数字字段1
+        int2: 数字字段2
+        int3: 数字字段3
+        int4: 数字字段4
+        int5: 数字字段5
+        text1: 文本字段1
+        text2: 文本字段2
+        text3: 文本字段3
+        text4: 文本字段4
+        text5: 文本字段5
+        text6: 文本字段6
+        text7: 文本字段7
+        text8: 文本字段8
+        text9: 文本字段9
+        text10: 文本字段10
+        act_apply: 所属报名表
+        act_apply_id: 所属报名表
+        user_info: 用户
+        user_info_id: 用户
+      act_apply:
+        project_info: 项目
+        project_info_id: 项目
+        name: 报名表名称
+        int1_des: 数字字段1描述
+        int2_des: 数字字段2描述
+        int3_des: 数字字段3描述
+        int4_des: 数字字段4描述
+        int5_des: 数字字段5描述
+        text1_des: 文本字段1描述
+        text2_des: 文本字段2描述
+        text3_des: 文本字段3描述
+        text4_des: 文本字段4描述
+        text5_des: 文本字段5描述
+        text6_des: 文本字段6描述
+        text7_des: 文本字段7描述
+        text8_des: 文本字段8描述
+        text9_des: 文本字段9描述
+        text10_des: 文本字段10描述
+        cms_info_applies: 该报名表下所有内容
+      act_option_type:
+        name: 类型英文名
+        cnname: 类型中文名
+        description: 类型描述
+      act_option:
+        cms_sort_type: 类型
+        cms_sort_type_id: 类型
+        text1: 内容1
+        description: 内容1属性描述
+        act_apply: 所属报名表
+        act_apply_id: 报名表id
+        act_option_type: 所属项类型
+        order_level: 置顶等级
+        type_name: 对应报名表字段名
+      coupon_content:
+        type: 类别 
+        cms_sorts: 分类
+        shop_contents: 适用地点
+        project_info: 项目
+        user_info_id: 用户
+        cms_sort_type_id: 内容类型
+        cms_content_info_id: 关联表内容id       
+        order_level: 置顶等级
+        title: 标题
+        abstract: 摘要
+        content: 内容
+        image_cover: 封面图片<2M
+        video_url: 视频
+        is_push: 是否推送
+        is_pushed: 是否已经推送
+        is_show: 是否显示
+        is_bigimage: 列表中显示是否大图
+        vote_all: 评分总数
+        vote_count: 评分次数
+        comment_count: 评论次数
+        images_count: 图片数量
+        up_count: 顶
+        down_count: 踩
+        view_count: 阅读次数
+        cms_content_img: 内容图片
+        cms_info_product: 内容产品
+        cms_content_comment: 内容回复
+        cms_info_coupon: 内容产品
+      news_content:
+        type: 类别 
+        cms_sorts: 分类
+        shop_contents: 适用地点
+        product_contents: 内容类型
+        project_info: 项目
+        user_info_id: 用户
+        cms_sort_type_id: 内容类型
+        cms_content_info_id: 关联表内容id       
+        order_level: 置顶等级
+        title: 标题
+        abstract: 摘要
+        content: 内容
+        image_cover: 封面图片<2M
+        video_url: 视频
+        is_push: 是否推送
+        is_pushed: 是否已经推送
+        is_show: 是否显示
+        is_bigimage: 列表中显示是否大图
+        vote_all: 评分总数
+        vote_count: 评分次数
+        comment_count: 评论次数
+        images_count: 图片数量
+        up_count: 顶
+        down_count: 踩
+        view_count: 阅读次数
+        cms_content_img: 内容图片
+        cms_info_product: 内容产品
+        cms_content_comment: 内容回复
+      course_content:
+        type: 类别 
+        cms_sorts: 分类
+        shop_contents: 适用地点
+        project_info: 项目
+        user_info_id: 用户
+        cms_sort_type_id: 内容类型
+        cms_content_info_id: 关联表内容id       
+        order_level: 置顶等级
+        title: 标题
+        abstract: 摘要
+        content: 内容
+        image_cover: 封面图片<2M
+        video_url: 视频
+        is_push: 是否推送
+        is_pushed: 是否已经推送
+        is_show: 是否显示
+        is_bigimage: 列表中显示是否大图
+        vote_all: 评分总数
+        vote_count: 评分次数
+        comment_count: 评论次数
+        images_count: 图片数量
+        up_count: 顶
+        down_count: 踩
+        view_count: 阅读次数
+        cms_content_img: 内容图片
+        cms_info_product: 内容产品
+        cms_content_comment: 内容回复
+        cms_info_schedules: 课表
+      activity_content:
+        type: 类别 
+        cms_sorts: 分类
+        shop_contents: 适用地点
+        project_info: 项目
+        user_info_id: 用户
+        cms_sort_type_id: 内容类型
+        cms_content_info_id: 关联表内容id       
+        order_level: 置顶等级
+        title: 标题
+        abstract: 摘要
+        content: 内容
+        image_cover: 封面图片<2M
+        video_url: 视频
+        is_push: 是否推送
+        is_show: 是否显示
+        is_bigimage: 列表中显示是否大图
+        vote_all: 评分总数
+        vote_count: 评分次数
+        comment_count: 评论次数
+        images_count: 图片数量
+        up_count: 顶
+        down_count: 踩
+        view_count: 阅读次数
+        cms_info_activity: 内容活动
+        cms_content_img: 内容图片
+        cms_content_comment: 内容回复
+      cms_info_activity:
+        cms_content_id: 内容id
+        is_effective: 当前是否有效
+        cms_info_shop_id: 商户id
+        price: 现价
+        price_old: 原价
+        discount: 折扣
+        apply_type: 在线申请
+        apply_point: 活动所需积分
+        apply_money: 活动费用
+        apply_start_time: 报名开始时间
+        apply_end_time: 报名结束时间
+        start_time: 活动开始时间
+        end_time: 活动结束时间
+        member_limit: 数量限制
+        personal_limit: 个人次数限制
+        current_count: 当前数量
+        address: 兑换地址
+        longitude: 经度
+        latitude: 纬度
+        created_at: 创建时间
+        updated_at: 修改时间
+      limitcoupon_content:
+        type: 类别 
+        cms_sorts: 分类
+        project_info: 项目
+        user_info_id: 用户
+        cms_sort_type_id: 内容类型
+        cms_content_info_id: 关联表内容id       
+        order_level: 置顶等级
+        title: 标题
+        abstract: 摘要
+        content: 内容
+        image_cover: 封面图片<2M
+        video_url: 视频
+        is_push: 是否推送
+        is_pushed: 是否已经推送
+        is_show: 是否显示
+        is_bigimage: 列表中显示是否大图
+        vote_all: 评分总数
+        vote_count: 评分次数
+        comment_count: 评论次数
+        images_count: 图片数量
+        up_count: 顶
+        down_count: 踩
+        view_count: 阅读次数
+        is_effective: 当前是否有效
+        cms_info_shop_id: 商户id
+        price: 现价
+        cms_info_limitcoupon: 内容优惠券限制
+        cms_content_img: 内容图片
+        cms_content_comment: 内容回复
+      cms_info_limitcoupon:
+        cms_content_id: 内容id
+        is_effective: 当前是否有效
+        cms_info_shop_id: 商户id
+        price: 现价
+        price_old: 原价
+        discount: 折扣
+        apply_type: 申请方式
+        apply_point: 活动所需积分
+        apply_money: 活动费用
+        apply_start_time: 报名开始时间
+        apply_end_time: 报名结束时间
+        start_time: 活动开始时间
+        end_time: 活动结束时间
+        member_limit: 数量限制
+        personal_limit: 个人次数限制
+        current_count: 当前数量
+        my_all_apply_code: 自有优惠码
+        address: 兑换地址
+        longitude: 经度
+        latitude: 纬度
+        created_at: 创建时间
+        updated_at: 修改时间
+      cms_info_coupon:
+        cms_content_id: 内容id
+        is_effective: 当前是否有效
+        cms_info_shop_id: 商户id
+        price: 现价
+        price_old: 原价
+        discount: 折扣
+        apply_type: 申请方式
+        apply_point: 活动所需积分
+        apply_money: 活动费用
+        apply_start_time: 报名开始时间
+        apply_end_time: 报名结束时间
+        start_time: 活动开始时间
+        end_time: 活动结束时间
+        member_limit: 数量限制
+        personal_limit: 个人次数限制
+        current_count: 当前数量
+        address: 兑换地址
+        longitude: 经度
+        latitude: 纬度
+        created_at: 创建时间
+        updated_at: 修改时间
+        my_all_apply_code: 自有优惠码
+      cms_content_img:
+        project_info_id: 项目
+        cms_content_id: 内容
+        image: 图片<2M
+        description: 图片说明
+        created_at: 创建时间
+        updated_at: 修改时间
+        cms_content: 内容
+      cms_content_comment:
+        project_info_id: 项目
+        user_info_id: 用户
+        cms_sort_type_id: 内容类型
+        cms_content_id: 内容
+        typenum: 类型
+        title: 标题
+        content: 内容
+        cms_content: 内容
+        image_cover: 封面图片<2M
+        video_url: 视频
+        vote_star: 评分
+        nick_name: 昵称
+        longitude: 经度
+        latitude: 纬度
+        created_at: 创建时间
+        updated_at: 修改时间
+      cms_content_feedback:
+        project_info_id: 项目
+        user_info_id: 用户
+        content: 意见
+        contact_info: 联系方式
+        is_comment: 是否回复
+        comment_info: 回复内容
+        created_at: 创建时间
+        updated_at: 修改时间
+      cms_info_shops_cms_info_coupon:
+        cms_info_shop: 店铺id
+        cms_info_coupon: 优惠id
+      point_access_rule:
+        project_info: 项目
+        point_action_type: 动作
+        is_add: 积分
+        point_excute_rule: 执行积分规则id
+      point_excute_rule:
+        cycle: 周期范围
+        point_count: 周期内最多奖励次数
+        condition: 条件
+      point_action_type:
+        name: 操作名
+        cnname: 操作中文名
+        description: 描述
+        created_at: 创建时间
+        updated_at: 修改时间
+      act_coupon_order:
+        project_info: 项目
+        project_info_id: 项目
+        user_info_id: 用户
+        act_status_type_id: 订单状态
+        cms_content_coupon: 内容优惠
+        cms_content_coupon_id: 优惠id
+        nick_name: 昵称
+        apply_code: 申请码
+        created_at: 创建时间
+        updated_at: 修改时间
+      act_buy_order:
+        project_info_id: 项目
+        user_info_id: 用户(买家)
+        project_companie_id: 卖家
+        act_status_type_id: 订单状态
+        order_number: 订单号
+        payment_type: 支付方式
+        send_type: 配送方式
+        user_consignee_id: 收货人信息id
+        product_price: 商品金额
+        fare_price: 运费金额
+        must_price: 应付金额
+        remarks: 备注
+        created_at: 创建时间
+        updated_at: 修改时间
+        username: 姓名
+        phone: 电话
+        home_num: 房间号
+        card_id: 身份证
+        people_num: 入住人数
+        check_time: 入住时间
+        departure_time: 离店时间
+        about_time: 估计到店时间
+        sex: 性别
+        come_from: 籍贯
+        age: 年龄
+        address: 地址
+        source: 来源
+        cms_content_id: 产品内容
+        product_num: 购买数量
+      act_limitcoupon_order:
+        project_info: 项目
+        project_info_id: 项目
+        user_info_id: 用户
+        act_status_type_id: 订单状态
+        cms_content_limitcoupon_id: 优惠id
+        nick_name: 昵称
+        apply_code: 申请码
+        created_at: 创建时间
+        updated_at: 修改时间
+      sys_push_order:
+        cms_content_id: 内容
+        project_info_id: 项目
+        cms_sort_id: 分类
+        cms_content_title: 内容标题
+        updatetime: 更新时间
+        pushtype: 推送类型
+      user_info:
+        project_info: 项目
+        user_group_id: 用户组
+        user_role_id: 用户角色
+        email: 邮件地址
+        phone_number: 手机号码
+        password: 密码
+        name: 姓名
+        nickname: 昵称
+        description: 自我描述
+        birthday: 生日
+        height: 身高
+        weight: 体重
+        cnname: 姓名
+        sex: 性别
+        admingroup: 管理组
+        integral: 用户积分
+      user_consignee:
+        user_info_id: 买家ID
+        consignee_name: 收货人姓名
+        consignee_address: 收货地址
+        consignee_zip: 邮编
+        phone: 电话
+        is_default: 是否为默认地址
+      shop_content:
+        type: 类别
+        cms_sorts: 分类
+        sys_location_infos: 地域信息
+        project_info: 项目
+        user_info_id: 添加人
+        cms_sort_type_id: 分类类型
+        type: 类别 
+        project_info: 项目
+        user_info_id: 用户
+        cms_sort_type_id: 内容类型
+        cms_content_info_id: 关联表内容id       
+        order_level: 置顶等级
+        title: 标题
+        abstract: 摘要
+        content: 内容
+        image_cover: 封面图片<2M
+        video_url: 视频
+        is_push: 是否推送
+        is_pushed: 是否已经推送
+        is_show: 是否显示
+        is_bigimage: 列表中显示是否大图
+        vote_all: 评分总数
+        vote_count: 评分次数
+        comment_count: 评论次数
+        images_count: 图片数量
+        up_count: 顶
+        down_count: 踩
+        view_count: 阅读次数
+        cms_info_shop: 内容店铺
+        cms_content_img: 内容图片
+        cms_content_comment: 内容回复
+      cms_info_shop:
+        cms_content_id: 编号
+        shop_num: 店铺号
+        phone_num: 电话
+        address: 地址
+        gps_longitude: gps经度
+        gps_latitude: gps纬度
+        longitude: 谷歌经度
+        latitude: 谷歌纬度
+        baidu_longitude: 百度经度
+        baidu_latitude: 百度纬度
+      project_companie:
+        name: 名称
+        address: 地址
+        phone: 电话
+        description: 说明
+        created_at: 创建时间
+        updated_at: 修改时间
+        project_info: 项目信息
+      project_app:
+        project_info: 项目
+        project_info_id: 项目名称
+        api_key: apiKey
+        api_secret: apiSecret
+        app_state: APP状态
+        phonetype: 客户端种类
+        type: 客户端种类
+        name: app名称
+        cnname: app中文名称
+        version_num: 版本号
+        slogan: 口号
+        description: 客户端摘要
+        newupdate_description: 最新更新介绍
+        content: 客户端介绍
+        image_i1: 客户端封面图片<2M
+        image_i2: 客户端封面图片<2M
+        image_i3: 客户端封面图片<2M
+        image_i4: 客户端封面图片<2M
+        image_i5: 客户端封面图片<2M
+        image_icon: 客户端图标<2M
+        download_count: 下载数
+        download_url: 下载地址
+        active_count: 激活数
+        push_count: 推送总数
+        last_push_time: 最后推送时间
+        mounth_push_count: 当月推送总数
+        project_app_upload: APP上传
+        project_app_state_log: APP状态日志
+        created_at: 创建时间 
+        updated_at: 修改时间
+        # file: 文件
+        # version: 版本
+        # des: 描述
+        # app_state: APP状态
+        # attachment: 附件
+        # log_time: 记录时间
+      admin_permission:
+        action: 操作
+        description: 描述
+        subject: 内容
+        admin_users: 管理组
+        created_at: 创建时间
+        updated_at: 更新时间
+      project_info:
+        project_companie: 公司
+        project_num: 项目编号
+        project_logo: 项目Logo
+        project_guide: 项目引导图<2M
+        project_app: 项目APP
+        admin_user: 管理员
+        cms_sort: 分类
+        act_coupon_order: 活动优惠订单
+        act_limitcoupon_order: 活动优惠订单
+        name: 名称
+        cnname: 中文名称
+        description: 说明
+        created_at: 创建时间 
+        updated_at: 修改时间
+      cms_sort:
+        cnname: 分类中文名称 
+        project_info: 项目
+        father: 父级分类
+        type: 类别
+        is_property: 是否是属性
+        sort_order: 显示排序
+        cms_sort_type: 内容类型
+        cms_sort_type_id: 内容类型
+        top_sort_id: 顶层分类
+        level: 层级
+        sort_img: 分类图片<2M
+        content_count: 内容条数
+        name: 分类名称
+        description: 分类说明
+        cms_content: 内容
+        created_at: 创建时间 
+        updated_at: 修改时间
+      teacher_content:
+        cms_sort_type: 内容分类
+        cms_sorts: 分类
+        type: 类别 
+        project_info: 项目
+        user_info_id: 用户
+        cms_sort_type_id: 内容类型
+        cms_content_info_id: 教练id(关联表内容id）       
+        order_level: 置顶等级
+        title: 标题
+        abstract: 摘要
+        content: 内容
+        image_cover: 封面图片<2M
+        video_url: 视频
+        is_push: 是否推送
+        is_pushed: 是否已经推送
+        is_show: 是否显示
+        is_bigimage: 列表中显示是否大图
+        vote_all: 评分总数
+        vote_count: 评分次数
+        comment_count: 评论次数
+        images_count: 图片数量
+        up_count: 顶
+        down_count: 踩
+        view_count: 阅读次数
+        cms_content_img: 内容图片
+        cms_content_comment: 内容回复
+        cms_info_teacher: 教练
+        created_at: 创建时间 
+        updated_at: 修改时间
+      schedule_content:
+        cms_sort_type: 内容分类
+        cms_sorts: 分类
+        type: 类别 
+        project_info: 项目
+        user_info_id: 用户
+        cms_sort_type_id: 内容类型
+        cms_content_info_id: 关联表内容id       
+        order_level: 置顶等级
+        title: 标题
+        abstract: 摘要
+        content: 内容
+        image_cover: 封面图片<2M
+        video_url: 视频
+        is_push: 是否推送
+        is_pushed: 是否已经推送
+        is_show: 是否显示
+        is_bigimage: 列表中显示是否大图
+        vote_all: 评分总数
+        vote_count: 评分次数
+        comment_count: 评论次数
+        images_count: 图片数量
+        up_count: 顶
+        down_count: 踩
+        view_count: 阅读次数
+        cms_content_img: 内容图片
+        cms_content_comment: 内容回复
+        cms_info_schedule: 课表
+        created_at: 创建时间 
+        updated_at: 修改时间
+      cms_info_schedule:
+        teacher_content: 教练
+        shop_content: 场地
+        course_content: 课程
+        cms_content_id: 内容id
+        week_day: 星期
+        date_ym: 日期(年月)
+        start_time: 开始时间
+        title: 标题
+        picture: 图片<2M
+        duration: 时长
+      cms_info_teacher:
+        cms_content_id: 编号
+        name: 教练名
+        picture: 图片<2M
+        sex: 性别
+        nickname: 昵称
+        birthday: 生日
+        detail: 详细
+      cms_sort_type:
+        name: 类型名称
+        cnname: 类型中文名称
+      kf/course: 
+        content: 课程说明
+        day_1_name: 标志日期类型1
+        day_1_offset: 日期1推荐时间偏移
+        day_2_name: 标志日期类型2
+        day_2_offset: 日期2推荐时间偏移
+        day_3_name: 标志日期类型3
+        day_3_offset: 日期3推荐时间偏移
+        day_4_name: 标志日期类型4
+        day_4_offset: 日期4推荐时间偏移
+        day_5_name: 标志日期类型5
+        day_5_offset: 日期5推荐时间偏移
+        image_cover: 课程封面
+        kf_doctor_id: 医生
+        order_level: 排序等级
+        title: 课程名称
+        fav_count: 订阅数量
+        kf_sickness_id: 疾病
+        course_type_id: 课程类型
+        kf_children: 课程单元
+      kf/course_form: 
+        answer: 答案
+        content: 表单格式
+        description: 说明
+        form_type: 表单类型
+        kf_course_id: 课程
+        kf_course_index_id: 课程item
+        order_level: 排序等级
+        title: 表单title
+      kf/course_index: 
+        content: 说明
+        day_duration: 持续时间
+        day_start: 日期偏移量
+        day_start_type: 标志日类型
+        image_cover: 封面图片
+        kf_course_id: 课程
+        kf_course_item_type_id: 内容类型
+        kf_doctor_id: 医生
+        order_level: 排序等级
+        title: 标题
+        item_count: 内容数量
+        item_lists: 子内容列表
+        dc_day_type: 标志日类型
+        dc_day_offset: 日期偏移量
+        valid_start: 时效开始时间
+        valid_end: 时效结束时间
+        parent_id: 父内容
+      kf/course_index_attachment: 
+         attachment: 附件
+         attachment_type: 附件类型
+         kf_course_index_id: 属于内容
+         order_level: 排序等级
+         title: 名称
+      kf/course_item_type: 
+        description: 说明
+        image_cover: 封面图片
+        order_level: 排序等级
+        title: 类型名称
+      kf/course_knowledge_attachment: 
+         attachment: 附件
+         attachment_type: 附件类型
+         kf_course_knowledge_id: 属于文章
+         order_level: 排序等级
+         title: 名称
+      kf/course_knowledge: 
+        content: 内容
+        order_level: 排序等级
+        description: 简介
+        image_cover: 封面图片
+        kf_course_id: 课程
+        kf_course_index_id: 课程item
+        title: 标题
+      kf/course_todo: 
+        content: 说明
+        image_cover: 封面图片
+        kf_course_id: 课程
+        kf_course_index_id: 课程item
+        order_level: 排序等级
+        title: 标题
+      kf/course_user_fav: 
+        day_1_time: 标志日期1
+        day_2_time: 标志日期2
+        day_3_time: 标志日期3
+        day_4_time: 标志日期4
+        day_5_time: 标志日期5
+        end_time: 结束时间
+        kf_course_id: 课程
+        start_time: 开始时间
+        state: 课程状态
+        user_info_id: 用户
+      kf/diary_attachment: 
+         attachment: 附件
+         attachment_type: 附件类型
+         kf_diary_id: 属于日记
+         order_level: 排序等级
+         title: 名称
+      kf/diary: 
+        content: 内容
+        image_cover: 封面图片
+        order_level: 排序等级
+        title: 日记标题
+        user_info_id: 用户
+      kf/doctor: 
+        description: 医生说明
+        doctor_group_id: 医生组
+        hospital_id: 医院
+        image_cover: 图片封面
+        name: 医生姓名
+        office_id: 科室
+        city_id: 城市
+        user_info_id: 用户
+      kf/global_config: 
+        config_type: 配置类型
+        key: key
+        value: value
+      kf/sickness: 
+        description: 疾病说明
+        kf_sort_id: 疾病分类
+        name: 疾病名称
+      kf/sort: 
+        deep: 深度
+        description: 说明
+        father_id: 父分类
+        image_cover: 封面图片
+        name: 分类名称
+        order_level: 排序等级
+        top_id: top分类
+        kf_course: 课程
+        type_id: 类型
+        kf_pipe_id: 隶属
+        pipepoint_count: 床位数
+      kf/user_notice: 
+        action: 通知操作
+        day_start: 时间偏移量
+        day_start_type: 标志日期类型
+        kf_course_id: 课程
+        kf_course_index_id: 课程item
+        notice_date: 通知日期
+        title: 通知内容
+      kf/useraction_history: 
+        action: 操作
+        action_type: 操作类型
+        kf_course_id: 课程
+        kf_course_index_id: 课程item
+        kf_course_item_type_id: 课程类型
+      kf/useraction_history_type:
+        description: 说明
+        image_cover: 封面图片
+        order_level: 排序等级
+        title: 类型名称
+      kf/sort_type:
+        description: 说明
+        image_cover: 封面图片
+        order_level: 排序等级
+        title: 类型名称
+      kf/status:
+        date: 日期
+        count_type: 统计方式
+        activeuser_count: 活跃用户
+        course_fav_count: 新加课程的用户
+        indexdone_count: 人均完成事件
+        newmobileaccount_count: 手机注册
+        newuser_count: 新激活设备
+      kf/pipe:
+        deep: 深度
+        title: 名称
+        code: 编码
+        description: 说明
+        father_id: 父分类
+        image_cover: 封面图片
+        order_level: 排序等级
+        top_id: top分类
+        kf_sorts: 护士台
+        pipepoint_count: 床位数
+        count_string1: 当月计数
+        count_string2: 当周计数
+
+

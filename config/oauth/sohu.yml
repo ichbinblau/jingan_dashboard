@@ -1,0 +1,10 @@
+development:
+  key:    "FowhPqBXDQvEJsYzHgBX"
+  secret: "Z75D0f%51d6Oig2h1P5rmF!VqI$lw=UgVV*-jqGe"
+  url:    "http://ruby_general_admin.dev/"
+  callback: "http://ruby_general_admin.dev/syncs/sohu/callback"
+production:
+  key:    "FowhPqBXDQvEJsYzHgBX"
+  secret: "Z75D0f%51d6Oig2h1P5rmF!VqI$lw=UgVV*-jqGe"
+  url:    "http://admin.nowapp.cn/"
+  callback: "http://admin.nowapp.cn/syncs/sohu/callback"

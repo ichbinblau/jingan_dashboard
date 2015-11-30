@@ -1,0 +1,64 @@
+<script>
+    var _nested_form = true;
+</script>
+<%= semantic_bootstrap_nested_form_for  @content_item , :url => url_for( :page=>params[:page],:sort_id=>params[:sort_id], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <%= f.semantic_errors %>
+
+      <%= f.inputs do %>
+        <%= f.input :id ,:as => :hidden %>
+        <% if !@title_item[0].int1_des.blank?  %>
+            <%= f.input :int1  ,:label => @title_item[0].int1_des%>
+        <% end%>
+        <% if !@title_item[0].int2_des.blank?  %>
+            <%= f.input :int2  ,:label => @title_item[0].int2_des%>
+        <% end%>
+        <% if !@title_item[0].int3_des.blank?  %>
+            <%= f.input :int3  ,:label => @title_item[0].int3_des%>
+        <% end%>
+        <% if !@title_item[0].int4_des.blank?  %>
+            <%= f.input :int4  ,:label => @title_item[0].int4_des%>
+        <% end%>
+        <% if !@title_item[0].int5_des.blank?  %>
+            <%= f.input :int5  ,:label => @title_item[0].int5_des%>
+        <% end%>
+        <% if !@title_item[0].text1_des.blank?  %>
+            <%= f.input :text1 ,:label => @title_item[0].text1_des%>
+        <% end %>
+        <% if !@title_item[0].text2_des.blank?  %>
+            <%= f.input :text2 ,:label => @title_item[0].text2_des%>
+        <% end %>
+        <% if !@title_item[0].text3_des.blank?  %>
+            <%= f.input :text3 ,:label => @title_item[0].text3_des%>
+        <% end %>
+        <% if !@title_item[0].text4_des.blank?  %>
+            <%= f.input :text4 ,:label => @title_item[0].text4_des%>
+        <% end %>
+        <% if !@title_item[0].text5_des.blank?  %>
+            <%= f.input :text5 ,:label => @title_item[0].text5_des%>
+        <% end %>
+        <% if !@title_item[0].text6_des.blank?  %>
+            <%= f.input :text6 ,:label => @title_item[0].text6_des%>
+        <% end %>
+        <% if !@title_item[0].text7_des.blank?  %>
+            <%= f.input :text7 ,:label => @title_item[0].text7_des%>
+        <% end %>
+        <% if !@title_item[0].text8_des.blank?  %>
+            <%= f.input :text8 ,:label => @title_item[0].text8_des%>
+        <% end %>
+        <% if !@title_item[0].text9_des.blank?  %>
+            <%= f.input :text9 ,:label => @title_item[0].text9_des%>
+        <% end %>
+        <% if !@title_item[0].text10_des.blank?  %>
+            <%= f.input :text10 ,:label => @title_item[0].text10_des%>
+        <% end %>
+        <%= f.input :act_apply_id ,:input_html => {:value => @title_item[0].id} ,:as => :hidden %>
+        <%= f.input :user_info_id %>
+        <%= f.input :project_info_id  ,:collection =>ProjectInfo.where(:project_info_id =>@admin_info.project_info_id),:as => :hidden%>
+        <hr/>
+      <% end %>
+
+
+      <%= f.actions do %>
+        <%= f.action :submit %>
+      <% end %>
+<% end %>

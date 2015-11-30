@@ -1,0 +1,85 @@
+{
+  "actionbar": {
+    "background-color": "#CE2A2F",
+    "font-color": "#ffffff",
+    "font-size": "34px"
+  },
+  "index": {
+    "cover-alpha": "0.3",
+    "icon-font-color": "#ffffff",
+    "icon-font-size": "24px"
+  },
+  "chat": {
+    "bubble-background-color": "#ffffff",
+    "bubble-font-color": "#333333",
+    "bubble-font-size": "28px",
+    "bubble-des-font-color": "#808080",
+    "bubble-des-font-size": "22px"
+  },
+  "card": {
+    "style_name": "爱情春天",
+    "background-image": "style/8/card.png",
+    "btn_map": {
+      "left": "88px",
+      "top": "620px",
+      "width": "81px",
+      "height": "81px"
+    },
+    "name1": {
+      "font-color": "#ffffff",
+      "font-size": "48px",
+      "font-weight": "bold",
+      "top": "515px",
+      "left": "250px"
+    },
+    "name2": {
+      "font-color": "#ffffff",
+      "font-size": "48px",
+      "font-weight": "bold",
+      "top": "420px",
+      "left": "275px"
+    },
+    "words1": {
+      "font-color": "#ffffff",
+      "font-size": "28px",
+      "top": "365px",
+      "width": "640px",
+      "left": "0px"
+    },
+    "words2": {
+      "font-color": "#ffffff",
+      "font-size": "28px",
+      "top": "330px",
+      "width": "640px",
+      "left": "0px"
+    },
+    "words3": {
+      "font-color": "#ffffff",
+      "font-size": "28px",
+      "top": "295px",
+      "width": "640px",
+      "left": "0px"
+    },
+    "time": {
+      "font-color": "#ffffff",
+      "font-size": "28px",
+      "width": "640px",
+      "top": "620px",
+      "left": "0px"
+    },
+    "address": {
+      "text-align": "left",
+      "font-color": "#ffffff",
+      "font-size": "28px",
+      "width": "300px",
+      "top": "710px",
+      "left": "185px"
+    },
+    "place": {
+      "font-color": "#ffffff",
+      "font-size": "28px",
+      "top": "660px",
+      "left": "185px"
+    }
+  }
+}

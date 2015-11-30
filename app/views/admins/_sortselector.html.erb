@@ -1,0 +1,66 @@
+<%= stylesheet_link_tag "zTreeStyle/zTreeStyle","admins/sys_sortconfig" %>
+<%= javascript_include_tag "jquery.ztree.all-3.5.min"%>
+<div class="controls"style="float:right">
+	<div id="menuContent" class="menuContent" style=";margin:5px;border:1px solid #ccc;overflow:auto;width:380px; height: 500px;" >
+		<ul id="treeDemo" class="ztree" style="margin-top:0; "></ul>
+	</div>
+</div>
+<!-- <input id="citySel" type="text" readonly value="" name="news_content[cms_sort_ids][]" style="width:120px;" /> -->
+
+<script>
+var setting = {
+	check: {
+		enable: true,
+		chkboxType: {"Y":"", "N":""}
+	},
+	view: {
+		dblClickExpand: false
+	},
+	data: {
+		simpleData: {
+			enable: true
+		}
+	},
+	callback: {
+		beforeClick: beforeClick,
+		onCheck: onCheck
+	}
+};
+
+var zNodes = <%= raw @selector_sorts.to_json %>;
+
+
+function beforeClick(treeId, treeNode) {
+	var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+	zTree.checkNode(treeNode, !treeNode.checked, null, true);
+	return false;
+}
+
+function onCheck(e, treeId, treeNode) {
+	var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+	target = $(".sort_selector")
+	nodes = zTree.getCheckedNodes(true),
+	v = "";
+	for (var i=0, l=nodes.length; i<l; i++) {
+		v += "<option value='"+nodes[i].id+"'>"+nodes[i].name + "</option>";
+	}
+	target.html(v)
+	target.find("option").each(function(index,item){
+		item.selected = true
+	})
+}
+
+setTimeout(function(){
+	// if (zNodes.length < 80)
+	for( k in zNodes){
+		zNodes[k].open = true
+		options = $(".sort_selector>option")
+		for ( var i=0 ; i<options.length ; i++ )
+			// alert($(options[i]).attr("value"))
+			if ( $(options[i]).attr("value") == zNodes[k].id )
+				zNodes[k].checked = true
+	}
+	$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+},200);
+
+</script>

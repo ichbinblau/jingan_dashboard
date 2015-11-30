@@ -1,0 +1,140 @@
+<style>
+div,p,h1,h2,h3,h4,h5,h6{
+	font-family:宋体;
+	font-size: 12pt;
+}
+h1{
+	font-size: 16pt;
+	line-height: 18pt;
+	font-weight: bold;
+}
+h2{
+	font-size: 14pt;
+	line-height: 16pt;
+}
+h3{
+	margin-left: 18pt;
+	line-height: 20pt;
+	margin-top: 0;
+	margin-bottom:0; 
+}
+h4,.h4{
+	line-height: 14pt;
+	margin-left: 50pt;
+}
+.no-margin-left{
+	margin-left: 0;
+}
+h5{
+}
+</style>
+<%
+@course_item_types_kv = {}
+Kf::CourseItemType.all.each{|item| @course_item_types_kv["#{item.id}"] = item.title }
+i = 0
+%>
+<br />
+<center><h1><%= @kf_course.title %></h1></center>
+<center><%= @kf_course.content %></center>
+<br /><br />
+<% @courses.each do |key , item| %>
+    <% item.each do |iKey , iItem| %>
+    	<% 
+    	i = i + 1
+    	i1 = 0
+    	%>
+ 		<h2 ><%= "#{getZHNumber(i)}、 #{@kf_course[key.to_sym]}" %><%=
+ 		 if iKey.to_i == 0
+ 		 	"当天" 
+ 		 elsif iKey.to_i < 0
+ 		 	"前#{iKey.to_i.abs}天" 
+ 		 elsif iKey.to_i > 0
+ 		 	"后#{iKey.to_i}天" 
+ 		 end
+ 		%>
+ 		</h2>
+ 		<br />
+ 		<% iItem.each do |content_item| %>
+		<div>
+			<% 
+			i1 = i1 + 1
+    		i2 = 0
+			%>
+			<!-- [<%= @course_item_types_kv["#{content_item.kf_course_item_type_id}"] %>] -->
+			<h3><%= "#{i1.to_s}.#{content_item.title}" %></h3>
+			<%= raw get_ecimg_tag( content_item[:image_cover] , 300 ) if !content_item.image_cover.blank? %>
+			<% 
+				unless content_item.course_index_attachment.blank?
+				content_item.course_index_attachment.each do |attachment|
+				%>
+					<%= raw get_ecimg_tag( attachment[:attachment] , 300 ) %>
+				<% 
+				end
+				end
+				%>
+			<div class="h4">
+			<%= raw "<span style='color:green'>[ 重复前一天 ]</span>" if content_item.parent_id > 0 %>
+			<p><%= simple_format(content_item.content) %></p>
+			</div>
+			<!-- 指导/文章 -->
+			<% unless content_item.kf_course_knowledge.blank? %>
+			<ul class="h4">
+			<% content_item.kf_course_knowledge.each do |knowledge|%>
+				<%  i2 = i2 + 1 %>
+				<li><h4 class="no-margin-left"><%= knowledge.title%>：</h4>
+				<!-- <h4><%= "#{i.to_s}.#{i1.to_s}.#{i2.to_s}." %> <%= knowledge.title%></h4> -->
+				<div >
+					<%= raw get_ecimg_tag( knowledge[:image_cover] , 300 ) if !knowledge.image_cover.blank? %>
+					<% 
+					unless knowledge.course_knowledge_attachment.blank?
+					knowledge.course_knowledge_attachment.each do |attachment|
+					%>
+						<%= raw get_ecimg_tag( attachment[:attachment] , 300 ) %>
+					<% 
+					end
+					end
+					%>
+					<p><%= simple_format( knowledge.content ) %></p>
+				</div>
+			 	</li>
+			<%end%>
+			</ul>
+			<%end%>
+
+			<!-- 待办 -->
+			<%  unless content_item.kf_course_todo.blank? %>
+			<ul class="h4">
+			<% content_item.kf_course_todo.each do |todo| %>
+				<%= raw get_ecimg_tag( todo[:image_cover] , 300 ) if !todo.image_cover.blank? %>
+				<%  i2 = i2 + 1 %>
+				<li><%= todo.title%></li>
+				<!-- <h4><%= "#{i.to_s}.#{i1.to_s}.#{i2.to_s}." %> <%= todo.title%></h4> -->
+			<%end%>
+			</ul>
+			<%end%>
+
+			<!-- 问答/随访 -->
+			<% unless content_item.kf_course_form.blank? %>
+			<ul class="h4">
+			<% content_item.kf_course_form.each do |form| %>
+				<%= raw get_ecimg_tag( form[:image_cover] , 300 ) if !form.image_cover.blank? %>
+				<%  i2 = i2 + 1 %>
+				<li>
+				<h4 class="no-margin-left"><%= form.title%></h4>
+				<p>
+
+					<%= simple_format(form.content) %>
+				</p>
+				
+				<p><b>回答解释：</b><%= simple_format(form.answer) %></p>
+				</li>
+			<%end%>
+			</ul>
+			<%end%>
+
+		</div>
+ 		<% end %>
+		<br /><br />
+
+    <% end %>
+<% end %>

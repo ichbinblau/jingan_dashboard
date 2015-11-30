@@ -1,0 +1,197 @@
+<%= javascript_include_tag "ace/ace" ,"ace/theme-twilight" ,"ace/mode-javascript" ,"ace/mode-ruby" ,"ace/mode-json"%>
+<%= javascript_include_tag 'md5.js' ,'jquery.cookie','jquery.json-2.4'%>
+<script>
+var _host = '<%= request.host %>';
+<% url = Rails.env.to_s == "development" ? "localhost" : "#{session[:appnum]}.cloudapi.nowapp.cn" ; %>
+var _apihost = '<%= url+":"+request.port.to_s %>';
+</script>
+<!--项目列表 start-->
+<div class="row" >
+  <div class="span12" >
+    <div class="div-block" id="projects">
+      <div class="block-title"> 项目列表 <input type="text" id="proj_search" class="input"/> </div>
+      <div class="block-title" style="left:280px" id="proj_search_res"></div>
+      <div class="block-loading">loading...</div>
+      <% @project_infos.each do |project| %>
+        <span class="dropdown">
+          <a href="#" id="dLabel-<%= project.id %>" data-toggle="dropdown" class="dropdown-toggle"><%= project.cnname %>( <%= project.project_num %> )</a> &nbsp;&nbsp;&nbsp;
+          <ul class="dropdown-menu" aria-labelledby="dLabel-<%= project.id %>">
+            <% project.project_app.each do |app| %>
+              <li><a tabindex="-1" href="javascript:;" onclick="showAppInfo(<%= app.id %>)" class="ellipsis" user-data="<%= app.id %>"><%= app.cnname %>(<%= app.phonetype %>)</a></li>
+            <% end %>
+          </ul>
+        </span>
+      <%end%>
+    </div>
+  </div>
+</div>
+<!--项目列表 end-->
+
+<div class="row" >
+
+  <!--项目信息 start-->
+  <div class="span3">
+    <div class="tabbable">
+
+      <ul class="nav nav-tabs" >
+        <li class="active"><a href="#tab_api_tab1" data-toggle="tab">核心api</a></li>
+        <li><a href="#tab_api_tab2" data-toggle="tab">项目api</a></li>
+        <li><a href="#tab_api_tab3" data-toggle="tab">触发</a></li>
+        <li><a href="#tab_api_tab4" data-toggle="tab">转发</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- 核心api列表 start-->
+        <div class="tab-pane active" id="tab_api_tab1">
+          <div class="div-block" id="api_core_list">
+            <div class="block-title"> 核心api <a href="javascript:;" onclick="addApi()">添加</a></div>
+            <div class="block-loading">loading...</div>
+            <ul>
+              <% @api_cores.each do |api| %>
+                <% if !api.is_deprecated.blank? && api.is_deprecated %>
+                  <li><a href="javascript:;" class="line-through" onclick="showApiInfo(<%= api.id %>)"><%= api.uri_resource %></a><li>
+                <% else %>
+                  <li><a href="javascript:;" onclick="showApiInfo(<%= api.id %>)"><%= api.uri_resource %></a><li>
+                <% end %>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <!-- 项目api列表 start-->
+        <div class="tab-pane" id="tab_api_tab2">
+          <div class="div-block" id="api_proj_list">
+            <div class="block-title"> 项目api <a href="javascript:;" onclick="addApi()">添加</a></div>
+            <div class="block-loading">loading...</div>
+            <ul id="proj_api_list"></ul>
+          </div>
+        </div>
+        <!-- 项目api列表 start-->
+        <div class="tab-pane" id="tab_api_tab3">
+          <div class="div-block" id="proj_trigger_list">
+            <div class="block-title"> 项目触发器 <a href="javascript:;" onclick="addTrigger()">添加</a></div>
+            <div class="block-loading">loading...</div>
+            <ul id="proj_trigger_lists"></ul>
+          </div>
+        </div>
+        <!-- 项目api列表 start-->
+        <div class="tab-pane" id="tab_api_tab4">
+          <div class="div-block" id="proj_resender_list">
+            <div class="block-title"> 项目转发器 <a href="javascript:;" onclick="addResender()">添加</a></div>
+            <div class="block-loading">loading...</div>
+            <ul id="proj_resender_lists"></ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!--项目信息 end-->
+
+  <!--api信息 start-->
+  <div class="span6">
+    <div class="div-block" id="api_info">
+      <div class="block-title">api信息</div>
+      <div class="block-loading">loading...</div>
+      <div id="api_info_content"></div>
+      <div id="api_verion_info"></div>
+    </div>
+  </div>
+  <!--拍新戏 end-->
+
+  <!--其它相关信息 start-->
+  <div class="span3">
+    <div class="tabbable">
+      <ul class="nav nav-tabs" >
+        <li class="active"><a href="#tab1" data-toggle="tab">api信息</a></li>
+        <li><a href="#tab2" data-toggle="tab">api分类列表</a></li>
+        <li><a href="#tab3" data-toggle="tab">资源列表</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+          <!--分类信息-->
+          <div class="div-block" id="app_about_info">
+            <div class="block-title"> 项目信息 </div>
+            <div class="block-loading">loading...</div>
+            <div class="info"><span>ApiKey:</span><input type="text" onmouseover="this.select()"/></div>
+            <div class="info"><span>Secret:</span><input type="text" onmouseover="this.select()"/></div>
+            <div class="info"><span>ApiUrl:</span><input type="text" id="apiurl" onmouseover="this.select()"/></div>
+            <div class="info"><span>Token:</span><input type="text" id="access_token" onmouseover="this.select()"/></div>
+            <hr />
+            <ul id="sort_list"></ul>
+          </div>
+        </div>
+        <div class="tab-pane" id="tab2">
+          <!--api分类列表-->
+          <div class="div-block " id="">
+            <div class="block-title">api分类列表</div>
+            <div class="block-loading">loading...</div>
+            <ul>
+              <% @api_types.each do |type| %>
+                <li><%= type.id %>.<a href="javascript:;"> <%= type.name %></a> (<%= type.display_name %>)<li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <div class="tab-pane" id="tab3">
+          <!--资源列表-->
+          <div class="div-block " id="">
+            <div class="block-title"> 资源列表 </div>
+            <div class="block-loading">loading...</div>
+            <ul>
+              <% @api_resources.each do |resource| %>
+                <li><%= resource.id %>.<a href="javascript:;"> <%= resource.name %></a> (<%= resource.display_name %>)<li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!--其它相关信息 end-->
+</div>
+
+
+<!-- javascript编辑器 -->
+<div id="ace_js_editor" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>js编辑器</h3>
+  </div>
+  <div class="modal-body">
+    <div id="js_editor"></div>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:;" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
+    <a href="javascript:;" class="btn btn-primary" onclick="saveJs()">确定</a>
+  </div>
+</div>
+<!-- ruby编辑器 -->
+<div id="ace_ruby_editor" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>ruby编辑器</h3>
+  </div>
+  <div class="modal-body">
+    <div id="ruby_editor"></div>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:;" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
+    <a href="javascript:;" class="btn btn-primary" onclick="saveRuby()">确定</a>
+  </div>
+</div>
+<!-- json编辑器 -->
+<div id="ace_json_editor" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>json编辑器</h3>
+  </div>
+  <div class="modal-body">
+    <div id="json_editor"></div>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:;" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
+    <a href="javascript:;" class="btn btn-primary" onclick="saveJson()">确定</a>
+  </div>
+</div>
+

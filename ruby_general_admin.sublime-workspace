@@ -1,0 +1,1476 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"marg",
+				"margin-top"
+			],
+			[
+				"pa",
+				"page_onbuilding_s1"
+			],
+			[
+				"service",
+				"service_data"
+			],
+			[
+				"page",
+				"page_xunwen"
+			],
+			[
+				"i",
+				"i"
+			],
+			[
+				"dis",
+				"distance"
+			],
+			[
+				"con",
+				"contentList"
+			],
+			[
+				"di",
+				"distance"
+			],
+			[
+				"content",
+				"contentList"
+			],
+			[
+				"distan",
+				"distances"
+			],
+			[
+				"co",
+				"coordinates"
+			],
+			[
+				"ba",
+				"baidu_longitude"
+			],
+			[
+				"comm",
+				"commentTemplate"
+			],
+			[
+				"pro",
+				"prototype"
+			],
+			[
+				"page_wenwen",
+				"page_wenwen_searchBar"
+			],
+			[
+				"cell",
+				"cellData"
+			],
+			[
+				"mar",
+				"marginRight"
+			],
+			[
+				"tex",
+				"textAlign"
+			],
+			[
+				"b",
+				"backgroundColor"
+			],
+			[
+				"for",
+				"forin	Array Comprehension"
+			],
+			[
+				"t",
+				"TextView"
+			],
+			[
+				"DQ",
+				"DQSearchWidget"
+			],
+			[
+				"v",
+				"view_onClick"
+			],
+			[
+				"_",
+				"_debug"
+			],
+			[
+				"if",
+				"ife	if … else"
+			],
+			[
+				"index",
+				"page_index"
+			],
+			[
+				"st",
+				"str"
+			],
+			[
+				"string",
+				"stringify"
+			],
+			[
+				"view",
+				"view_configs"
+			],
+			[
+				"viewcon",
+				"view_config"
+			],
+			[
+				"l",
+				"length"
+			],
+			[
+				"JSV",
+				"JSView"
+			],
+			[
+				"ran",
+				"randomString"
+			],
+			[
+				"js",
+				"jsonPath"
+			],
+			[
+				"a",
+				"AbsoluteLayout"
+			],
+			[
+				"h",
+				"HttpRequest"
+			],
+			[
+				"Http",
+				"HttpRequest"
+			],
+			[
+				"pop",
+				"popid"
+			],
+			[
+				"push",
+				"push_as_root"
+			],
+			[
+				"pu",
+				"push_as_root"
+			],
+			[
+				"new",
+				"newPage"
+			],
+			[
+				"Jo",
+				"JObject"
+			],
+			[
+				"title",
+				"titleColor"
+			],
+			[
+				"bu",
+				"button_framelayout"
+			],
+			[
+				"but",
+				"button_xib_0"
+			],
+			[
+				"frame",
+				"frame_layout"
+			],
+			[
+				"button",
+				"button_0"
+			],
+			[
+				"table",
+				"TableLayout"
+			],
+			[
+				"tabl",
+				"TableLayout"
+			],
+			[
+				"lin",
+				"LinearLayoutVertical"
+			],
+			[
+				"to",
+				"toString"
+			],
+			[
+				"res",
+				"response"
+			],
+			[
+				"re",
+				"response"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"n",
+				"nav_right_five"
+			],
+			[
+				"na",
+				"nav_right_three"
+			],
+			[
+				"nav",
+				"nav_right_one"
+			],
+			[
+				"fil",
+				"fileDir"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "app/models/api.rb",
+			"settings":
+			{
+				"buffer_size": 174,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/wenwen_api_controller.rb",
+			"settings":
+			{
+				"buffer_size": 203,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/layouts/wenwen_api.html.erb",
+			"settings":
+			{
+				"buffer_size": 716,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/wenwen_api/index.html.erb",
+			"settings":
+			{
+				"buffer_size": 1148,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/assets/javascripts/wenwen_api.js.coffee",
+			"settings":
+			{
+				"buffer_size": 71,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "移动终端软件、云计算科技、大数据科技、计算机软硬件、电子科技、环保科技领域内的四技服务；\n基础软件服务；应用软件服务；\n商务咨询，会务服务，市场调研与策划，企业营销策划；\n设计、制作、代理、发布广告；\n销售服装服饰、电子产品、五金交电、电脑及配件、日用百货、办公用品、文体用品、工艺礼品。\n成年人的非证书劳动职业技能培训和成年人的非文化教育培训；",
+			"settings":
+			{
+				"buffer_size": 173,
+				"line_ending": "Unix",
+				"name": "移动终端软件、云计算科技、大数据科技、计算机软硬件、电子科技、环保科技领域内的四技服务；"
+			}
+		}
+	],
+	"build_system": "Packages/CoffeeScript/CoffeeScript.sublime-build",
+	"command_palette":
+	{
+		"height": 47.0,
+		"selected_items":
+		[
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"j",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"pc",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"About"
+			],
+			[
+				"pa",
+				"Package Control: Remove Package"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"ja",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"java",
+				"Format: Javascript"
+			],
+			[
+				"js",
+				"Set Syntax: JSON"
+			],
+			[
+				"p",
+				"Package Control: Install Package"
+			],
+			[
+				"oc",
+				"Set Syntax: Objective-C"
+			],
+			[
+				"pci",
+				"Package Control: Install Package"
+			],
+			[
+				"JS",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"sy",
+				"Set Syntax: R"
+			],
+			[
+				"paci",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control:",
+				"Package Control: Install Package"
+			],
+			[
+				"PCI",
+				"Package Control: Install Package"
+			],
+			[
+				"PC",
+				"Package Control: Add Channel"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/LittoCats/yunpan/_ruby/ruby_general_admin/app/views/layouts/webapis/wiki.html.erb",
+		"/Users/LittoCats/yunpan/_ruby/ruby_general_admin/app/views/webapis/wiki/index.erb",
+		"/Users/LittoCats/yunpan/_ruby/ruby_general_admin/config/routes.rb",
+		"/Users/LittoCats/yunpan/_ruby/ruby_general_admin/config/environments/development.rb",
+		"/Users/LittoCats/yunpan/_ruby/ruby_general_admin/config/environments/production.rb",
+		"/Users/LittoCats/yunpan/_ruby/ruby_general_admin/Gemfile",
+		"/Users/LittoCats/yunpan/_ruby/ruby_general_admin/app/assets/stylesheets/scaffolds.css.scss",
+		"/Users/LittoCats/yunpan/_ruby/ruby_general_admin/app/assets/stylesheets/api.css",
+		"/Users/LittoCats/yunpan/_ruby/ruby_general_admin/config/database.yml",
+		"/Users/LittoCats/yunpan/_ruby/ruby_general_admin/config/mongoid.yml",
+		"/Users/LittoCats/yunpan/_ruby/ruby_general_admin/ruby_general_admin.iml",
+		"/Users/LittoCats/yunpan/_android_projects/kangfubao/assets/webview/global.js",
+		"/Users/LittoCats/yunpan/_android_projects/kangfubao/assets/webview/global_android.js",
+		"/Users/LittoCats/yunpan/_android_projects/kangfubao/assets/webview/global.css",
+		"/Users/LittoCats/yunpan/_android_projects/kangfubao/assets/webview/views/page_jinri.html",
+		"/Users/LittoCats/yunpan/_android_projects/kangfubao/assets/webview/layout_android.html",
+		"/Volumes/51/kangfubao/webview/javascripts/page_kfb_knowledge_list.coffee",
+		"/Volumes/51/kangfubao/webview/javascripts/page_kfb_knowledge_list1.coffee",
+		"/Volumes/51/kangfubao/webview/javascripts/page_kfb_message.coffee",
+		"/Volumes/51/kangfubao/webview/javascripts/page_kfb_jinri.coffee",
+		"/Volumes/51/kangfubao/config/page_index_tab.coffee",
+		"/Volumes/51/kangfubao/webview/views/page_news_detail.html",
+		"/Volumes/51/kangfubao/webview/javascripts/page_office.coffee",
+		"/Volumes/51/kangfubao/webview/css/page_office.css",
+		"/Volumes/51/kangfubao/webview/views/page_kfb_jinri.html",
+		"/Volumes/51/kangfubao/webview/views/page_kfb_knowledge_list.html",
+		"/Volumes/51/kangfubao/webview/views/page_kfb_knowledge_list1.html",
+		"/Volumes/51/kangfubao/webview/views/page_kfb_message.html",
+		"/Volumes/51/kangfubao/webview/javascripts/page_news_detail.coffee",
+		"/Volumes/51/kangfubao/webview/views/page_knowledge.html",
+		"/Volumes/51/kangfubao/webview/javascripts/page_knowledge.coffee",
+		"/Volumes/51/kangfubao/webview/javascripts/page_knowledge_list.coffee",
+		"/Volumes/51x/kangfubao/webview/javascripts/page_office_suifang.coffee",
+		"/Volumes/51x/kangfubao/webview/views/page_office_suifang.html",
+		"/Volumes/51x/kangfubao/webview/javascripts/page_news_detail.coffee",
+		"/Volumes/51x/kangfubao/webview/javascripts/page_knowledge.coffee",
+		"/Volumes/51x/kangfubao/webview/css/page_jinri.css",
+		"/Volumes/51x/kangfubao/webview/views/page_jinri.html",
+		"/Volumes/51x/kangfubao/webview/css/page_kfb_jinri.css",
+		"/Volumes/51x/kangfubao/webview/css/page_kfb_knowledge_list.css",
+		"/Volumes/51x/kangfubao/webview/css/page_knowledge_list.css",
+		"/Volumes/51x/kangfubao/webview/css/page_office.css",
+		"/Volumes/51x/kangfubao/webview/css/page_office_suifang.css",
+		"/Users/LittoCats/yunpan/_config/211.138.248.115/nginx/conf/conf.d/www.conf",
+		"/Volumes/51/kangfubao/webview/views/page_office_suifang.html",
+		"/Volumes/51/kangfubao/webview/javascripts/page_office_suifang.coffee",
+		"/Applications/goagent/local/proxy.ini",
+		"/Volumes/51x/kangfubao/webview/views/page_news_detail.html",
+		"/Volumes/51/kangfubao/webview/css/page_kfb_knowledge.css",
+		"/Volumes/51/kangfubao/webview/css/page_knowledge.css",
+		"/Volumes/51/kangfubao/webview/javascripts/page_kfb_knowledge.coffee",
+		"/Volumes/51/kangfubao/config/page_knowledge.coffee",
+		"/Volumes/51/kangfubao/webview/views/page_kfb_knowledge.html",
+		"/Volumes/51/kangfubao/webview/javascripts/page_jinri.coffee",
+		"/Volumes/51/kangfubao/webview/views/page_jinri.html",
+		"/Volumes/51/kangfubao/webview/layout_android.html",
+		"/Volumes/51/kangfubao/webview/css/page_jinri.css",
+		"/Volumes/51/kangfubao/webview/css/page_kfb_jinri.css",
+		"/Volumes/51/kangfubao/webview/css/page_kfb_knowledge_list.css",
+		"/Volumes/51/kangfubao/webview/css/page_knowledge_list.css",
+		"/Volumes/51x/xiaodian-shanghuduan/config/app.coffee",
+		"/Volumes/51x/xiaodian-shanghuduan/config/page_xunwen.coffee",
+		"/Volumes/51x/core-js/webview/api.js",
+		"/Volumes/51x/xiaodian-shanghuduan/config/page_onbuilding.coffee",
+		"/Volumes/51x/core-js/webview/debug/api4promise.coffee",
+		"/Volumes/51x/core-js/javascript/all.js",
+		"/Volumes/51x/xiaodian-shanghuduan/webview/views/layout_page_huifu.json",
+		"/Volumes/51x/xiaodian/config/app.coffee",
+		"/Volumes/51x/xiaodian/config/page_wenwen.coffee",
+		"/Volumes/51x/xiaodian/webview/js/xunwen.coffee",
+		"/Volumes/51x/xiaodian/config/page_search.coffee",
+		"/Users/LittoCats/Qt/5.2.1/Src/qtwebkit/Source/WebCore/platform/text/mac/character-sets.txt",
+		"/Volumes/51x/xiaodian/config/page_index_tab.coffee",
+		"/Volumes/51x/xiaodian-shanghuduan/config/page_huifu.coffee",
+		"/Volumes/51x/xiaodian-shanghuduan/config/page_xunwen.js",
+		"/Users/LittoCats/Library/Developer/Xcode/Archives/2014-06-09/IOSProjectTemplate 6-9-14, 10.39.xcarchive/Info.plist",
+		"/Users/LittoCats/Desktop/test.js",
+		"/Users/LittoCats/Desktop/test.coffee",
+		"/Users/LittoCats/Documents/ECloud/iOSDevelop/project/IOSProjectTemplate/IOSProjectTemplate/Images.xcassets/AppIcon.appiconset/Contents.json",
+		"/Volumes/51x/xiaodian-shanghuduan/config/app.js",
+		"/Volumes/51x/xiaodian-shanghuduan/webview/views/layout_xunwen_cell.text",
+		"/Users/LittoCats/Downloads/[学苑音像]名家荟萃《忆故人》 2CD/名家荟萃《忆故人》·贰.txt",
+		"/Volumes/51x/xiaodian-shanghuduan/webview/views/fs_test.json",
+		"/Volumes/51x/xiaodian-shanghuduan/config/page_xunwen.map",
+		"/Users/LittoCats/Library/Application Support/Sublime Text 2/Packages/User/SublimeOnSaveBuild.sublime-settings",
+		"/Users/LittoCats/Library/Application Support/Sublime Text 2/Packages/SublimeOnSaveBuild/SublimeOnSaveBuild.sublime-settings",
+		"/Users/LittoCats/Library/Application Support/Sublime Text 2/Packages/User/CoffeeScript.sublime-settings",
+		"/Users/LittoCats/Downloads/node-v0.10.28/lib/zlib.js",
+		"/Users/LittoCats/Downloads/node-v0.10.28/lib/fs.js",
+		"/Users/LittoCats/Downloads/node-v0.10.28/lib/console.js",
+		"/Users/LittoCats/Downloads/node-v0.10.28/lib/sys.js",
+		"/Volumes/51x/xiaodian-shanghuduan/webview/api.js",
+		"/Users/LittoCats/Documents/ECloud/iOSDevelop/LittoShops/DQCore/DQUserInterface/DQBaseViewPropertiesDefaultValue.json",
+		"/Users/LittoCats/Documents/ECloud/iOSDevelop/LittoShops/DQCore/DQUserInterface/DQBaseViewMap.json",
+		"/Volumes/51x/xiaodian-shanghuduan/config/page_index_tab.json",
+		"/Volumes/51x/xiaodian-shanghuduan/javascript/debug_app_info.json",
+		"/Users/LittoCats/Desktop/CoffeeCompileTest.coffee",
+		"/Users/LittoCats/Library/Application Support/Sublime Text 2/Packages/CoffeeScript/CoffeeScript.sublime-build",
+		"/Users/LittoCats/Library/Application Support/Sublime Text 2/Packages/CoffeeScript/CoffeeScript.sublime-build.old",
+		"/Users/LittoCats/Library/Application Support/Sublime Text 2/Packages/CoffeeCompile/Keymaps/Default (OSX).sublime-keymap",
+		"/Users/LittoCats/Library/Application Support/Sublime Text 2/Packages/CoffeeScript/CoffeeScript.sublime-commands",
+		"/Users/LittoCats/Library/Application Support/Sublime Text 2/Packages/CoffeeScript/Keymaps/Default (OSX).sublime-keymap",
+		"/Users/LittoCats/Library/Application Support/Sublime Text 2/Packages/CoffeeCompile/CoffeeCompile.sublime-settings",
+		"/Users/LittoCats/Library/Application Support/Sublime Text 2/Packages/User/CoffeeCompile.sublime-settings",
+		"/Users/LittoCats/Documents/ECloud/iOSDevelop/LittoShops/DQCore/DQUserInterface/DQBaseView/DQTableView/DQTableViewCellMap.json",
+		"/Users/LittoCats/Documents/ECloud/iOSDevelop/LittoShops/DQCore/DQUserInterface/DQWidget/DQWebWidget/DQWebWidget_library.jsv",
+		"/Users/LittoCats/Documents/Litto Cats/iOS/DQApp/DQCore/DQController/DQJSContext/DQJSLibrary/api.js",
+		"/Users/LittoCats/Documents/ECloud/iOSDevelop/LittoShops/LittoShops/DQProject/json/index_tab.json",
+		"/Users/LittoCats/Documents/ECloud/iOSDevelop/LittoShops/LittoShops/DQProject/json/building_page.json",
+		"/Users/LittoCats/Documents/ECloud/iOSDevelop/LittoShops/LittoShops/DQProject/javascript/page_wenwen.js",
+		"/Users/LittoCats/Documents/ECloud/iOSDevelop/LittoShops/LittoShops/DQProject/json/page_wenwen.json",
+		"/Users/LittoCats/Documents/ECloud/iOSDevelop/LittoShops/DQCore/DQUserInterface/DQWidget/DQSearchWidget/DQSearchWidget.jsv",
+		"/Users/LittoCats/Documents/ECloud/iOSDevelop/LittoShops/LittoShops/DQProject/javascript/main.js",
+		"/Users/LittoCats/Documents/ECloud/iOSDevelop/LittoShops/DQCore/DQUserInterface/DQWidget/DQSearchWidget/DQSearchWidgt.jsv",
+		"/Users/LittoCats/Documents/ECloud/iOSDevelop/LittoShops/LittoShops/DQProject/javascript/index.js",
+		"/Users/LittoCats/Documents/ECloud/iOSDevelop/LittoShops/DQCore/DQUserInterface/DQWidget/DQTabWidget.jsv",
+		"/Users/LittoCats/Documents/ECloud/iOSDevelop/LittoShops/LittoShops/DQProject/javascript/index_tab.js",
+		"/Users/LittoCats/Documents/Litto Cats/iOS/DQApp/DQApp/DQProject/javascript/index.js",
+		"/Users/LittoCats/Documents/Litto Cats/iOS/DQApp/DQApp/DQProject/json/index_tab.json",
+		"/Users/LittoCats/Documents/Litto Cats/iOS/DQApp/DQApp/DQProject/json/index.json",
+		"/Users/LittoCats/Documents/Litto Cats/iOS/DQApp/DQApp/DQProject/javascript/main.js",
+		"/Users/LittoCats/Documents/Litto Cats/iOS/DQApp/DQCore/DQController/DQJSContext/DQJSLibrary/env_ios.js",
+		"/Users/LittoCats/Documents/Litto Cats/iOS/DQApp/DQCore/DQUserInterface/DQBaseView/DQTableView/DQTableViewCellMap.json",
+		"/Users/LittoCats/Documents/Litto Cats/iOS/DQApp/DQCore/DQController/DQJSContext/DQJSLibrary/promise.js",
+		"/Users/LittoCats/Documents/Litto Cats/iOS/DQApp/DQCore/DQController/DQJSContext/DQJSLibrary/coreapi.js",
+		"/Volumes/51/core-js/webview/api.js",
+		"/Users/LittoCats/Documents/Litto Cats/tools/2411095/automatedBuildAndUploadToTestflight.sh",
+		"/Volumes/51/tizhimima/javascript/debug_app_info.json"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Volumes/51/kangfubao"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"javascript",
+			"api",
+			"Api",
+			"api",
+			"nav",
+			"tab_api_tab1",
+			"serve_static_assets",
+			"ace",
+			"meta_request",
+			"doctor_groups_id",
+			"doctor_group_id",
+			"page_sel_doctor",
+			"page_user_signin_FormWidget_0",
+			"token",
+			"select_train",
+			"title",
+			"php",
+			"phpmyad",
+			"php",
+			"192.168.",
+			"oa.ecloudiot.com",
+			"http://oa.ecloudiot.com/",
+			"oa.eclou",
+			"oa.now",
+			"api.nowapp.cn",
+			"5050",
+			"id",
+			"onpause",
+			"service",
+			"createComment",
+			"log",
+			"jsonData",
+			"app_makeToast",
+			"console",
+			"index",
+			"CN",
+			"module",
+			"global",
+			"render"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 5,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app/models/api.rb",
+					"settings":
+					{
+						"buffer_size": 174,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								170,
+								170
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/controllers/wenwen_api_controller.rb",
+					"settings":
+					{
+						"buffer_size": 203,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								141,
+								141
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/views/layouts/wenwen_api.html.erb",
+					"settings":
+					{
+						"buffer_size": 716,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								698,
+								698
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/views/wenwen_api/index.html.erb",
+					"settings":
+					{
+						"buffer_size": 1148,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								907,
+								907
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/assets/javascripts/wenwen_api.js.coffee",
+					"settings":
+					{
+						"buffer_size": 71,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								71,
+								71
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"settings":
+					{
+						"buffer_size": 173,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								173,
+								173
+							]
+						],
+						"settings":
+						{
+							"auto_name": "移动终端软件、云计算科技、大数据科技、计算机软硬件、电子科技、环保科技领域内的四技服务；",
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.coffeecompile_output":
+	{
+		"height": 420.0
+	},
+	"output.exec":
+	{
+		"height": 117.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": false,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"deve",
+				"config/environments/development.rb"
+			],
+			[
+				"rout",
+				"config/routes.rb"
+			],
+			[
+				"gem",
+				"Gemfile"
+			],
+			[
+				"wenwe",
+				"app/controllers/wenwen_api_controller.rb"
+			],
+			[
+				"data",
+				"config/database.yml"
+			],
+			[
+				"layo",
+				"webview/layout_android.html"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 275.0,
+	"status_bar_visible": true
+}

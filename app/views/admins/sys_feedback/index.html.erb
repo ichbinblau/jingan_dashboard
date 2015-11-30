@@ -1,0 +1,31 @@
+<%= render 'admins/appchannel' %>
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <thead>
+  <tr>
+    <th width="30">ID</th>
+    <th>是否回复</th>
+    <th>用户编号</th>
+    <th>意见</th>
+    <th>联系方式</th>
+    <th width="30">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @content_items.each do |content_item| %>
+      <tr>
+        <td><%= raw content_item.id %></td>
+        <td><%= raw content_item.is_comment ? "<font color='green'>是</font>" : "<font color='red'>否</font>" %></td>
+        <td>
+          <%= link_to content_item.user_info_id.to_s, :controller=>"sys_user", :action => "edit" , :id =>content_item.user_info_id , :page => params[:page],:controller_name => "sys_feedback", :sort_id => params[:sort_id] %></td>
+        <td><%= raw content_item.content %></td>
+        <td><%= raw content_item.contact_info %></td>
+        <td>
+          <%= link_to '编辑',  :action => "edit" , :id =>content_item.id , :page => params[:page], :sort_id => params[:sort_id] %>
+          <br />
+          <%= link_to '删除', { :action => "destroy", :id =>content_item.id , :page => params[:page], :sort_id => params[:sort_id]},  method: :delete, data: { confirm: '确定删除？' } %>
+        </td>
+      </tr>
+  <% end %>
+

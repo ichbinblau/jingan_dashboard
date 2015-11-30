@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>管理后台 - nowapp.cn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <%= stylesheet_link_tag "bootstrap","bootstrap-responsive" ,"formtastic-bootstrap" ,"plugins/bootstrap-datetimepicker.min" ,"jquery-ui-autocomplete/ui-lightness/jquery-ui-autocomplete","kf/global" , "select2", "select2-bootstrap"%>
+
+    <%= javascript_include_tag "jquery" ,"jquery_ujs","bootstrap" ,"bootstrap-carousel" ,"jquery_nested_form" ,"plugins/bootstrap-datetimepicker.min" , "jquery-ui-autocomplete" , "kf/global" , "select2" ,"select2_locale_zh-CN"%>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div id="main" role="main">
+      <div class="container wrapper">
+        <div class="content">
+          <div class="row">
+            <div class="span12">
+              <%= yield %>
+            </div>
+          </div>
+          <footer>
+          </footer>
+        </div>
+      </div> <!--! end of .container -->
+      <center id="footer">
+        <p></p>
+      </center>
+    </div> <!--! end of #main -->
+  </body>
+</html>

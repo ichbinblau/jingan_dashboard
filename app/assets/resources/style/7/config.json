@@ -1,0 +1,85 @@
+{
+  "actionbar": {
+    "background-color": "#CE2A2F",
+    "font-color": "#ffffff",
+    "font-size": "34px"
+  },
+  "index": {
+    "cover-alpha": "0.3",
+    "icon-font-color": "#ffffff",
+    "icon-font-size": "24px"
+  },
+  "chat": {
+    "bubble-background-color": "#ffffff",
+    "bubble-font-color": "#333333",
+    "bubble-font-size": "28px",
+    "bubble-des-font-color": "#808080",
+    "bubble-des-font-size": "22px"
+  },
+  "card": {
+    "style_name": "梦幻爱情海",
+    "background-image": "style/7/card.png",
+    "btn_map": {
+      "left": "88px",
+      "top": "555px",
+      "width": "81px",
+      "height": "81px"
+    },
+    "name1": {
+      "font-color": "#4d9e92",
+      "font-size": "48px",
+      "font-weight": "bold",
+      "top": "485px",
+      "left": "250px"
+    },
+    "name2": {
+      "font-color": "#4d9e92",
+      "font-size": "48px",
+      "font-weight": "bold",
+      "top": "385px",
+      "left": "275px"
+    },
+    "words1": {
+      "font-color": "#4d9e92",
+      "font-size": "28px",
+      "top": "315px",
+      "width": "640px",
+      "left": "0px"
+    },
+    "words2": {
+      "font-color": "#4d9e92",
+      "font-size": "28px",
+      "top": "285px",
+      "width": "640px",
+      "left": "0px"
+    },
+    "words3": {
+      "font-color": "#4d9e92",
+      "font-size": "28px",
+      "top": "255px",
+      "width": "640px",
+      "left": "0px"
+    },
+    "time": {
+      "font-color": "#4d9e92",
+      "font-size": "28px",
+      "width": "640px",
+      "top": "555px",
+      "left": "0px"
+    },
+    "address": {
+      "text-align": "left",
+      "font-color": "#4d9e92",
+      "font-size": "28px",
+      "width": "300px",
+      "top": "655px",
+      "left": "185px"
+    },
+    "place": {
+      "font-color": "#4d9e92",
+      "font-size": "28px",
+      "top": "595px",
+      "left": "185px"
+    }
+  }
+}

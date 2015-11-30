@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>登录</title>
+  <%= stylesheet_link_tag "web-app-theme/base", "web-app-theme/themes/default/style", "web-app-theme/override", "font-awesome/css/font-awesome"%>
+  <!--[if IE 7]>
+    <%= javascript_include_tag "font-awesome/css/font-awesome-ie7" %>
+  <![endif]-->
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="container">
+    <div id="box">
+      <%= yield %>            
+    </div>
+  </div>
+</body>
+</html>

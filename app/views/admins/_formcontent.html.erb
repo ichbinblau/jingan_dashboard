@@ -1,0 +1,13 @@
+<% if @field_configs["fields"] == nil %>
+  <%= f.input :content %>
+<% else %>
+  <% content_values = JSON.parse f.object.content if !f.object.content.blank? %>
+  <% @field_configs["fields"].each do |key ,val| %>
+    <div class="string input required stringish control-group" id="json_content_<%= key %>_input"><label class=" control-label" for="json_content_<%= key %>"><%= val %></label><div class="controls">
+    	<!-- <input id="json_content_<%= key %>" maxlength="200" name="json_content[<%= key %>]" type="text" value="<%= content_values[key] if !f.object.content.blank? %>"> -->
+    	<textarea class="small-textarea" id="json_content_<%= key %>" style="height:28px;" name="json_content[<%= key %>]" rows="20"><%= content_values[key] if !f.object.content.blank? %></textarea>
+    </div></div>
+  <% end %>
+<% end %>
+
+

@@ -1,0 +1,51 @@
+development:
+   adapter: mysql2spatial
+   encoding: utf8
+   host: localhost
+   port: 3306
+   database: GeneralDB
+   pool: 10
+   username: root
+   password: abc123
+
+
+production:
+  adapter: mysql2spatial
+  # adapter: mysql2   
+  encoding: utf8
+  database: GeneralDB
+  pool: 10
+  username: root
+  password: abc123
+  socket: /var/lib/mysql/mysql.sock
+  # adapter: mysql2spatial
+  # encoding: utf8
+  # host: 211.138.248.115
+  # # port: 3306
+  # database: GeneralDB
+  # pool: 10
+  # username: root
+  # password: fudaniot!)))!
+
+
+slave_database:
+  development:
+    adapter: mysql2spatial
+    encoding: utf8
+    host: 192.168.100.55
+    port: 3306
+    database: GeneralDB
+    pool: 10
+    username: root
+    password: superman
+
+
+  production:
+    adapter: mysql2spatial
+    # adapter: mysql2   
+    encoding: utf8
+    database: GeneralDB
+    pool: 10
+    username: root
+    password: yundongjingan.nowapp.cn
+    socket: /var/lib/mysql/mysql.sock

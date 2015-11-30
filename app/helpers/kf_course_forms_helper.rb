@@ -1,0 +1,2 @@
+module KfCourseFormsHelper
+end

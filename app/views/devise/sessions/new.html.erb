@@ -1,0 +1,29 @@
+<div class="block" id="block-login">
+  <h2><i class="icon-key"></i> 登录</h2>
+  <div class="content login">
+  <%= form_for resource, :as => resource_name, :url => session_path(resource_name) ,:html=>{:class=>"form login"}  do |f| %>
+    <div class="group wat-cf">
+      <div class="left"><%= f.label :email ,:class=>"label right"%></div>
+      <div class="right"><%= f.email_field :email,:class=>"text_field" %></div>
+    </div>
+
+    <div class="group wat-cf">
+      <div class="left"><%= f.label :password,:class=>"label right" %></div>
+      <div class="right"><%= f.password_field :password , :class=>"text_field" %></div>
+    </div>
+
+  <!--   <% if devise_mapping.rememberable? -%>
+      <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+    <% end -%> -->
+
+    <div class="group navform wat-cf">
+    	<input type="hidden" value="<%= params['redirect']%>"/>
+      <div class="right">
+        <button class="button" type="submit">
+          <i class="icon-key"></i> 登录
+        </button>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>

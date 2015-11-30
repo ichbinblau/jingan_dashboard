@@ -1,0 +1,17 @@
+<%= stylesheet_link_tag "admins/sys_outlink/mapview"%>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=71aac234b85bab5e1d48691ba0b6ab0e"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<%= javascript_include_tag "admins/sys_outlink/mapview"%>
+
+<div id="allmap"></div>
+<div id="board">
+    <span id="Label1" class="span-small-block">运动记录</span>
+    <span class="bar-green"></span>
+    <span id="Label2" class="span-small-block"><%= @sport_record_num.count %></span>
+    <!-- <a href="javascript:void(0);" onclick="getlistinfo('signin')"> (查看)</a> -->
+    <br />
+    <span id="Label3" class="span-small-block">报修记录</span>
+    <span class="bar-red"></span>
+    <span id="Label4" class="span-small-block"><%= @repair_record_num.count %></span>
+    <!-- <a href="javascript:void(0);" onclick="getlistinfo('repair')"> (查看)</a> -->
+</div>

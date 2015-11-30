@@ -1,0 +1,123 @@
+<!-- 管道 -->
+<% if params[:status_type] == 3.to_s %>
+<% content_item = Kf::Pipe.find params[:relation_id] %>
+  <h1>查看管道数据 <%= link_to '返回', "/kf/pipes/#{content_item.father_id}" ,:class =>"btn btn-primary" %></h1>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th width="30">ID</th>
+        <th>管道</th>
+        <th>护士台</th>
+        <th><%= Kf::Pipe.human_attribute_name("pipepoint_count") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= content_item.id %></td>
+        <td><%= content_item.title %> <br /><%= content_item.description %></td>
+        <td>
+          <% content_item.kf_sorts.each do |sort| %>
+            <%= link_to sort.name, "/kf/statuses?relation_id=#{sort.id}&status_type=2&count_type=0" ,:target => "_blank" %> (<%= sort.pipepoint_count %>)<br />
+          <% end %>
+        </td>
+        <td><%= content_item.pipepoint_count %></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
+
+<!-- 护士台 -->
+<% if params[:status_type] == 2.to_s %>
+<% content_item = Kf::Sort.find params[:relation_id] %>
+  <h1>查看护士台数据</h1>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th width="30">ID</th>
+        <th>护士台</th>
+        <th>课程</th>
+        <th><%= Kf::Sort.human_attribute_name("pipepoint_count") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= content_item.id %></td>
+        <td><%= content_item.name %> <br /><%= content_item.description %></td>
+        <td>
+          <% content_item.kf_course.each do |course| %>
+            <%= link_to course.title, "/kf/statuses?relation_id=#{course.id}&status_type=1&count_type=0" ,:target => "_blank" %><br />
+          <% end %>
+        </td>
+        <td><%= content_item.pipepoint_count %></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
+
+<!-- 课程 -->
+<% if params[:status_type] == 1.to_s %>
+<% content_item = Kf::Course.find params[:relation_id] %>
+  <h1>查看课程数据</h1>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th width="30">ID</th>
+        <th>课程</th>
+        <th>说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= content_item.id %></td>
+        <td><%= content_item.title %></td>
+        <td><%= content_item.content %></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
+
+
+<h1>
+  <%= Kf::Status.model_name.human %>
+  <%= link_to "新建",  { :action => "new", :page => params[:page], :relation_id => params[:relation_id], :status_type => params[:status_type], :count_type => params[:count_type]} ,:class =>"btn btn-success"%>
+</h1>
+
+<%= will_paginate @kf_statuses , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th><%= Kf::Status.human_attribute_name("date") %></th>
+      <% if params[:status_type] == 0.to_s %><th><%= Kf::Status.human_attribute_name("newuser_count") %></th><% end %>
+      <th><%= Kf::Status.human_attribute_name("activeuser_count") %></th>
+      <th><%= Kf::Status.human_attribute_name("indexdone_count") %></th>
+      <th><%= Kf::Status.human_attribute_name("course_fav_count") %></th>
+      <% if params[:status_type] == 0.to_s %><th><%= Kf::Status.human_attribute_name("newmobileaccount_count") %></th><% end %>
+      <th width="90">操作</th>
+    </tr>
+  </thead>
+<% @kf_statuses.each do |item| %>
+  <tr>
+    <td><%= item.date %>（周<%= item.date.wday == 0 ? "日" : item.date.wday%>）</td>
+    <% if params[:status_type] == 0.to_s %><td><%= item.newuser_count %> ( <%= item.newuser_count_android %> / <%= item.newuser_count_ios %> )</td><% end %>
+    <td><%= item.activeuser_count %> ( <%= item.activeuser_count_android %> / <%= item.activeuser_count_ios %> )</td>
+    <td>
+      <%= item.activeuser_count > 0 ? ( item.indexdone_count / item.activeuser_count) : 0 %>
+      (
+        <%= item.activeuser_count_android > 0 ? (item.indexdone_count_android / item.activeuser_count_android): 0 %> 
+        /
+        <%= item.indexdone_count_ios > 0 ? (item.indexdone_count_ios / item.activeuser_count_ios) : 0 %> 
+      )
+      <br /><%= item.indexdone_count %> ( <%= item.indexdone_count_android %> / <%= item.indexdone_count_ios %> )
+    </td>
+    <td><%= item.course_fav_count %> ( <%= item.course_fav_count_android %> / <%= item.course_fav_count_ios %> )</td>
+    <% if params[:status_type] == 0.to_s %><td><%= item.newmobileaccount_count %> ( <%= item.newmobileaccount_count_android %> / <%= item.newmobileaccount_count_ios %> )</td><% end %>
+    <td>
+        <%= link_to '更新',  :action => "edit" , :id =>item.id , :page => params[:page], :relation_id => params[:relation_id], :status_type => params[:status_type], :count_type => params[:count_type]%>
+        &nbsp;&nbsp;&nbsp;
+        <%= link_to '删除', { :action => "destroy", :id =>item.id , :page => params[:page] , :relation_id => params[:relation_id], :status_type => params[:status_type], :count_type => params[:count_type]},  method: :delete, data: { confirm: '确定删除？' } %>
+    </td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @kf_statuses , renderer: BootstrapPagination::Rails %>
+

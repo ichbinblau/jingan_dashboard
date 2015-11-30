@@ -1,0 +1,157 @@
+<%= javascript_include_tag "admins/global" ,"jquery.json-2.4" %>
+
+<h1>
+  <%=@module_info.show_name%> <%= link_to "新建#{@module_info.show_name}", { :action => "new", :sort_id => params[:sort_id]} ,:class =>"btn btn-primary"%>
+  <a href="#" onclick="editSortForm(<%= @main_sortid %>)" class="btn">编辑分类</a>
+  <span><form action="<%= url_for%>">
+    <select name="myselect" id="mySelect">
+      <option value="0" >全部</option>
+      <% ActStatusType.all.each do |zhx|%>
+
+          <% if  zhx.id.to_s == params[:myselect].to_s  %>
+              <option value="<%= zhx.id %>" selected="selected" ><%= zhx.descption %></option>
+          <% else %>
+              <option value="<%= zhx.id %>"><%= zhx.descption %></option>
+          <% end %>
+      <% end %>
+    </select>
+    <input name="words" id="search_list_input" value="<%= params[:words]%>" type="text" />
+    <input name="page"  type="hidden" value="<%= params[:page]%>"/>
+    <input name="per_page" type="hidden" value="<%= params[:per_page]%>"/>
+    <input name="sort_id" type="hidden" value="<%= params[:sort_id]%>"/>
+    <button href="javascript:;" onclick="search_list" class="btn" >搜索</button>
+  </form></span>
+</h1>
+
+
+
+
+<% if @content_items.first[:project_info_id]!=63 %>
+    <!-- 频道的情况 -->
+    <% if @properties.blank? %>
+        <ul class="nav nav-pills">
+          <li class="sort_name">
+            <a href="<%= url_for(:sort_id =>@main_sort.first[:id])%>"><%= @main_sort.first[:cnname]%><%= " - #{@content_items.count}" if @main_sort.first[:id].to_s == @sort_id.to_s%>：</a>
+          </li>
+          <% @channels.each do |item| %>
+              <li class="<%= 'active' if isActive( "sort_id" , item[:id].to_s ) %>"><a href="<%= url_for(:sort_id =>getNowIds( "sort_id" , item[:id].to_s , @channels))%>"><%= item[:cnname]%><%= " - #{@content_items.count}" if item[:id].to_s == @sort_id.to_s%></a></li>
+          <% end%>
+        </ul>
+    <% end%>
+
+    <!-- 二级分类的情况 -->
+    <% @properties.each do |property| %>
+        <ul class="nav nav-pills">
+          <li  class="sort_name"><a href="<%= url_for(:sort_id =>property[:id])%>"><%= property.cnname %><%= " - #{@content_items.count}" if @main_sort.first[:id].to_s == @sort_id.to_s%>：</a></li>
+          <% property[:sort_list].each do |item| %>
+              <li class="<%= 'active' if isActive("sort_id" , item[:id].to_s ) %>"><a href="<%= url_for(:sort_id =>getNowIds( "sort_id" , item[:id].to_s, property[:sort_list] ))%>"><%= item[:cnname]%><%= " - #{@content_items.count}" if item[:id].to_s == @sort_id.to_s%></a></li>
+          <% end%>
+        </ul>
+    <% end%>
+<% end%>
+
+
+
+<div id="edit_sort" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>编辑分类</h3>
+  </div>
+  <div class="modal-body" id="sort_div">
+
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:;"  data-dismiss="modal" aria-hidden="true" class="btn btn-primary">关闭</a>
+  </div>
+</div>
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <thead>
+  <tr>
+    <th>买家</th>
+    <th width="60">订单状态</th>
+    <th>订单号</th>
+    <% if @content_distitle["user_consignee_id"].to_s!="1"  %>
+        <th width="60">收货信息</th>
+    <% end%>
+    <th width="60">支付方式</th>
+
+    <% if @content_distitle["send_type"].to_s!="1"  %>
+    <th width="60">配送方式</th>
+        <% end%>
+    <th width="60">应付金额</th>
+    <th>备注</th>
+    <% if @content_distitle["check_time"].to_s!="1"  %>
+        <% if @content_distitle["txt_check_time"].to_s.length>0  %>
+            <th width="80"><%= @content_distitle["txt_check_time"].to_s %> </th>
+        <% else %>
+            <th width="80">入店时间</th>
+        <% end%>
+    <% end%>
+
+    <% if @content_distitle["departure_time"].to_s!="1"  %>
+        <% if @content_distitle["txt_departure_time"].to_s.length>0  %>
+            <th width="80"><%= @content_distitle["txt_departure_time"].to_s %> </th>
+        <% else %>
+            <th width="80">离店时间</th>
+        <% end%>
+    <% end%>
+
+    <% if @content_distitle["about_time"].to_s!="1"  %>
+        <th width="90">估计到店时间</th>
+    <% end%>
+    <% if @content_distitle["json_property"].to_s!="1"  %>
+            <th width="80">信息</th>
+    <% end%>
+    <th width="80">下单时间</th>
+    <th width="30">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @content_items.each do |content_item|%>
+      <tr>
+        <td>
+          <%= link_to content_item.user_info_id.to_s, :controller=>"sys_user", :action => "edit" , :id =>content_item.user_info_id , :page => params[:page],:controller_name => "sys_product_order", :sort_id => params[:sort_id] %>
+        </td>
+        <td><%= ActStatusType.where(:id =>content_item.act_status_type_id).first.descption %></td>
+        <td><%= content_item.order_number %></td>
+
+          <% if @content_distitle["user_consignee_id"].to_s!="1"  %> <td>
+            <%= link_to content_item.user_consignee_id.to_s, :controller=>"sys_user_consignee", :action => "edit" , :id =>content_item.user_consignee_id , :page => params[:page],:controller_name => "sys_product_order", :sort_id => params[:sort_id] %>
+           </td>
+          <% end%>
+        <td><%= raw content_item.payment_type==1 ? "支付宝" : "其它" %></td>
+
+        <% if @content_distitle["send_type"].to_s!="1"  %>
+        <td><%= raw content_item.send_type==1? "自取" :content_item.send_type==2? "快递":content_item.send_type==3? "送货上门": "其它"  %></td>
+            <% end %>
+        <td><%= content_item.must_price %></td>
+        <td><%= content_item.remarks %></td>
+        <% if @content_distitle["check_time"].to_s!="1"  %>
+            <td><%= content_item.check_time.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <% end%>
+        <% if @content_distitle["departure_time"].to_s!="1"  %>
+            <td><%= content_item.departure_time.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <% end%>
+        <% if @content_distitle["about_time"].to_s!="1"  %>
+            <td><%= content_item.about_time.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <% end%>
+        <% if @content_distitle["json_property"].to_s!="1"  %>
+            <td><%= content_item.json_property.gsub(/[{}]/,'') %></td>
+        <% end%>
+        <td><%= content_item.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td>
+          <%= link_to '编辑',  :action => "edit" , :id =>content_item.id , :page => params[:page], :sort_id => params[:sort_id] %>
+          <br />
+          <%= link_to '删除', { :action => "destroy", :id =>content_item.id , :page => params[:page], :sort_id => params[:sort_id]},  method: :delete, data: { confirm: '确定删除？' } %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<br />

@@ -1,0 +1,57 @@
+<!-- 标题 索引 -->
+<%
+  @sorts = []
+  now_sort = @kf_sort
+  while now_sort.top_id != 0
+    @sorts.push now_sort if now_sort.id != @kf_sort.id
+    now_sort = now_sort.father
+  end
+  @sorts.push now_sort if now_sort.id != @kf_sort.id
+%>
+<h3>
+  <% while item = @sorts.pop %>
+    <a href="/kf/sorts/<%= item.id %>"><%= item.name %></a> > 
+  <% end %>
+  <%= @kf_sort.name %>
+</h3>
+
+<%
+if @kf_sort.top_id == 0
+  @children_top_id = @kf_sort.id
+else
+  @children_top_id = @kf_sort.top_id
+end
+%>
+<h3>
+  <%= link_to '新建子分类',new_kf_sort_path({ :sort_top_id => @children_top_id , :sort_deep => (@kf_sort.deep + 1) , :sort_father_id => @kf_sort.id }) , :class =>"btn btn-success" %>
+</h3>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <th width="60"><%= Kf::Sort.human_attribute_name("order_level") %></th>
+      <th><%= Kf::Sort.human_attribute_name("name") %></th>
+      <th><%= Kf::Sort.human_attribute_name("image_cover") %></th>
+      <th><%= Kf::Sort.human_attribute_name("description") %></th>
+      <th width="150">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @kf_sort.children.each do |content_item| %>
+    <tr>
+      <td><%= content_item.id %></td>
+      <td><%= content_item.order_level %></td>
+      <td><%= content_item.name %></td>
+      <td><%= content_item.image_cover %></td>
+      <td><%= content_item.description %></td>
+      <td>
+        <%= link_to '子分类',  "/kf/sorts/#{content_item.id}" %> 
+        &nbsp;&nbsp;&nbsp;
+        <%= link_to '编辑',  "/kf/sorts/#{content_item.id}/edit?sort_top_id=#{@children_top_id}&sort_deep=#{(@kf_sort.deep + 1)}&sort_father_id=#{@kf_sort.id}" %>
+        &nbsp;&nbsp;&nbsp;
+        <%= link_to '删除', "/kf/sorts/#{content_item.id}?sort_top_id=#{@children_top_id}&sort_deep=#{(@kf_sort.deep + 1)}&sort_father_id=#{@kf_sort.id}",  method: :delete, data: { confirm: '确定删除？' } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

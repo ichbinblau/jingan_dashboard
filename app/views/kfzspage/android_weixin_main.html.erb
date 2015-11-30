@@ -1,0 +1,101 @@
+<style>
+#content{
+	background-color: #2673BF;
+}
+#content .icon{
+	margin-top:50px;
+}
+#content h1{
+	margin-top:30px;
+	color: #ffffff;
+	font-size: 70px;
+}
+#content h3{
+	color: #81befb;
+	font-size: 28px;
+}
+#content .download-btn{
+	margin:30px;
+	margin-bottom: 120px;
+}
+#download{
+	margin-top: 50px;
+	width: 250px;
+}
+#d_android{
+	float:left;
+	margin-right:50px;
+}
+#d_android img ,#d_iphone img {
+	width:100px;
+	height:100px;
+}
+
+.btn-outline{
+	color: #fff;
+	font-size:28px;
+	background-color: #2673BF;
+	border-color: #ffffff;
+	padding: 16px 58px;
+	border-radius:35px;
+}
+.btn-outline:hover, .btn-outline:focus, .btn-outline:active {
+	color: #2673BF;
+	background-color: #fff;
+	border-color: #2673BF;
+}
+.modal .qrcode{
+	width:260px;
+	height:260px;
+}
+
+html,body{
+	height:100%;
+	overflow:hidden;
+}
+.mask{
+	height:100%;
+	width:100%;
+	position:absolute;
+	top: 0px;
+	left: 0px;
+}
+.mask_content h2,.mask_content h3{
+	color: #ffffff;
+}
+.opacity{
+	opacity:0.8;
+	background-color:#000;
+}
+</style>
+
+<div id="content">
+  <div class="container">
+    <center><img class="icon" src="/images/kfzs/icon_120.png"></center>
+    <center><h1>康复助手</h1></center>
+    <center><h3>住院、康复 必备神器</h3></center>
+    <center><a href="<%= @android_url %>" class="btn btn-lg btn-outline download-btn" >立即下载</a></center>
+    
+  </div>
+</div>
+
+<div id="footer">
+  <div class="container">
+    <center><div id="download">
+	    <div id="d_android"><a target="_blank" href="<%= @android_url %>"><img src="/images/kfzs/icon_android.png" /></a><br />Android版下载</div>
+	    <div id="d_iphone"><a target="_blank" href="<%= @iphone_url %>"><img src="/images/kfzs/icon_iphone.png" /></a><br />iPhone版下载</div>
+	</div></center>
+  </div>
+</div>
+
+<div class="mask opacity"></div> 
+<div class="mask mask_content">
+	<img style="float:right" src="/images/kfzs/main_android_weixin_up.png"/>
+	<div style="clear:both;"></div>
+	<center><h2>点击右上角三个点</h2></center>
+	<center><h3>然后选择 "在浏览器打开" </h3></center>
+</div> 
+<br />
+<br />
+<br />
+

@@ -1,0 +1,60 @@
+<%= semantic_bootstrap_nested_form_for @kf_course , :url => url_for( :page=>params[:page], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <% if @kf_course.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kf_course.errors.count, "error") %> prohibited this kf_course_form from being saved:</h2>
+
+      <ul>
+      <% @kf_course.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.inputs "基本" ,:id => "basic" do %>
+    <%= f.input :course_type_id , :required => true ,:as => :select , :collection => JSON.parse( Kf::GlobalConfig.where(:key => "course_types").first.value ) %>
+    <%= f.input :kf_doctor_id , :required => true%>
+    <script>
+    input_to_hierarchy_1selector(
+      $("#kf_course_kf_doctor_id")
+      , ["/kf/sorts/","/kf/sorts/","/kf/sorts/","/kf/sorts/","/kf/doctors?sort_id="]
+      ,9 , "/kf/doctors/")
+    </script>
+    <%= f.input :kf_sickness_id , :required => true%>
+    <script>
+    input_to_hierarchy_1selector(
+      $("#kf_course_kf_sickness_id")
+      , ["/kf/sorts/","/kf/sorts/"]
+      ,2 , "/kf/sorts/")
+    </script>
+    <%= f.input :order_level %>
+    <%= f.input :title %>
+    <%= f.input :image_cover %>
+    <%= f.input :content %>
+  <% end %>
+  <%= f.inputs "选填" ,:id => "option" do %>
+    <%= f.input :day_1_name %>
+    <%= f.input :day_1_offset %>
+    <%= f.input :day_2_name %>
+    <%= f.input :day_2_offset %>
+    <%= f.input :day_3_name %>
+    <%= f.input :day_3_offset %>
+    <%= f.input :day_4_name %>
+    <%= f.input :day_4_offset %>
+    <%= f.input :day_5_name %>
+    <%= f.input :day_5_offset %>
+  <% end %>
+  <%= f.inputs "包含课程单元" ,:id => "option" do %>
+    <%= f.input :kf_children , :collection => []%>
+    <script>
+      get_search_selector(
+        $("#kf_course_kf_child_ids") 
+        ,"/kf/courses"
+        ,<%= raw f.object.kf_children.to_json %> 
+        ,true
+      );
+    </script>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit ,:label => params[:action]=="edit" ? "修改" : "添加" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,104 @@
+<style>
+.fit-content{width:auto;}
+.poptable td{ font-size: 12px;}
+</style>
+<h1>宜云物联apps</h1>
+<span class="dropdown">
+	按状态 <a href="#" class="dropdown-toggle" data-toggle="dropdown">筛选<b class="caret"></b></a> (当前: <%= app_state_enum(params[:app_state]) %>)
+	<ul id="state_menu" class="dropdown-menu">
+	  <% getappstateenum.each do |state| %>
+      	<li><a href="?app_state=<%= state[0]%>&phonetype=<%= params[:phonetype]%>"><%= state[1]%></a></li>
+      <% end%>
+    </ul>
+</span>
+ - 
+<span class="dropdown">
+	按类型 <a href="#" class="dropdown-toggle" data-toggle="dropdown">筛选<b class="caret"></b></a> (当前: <%= app_phonetype_enum(params[:phonetype]) %>)
+	<ul id="phonetype_menu" class="dropdown-menu">
+	  <% getphonetypeenum.each do |phonetype| %>
+      	<li><a href="?app_state=<%= params[:app_state]%>&phonetype=<%= phonetype[0]%>"><%= phonetype[1]%></a></li>
+      <% end%>
+    </ul>
+</span>
+
+<br />
+<!-- <p>Find me in app/views/manage/appstate.html.erb</p> -->
+
+<table id="statelist" class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>项目编号</th>
+      <th>平台</th>
+      <th>名称</th>
+      <th>当前状态</th>
+      <th>下载链接</th>
+      <!-- <th>名称</th> -->
+    </tr>
+  </thead>
+  <tbody>
+  	<% @apps.each do |app| %>
+    <tr>
+      <td><a href="http://d.nowapp.cn/<%= app.project_info.project_num %>" target="_blank"><%= app.project_info.project_num %></a></td>
+      <td><%= app.phonetype %></td>
+      <td><%= app.cnname %></td>
+      <td>
+      	<div id="state_over_<%= app.id %>"><%= app_state_enum(app.app_state) %></div>
+      	<div style="display:none;" id="state_pop_<%= app.id %>">
+      		<% if app.project_app_state_log.blank?  %>
+      			无记录
+      		<% else %>
+	      		<table class="poptable">
+	      			<tr><th>状态</th><th>说明</th><th>附件</th><th>时间</th></tr>
+	      			<% app.project_app_state_log.all.each do |state| %>
+	      				<tr>
+	      					<td><%= app_state_enum(state.app_state) %></td>
+	      					<td><%= state.des %></td>
+	      					<td><% if state.attachment.blank? %>
+	      							无
+		      					<% else %>
+		      						<a href="<%= state.attachment.url %>">下载</a>
+		      					<% end %></td>
+	      					<td><%= state.log_time %></td>
+		      			</tr>
+	      			<% end %>
+	      		</table>
+      		<% end %>
+      	</div>
+      </td>
+      <td>
+      	<a href="javascript:;" id="down_over_<%= app.id %>" target="_blank">历史版本</a>
+      	<div style="display:none;" id="down_pop_<%= app.id %>">
+      		<% if app.project_app_upload.blank?  %>
+      			无记录
+      		<% else %>
+	      		<table class="poptable">
+	      			<tr><th>版本</th><th>时间</th><th>说明</th><th>下载</th></tr>
+	      			<% app.project_app_upload.all.each do |upload| %>
+	      				<tr>
+	      					<td><%= upload.version %></td>
+	      					<td><%= upload.updated_at %></td>
+	      					<td><%= upload.des %></td>
+	      					<td><a href="<%= upload.file.url %>">下载</a></td>
+		      			</tr>
+	      			<% end %>
+	      		</table>
+      		<% end %>
+      	</div>
+      </td>
+    </tr>
+    <script>
+    	$('#state_over_<%= app.id %>').popover({placement :"left" , title:"状态变化记录" , content: $('#state_pop_<%= app.id %>').html() ,trigger :"hover" , html : true ,
+    		template: '<div class="popover fit-content"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'})
+    	$('#down_over_<%= app.id %>').popover({placement :"left" ,  title:"下载版本历史" , content:$('#down_pop_<%= app.id %>').html(), html : true ,
+    		template: '<div class="popover fit-content"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'})
+    </script>
+  	<% end %>
+  </tbody>
+</table>
+
+<div class="digg_pagination">
+	<div class="page_info">
+      <%= page_entries_info @apps %>
+    </div>
+	<%= will_paginate @apps %>
+</div>

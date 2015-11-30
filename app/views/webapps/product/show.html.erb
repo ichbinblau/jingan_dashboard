@@ -1,0 +1,7 @@
+<div class="row-fluid" style="padding: 0 10px 0 10px;">
+  <h3><%= @item_info["Title"]%></h3>
+  <div><%= @item_info["Abstract"]%></div>
+  <hr/>
+  <center class="well"><a href="<%= get_ecimg_url( :imagename =>@item_info["ImageCover"]) %>" target="_blank"><img src="<%= get_ecimg_url( :imagename =>@item_info["ImageCover"], :width=>480) %>"></a></center>
+  <div><%= raw @item_info["Content"].gsub("\n","<br/>") %></div>
+</div>

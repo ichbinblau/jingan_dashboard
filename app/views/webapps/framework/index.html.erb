@@ -1,0 +1,49 @@
+<script>
+var _appcfg_url = '<%= CONFIG_WEBAPP["appcfg_url"] %><%= @appnum %>/'
+var _appnum = '<%= @appnum %>'
+var _baidu_key = '<%= CONFIG_WEBAPP["key"]["ditu_baidu"] %>'
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+  WeixinJSBridge.call('hideToolbar');
+});
+</script>
+<%= stylesheet_link_tag "webapps/framework" %>
+<%= javascript_include_tag "jqmobi/ec-all" %>
+
+<script src="<%= CONFIG_WEBAPP["appcfg_url"] %>core-js/javascript/all_web.js" type="text/javascript"></script>
+<!-- <script src="<%= CONFIG_WEBAPP["appcfg_url"] %><%= @appnum %>/javascript/all_web.js" type="text/javascript"></script> -->
+<script src="http://api.map.baidu.com/api?v=1.5&ak=<%= CONFIG_WEBAPP["key"]["ditu_baidu"] %>" type="text/javascript"></script>
+
+<div id="afui" class="ios7"> <!-- this is the main container div.  This way, you can have only part of your app use UI -->
+  <!-- this is the splashscreen you see. -->
+  <div id="splashscreen" class='ui-loader'>
+      <br />
+      <br />
+      <br />
+      <%= @project_info[:cnname] %>
+      <br />
+      <br />
+      <span class='ui-icon ui-icon-loading spin'></span>
+      <h1>加载中 ...</h1>
+
+  </div>
+  <!-- this is the header div at the top -->
+  <div id="widgets" style="display:none"></div>
+  <div id="header">
+    <a id="backButton" href="javascript:;" class="button" ></a>
+  </div>
+  <div id="content"></div>
+  <!-- bottom navbar. Add additional tabs here -->
+  <div id="navbar">
+    <div class="horzRule"></div>
+    <!-- <a href="#main" id='navbar_home' class='icon home'>home</a> -->
+    <!-- <a href="#main2" id='navbar_home1' class='icon home'>home1</a> -->
+  </div>
+  <nav>
+    <div class='title'>Home</div>
+    <ul>
+      <li >
+        <a class="icon home mini" href="#main"></a>
+      </li>
+    </ul>
+  </nav>
+</div>

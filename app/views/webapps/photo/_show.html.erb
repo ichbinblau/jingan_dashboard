@@ -1,0 +1,21 @@
+<div id="myCarousel" class="carousel slide" style="margin-top:10px">
+  <!--<ol class="carousel-indicators">
+    <% @item_info["imgList"].each_with_index do |item ,k| %>
+      <li data-target="#myCarousel" data-slide-to="<%= k %>" class="<%= 'active' if k == 0 %>"></li>
+    <%end%>
+  </ol> -->
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <% item_info["imgList"].each_with_index do |item ,k| %>
+      <div class="item <%= 'active' if k == 0 %>">
+        <img src="<%= get_ecimg_url( :imagename =>item["image"], :width=>800) %>"/>
+        <div class="carousel-caption">
+          <p><%=item["description"]%></p>
+        </div>
+      </div>
+    <%end%>
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>

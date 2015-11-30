@@ -1,0 +1,2 @@
+module Admins::InfoWeixinHelper
+end

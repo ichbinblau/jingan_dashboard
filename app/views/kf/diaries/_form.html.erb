@@ -1,0 +1,23 @@
+<%= semantic_bootstrap_nested_form_for @kf_diary , :url => url_for( :page=>params[:page], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <% if @kf_diary.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kf_diary.errors.count, "error") %> prohibited this kf_diary from being saved:</h2>
+
+      <ul>
+      <% @kf_diary.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.inputs do %>
+    <%= f.input :user_info_id %>
+    <%= f.input :order_level %>
+    <%= f.input :title %>
+    <%= f.input :image_cover %>
+    <%= f.input :content %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit ,:label => params[:action]=="edit" ? "修改" : "添加" %>
+  <% end %>
+<% end %>

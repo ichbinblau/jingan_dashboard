@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>nowapp 管理后台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=no">
+  <%= stylesheet_link_tag "web-app-theme/base", "web-app-theme/themes/default/style", "web-app-theme/override" ,"dashboard"%>
+  <!--[if lt IE 9]>
+    <%= stylesheet_link_tag "html5" %>
+    <%= javascript_include_tag "html5" %>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <!--[if IE 7]>
+    <%= javascript_include_tag "font-awesome/css/font-awesome-ie7.min.css" %>
+  <![endif]-->
+  <%= javascript_include_tag "jquery" ,"jquery_ujs" ,"dashboard"  %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="container">
+    <div id="header">
+      <h1><%= link_to @admininfo['cnname'] ,:controller =>"dashboard" , :action =>"index" %></h1>
+
+      <div id="main-navigation">
+        <ul class="wat-cf">
+          <% if !@apps_list.index { |x| ["android" , "ios" , "winphone"].include?(x["phonetype"])  }.nil?  %>
+            <li><a href="http://d.nowapp.cn/<%= @admininfo['project_num']%>" target="main-frame">APP下载</a></li>
+          <% end %>
+          <% if !@apps_list.index { |x| ["webapp"].include?(x["phonetype"])  }.nil?  %>
+            <li><a href="http://s.nowapp.cn/webapps/<%= @admininfo['project_num']%>" target="main-frame">APP网页版</a></li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div id="user-navigation">
+        <ul class="wat-cf">
+          <!-- <li><a href="#">APP信息</a></li> -->
+          <li><%= @admininfo['email']%></li>
+          <% if !session[:admin_user_id].nil? && current_admin_user.id!=session[:admin_user_id] %>
+            <li><%= link_to("返回管理员账户" ,"/dashboard/fake_login") %></li>
+          <% end %>
+          
+          <% if admin_user_signed_in? %>
+            <li><%= link_to('退出', destroy_admin_user_session_path, :method => :delete, :confirm => "确定退出？" ) %></li>
+          <% else %>
+            <li><%= link_to('登录', new_admin_user_session_path({:return_to =>url_for(:action => 'index', :controller => 'dashboard')}) )  %> </li>
+          <% end %>
+        </ul>
+      </div>
+
+    </div>    
+    <div id="wrapper" class="wat-cf">
+      <div id="sidebar">
+
+        <% if @plugin_list.select{|x| x["type"] == 1 }.size > 0 %>
+          <div class="block">
+            <h3>内容</h3>
+            <ul class="navigation">
+              <% @plugin_list.select{|x| x["type"] == 1 }.each do | plugin_info | 
+                if (plugin_info.tconfigs["admin"] == true && plugin_info["name"]!="活动详细zhx")
+                %>
+                <li><%= link_to plugin_info["show_name"] ,{:controller =>"admins/app_#{plugin_info["tname"]}" , :action=>'index' , :module_id => plugin_info["id"]},:target=>"main-frame" %> </li>
+              <% 
+              end
+              end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <% if @plugin_list.select{|x| x["type"] == 2 }.size > 0 %>
+          <div class="block">
+            <h3>设置</h3>
+            <ul class="navigation">
+              <% @plugin_list.select{|x| x["type"] == 2 }.each do | plugin_info | %>
+                <li><%= link_to plugin_info["show_name"] ,{:controller =>"admins/info_#{plugin_info["tname"]}" , :action=>'index' ,:module_id => plugin_info["id"]},:target=>"main-frame" %> </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="block">
+          <h3>运营</h3>
+          <ul class="navigation">
+            <li><%= link_to "模块设置" ,{:controller =>"admins/sys_appconfig" , :action =>"index"}, :target=>"main-frame" %></li>
+            <li><%= link_to "分类设置" ,{:controller =>"admins/sys_sortconfig" , :action =>"index"}, :target=>"main-frame" %></li>
+
+            <% @plugin_list.select{|x| x["type"] == 3 }.each do | plugin_info | %>
+              <% if plugin_info["tname"] == "outlink" %>
+                <li><%= link_to plugin_info["show_name"] , plugin_info["description"] ,:target=>"_blank" %></li>
+              <% else %>
+                <li><%= link_to plugin_info["show_name"] ,{:controller =>"admins/sys_#{plugin_info["tname"]}" , :action=>'index' ,:module_id => plugin_info["id"]},:target=>"main-frame" %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+
+        <% if @plugin_list.select{|x| x["type"] == 4 }.size > 0 %>
+          <div class="block">
+            <h3>工具</h3>
+            <ul class="navigation">
+              <% @plugin_list.select{|x| x["type"] == 4 }.each do | plugin_info | %>
+                <li><%= link_to plugin_info["show_name"] ,{:controller =>"admins/tools_#{plugin_info["tname"]}" , :action=>'index' ,:module_id => plugin_info["id"]},:target=>"main-frame" %> </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="block notice">
+          <h4>联系我们</h4>
+          <p>service@ecloudiot.com</p>
+        </div>
+      </div>
+
+      <div id="main-frame-content">
+        <div class="flash">
+          <% flash.each do |type, message| %>
+            <div class="message <%= type %>">
+              <p><%= message %></p>
+            </div>
+          <% end %>
+        </div>
+        <%= yield %>
+      </div>
+
+    </div>    
+  </div>
+</body>
+</html>

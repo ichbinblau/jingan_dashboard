@@ -1,0 +1,211 @@
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=<%= @baidu_key %>"></script>
+<script>
+  var _nested_form = true;
+  $(function() {
+    function init_select_shop(){
+      $(".search_shop").after('<br />搜索：<input id="search_shop" type="text" value=""><a href="javascript:;" class="btn" onclick=\'$(".search_shop").empty();\'>清空</a>');
+      $( "#search_shop" ).autocomplete({
+        source: "<%= url_for :controller=> '/dashboard' , :action => 'search_shop' %>",
+        select: function( event, ui ) {
+          $('.search_shop').append( $("<option></option>").attr("value",ui.item.id).text(ui.item.label) )
+          $('.search_shop option').each(function(index,item){
+            item.selected = true
+          })
+          setTimeout(function(){
+            $('#search_shop').val('')
+          },100);
+          // alert($('#search_shop').val())
+        }
+      });
+      $('.search_shop').dblclick(function(){
+        $('.search_shop option:selected').remove()
+      })
+      $('.search_shop option').each(function(index,item){
+        if(item.selected != true)
+          item.selected = true
+      })
+    }
+    init_select_shop();
+  });
+</script>
+<%= semantic_bootstrap_nested_form_for  @content_item , :url => url_for( :page=>params[:page],:sort_id=>params[:sort_id], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <%= f.semantic_errors %>
+
+  <%= f.inputs do %>
+        <%= f.input :id ,:as => :hidden %>
+        <% if @content_distitle["cms_sorts"].to_s!="1"  %>
+            <%= f.input :cms_sorts ,:collection =>@sorts%>
+        <% end %>
+        <% if @content_distitle["title"].to_s!="1"  %>
+            <%= f.input :title %>
+        <% end %>
+        <% if @content_distitle["abstract"].to_s!="1"  %>
+            <%= f.input :abstract ,:input_html =>{:class=>"small-textarea"} %>
+        <% end %>
+        <% if @content_distitle["content"].to_s!="1"  %>
+            <%= f.input :content %>
+        <% end %>
+        <% if @content_distitle["order_level"].to_s!="1"  %>
+            <%= f.input :order_level ,:input_html =>{:class=>"small-text"}%>
+        <% end %>
+        <% if @content_distitle["is_push"].to_s!="1"  %>
+            <%= f.input :is_push %>
+        <% end %>
+        <% if @content_distitle["is_show"].to_s!="1"  %>
+            <%= f.input :is_show %>
+        <% end %>
+        <% if @content_distitle["video_url"].to_s!="1"  %>
+            <hr/>
+            <div><%= f.object.video_url %></div>
+            <%= f.input :video_url %>
+        <% end %>
+        <% if @content_distitle["image_cover"].to_s!="1"  %>
+            <hr/>
+            <%= raw "<img style='height:200px;margin-left:100px;' src='http://is.hudongka.com/#{@content_item.image_cover}'/>" if !@content_item.image_cover.blank? %>
+            <%= f.input :image_cover %>
+        <% end %>
+        <% if @content_distitle["cms_content_img"].to_s!="1"  %>
+            <%= f.fields_for :cms_content_img do |imgf| %>
+                <%= raw "<img style='height:200px;margin-left:100px;' src='http://is.hudongka.com/#{imgf.object.image}'/>" if !imgf.object.image.blank? %>
+                <%= imgf.input :image  %>
+                <%= imgf.input :description ,:input_html =>{:class=>"small-textarea"} %>
+                <%= imgf.input :project_info_id , :as => :hidden ,:collection => @admin_info.project_info_id %>
+                <%= imgf.link_to_remove "删除" %>
+            <% end %>
+            <p><%= f.link_to_add "添加图片", :cms_content_img %></p>
+        <% end %>
+  <% end %>
+
+  <% if @content_distitle["cms_info_shop"].to_s!="1"  %>
+    <%= f.fields_for :cms_info_shop do |cf| %>
+    <hr/>
+        <% if @content_distitle["shop_num"].to_s!="1"  %>
+            <%= cf.input :shop_num ,:input_html =>{:class=>"small-text"} %>
+        <% end %>
+        <% if @content_distitle["phone_num"].to_s!="1"  %>
+            <%= cf.input :phone_num  %>
+        <% end %>
+        <%= cf.input :address ,:input_html =>{:class=>"address_words"}  %>
+        <a class="btn" onclick="codeAddress($('.address_words').val())">地图上显示地址</a>
+
+        <div id="map-canvas" style="height:380px;margin:20px;"></div>
+        <a class="btn" onclick="setPointToInput()">地图中心点转google、baidu地图坐标</a><br /><br />
+
+        <%= cf.input :gps_longitude ,:input_html =>{:class=>"gps_longitude"}%>
+        <%= cf.input :gps_latitude ,:input_html =>{:class=>"gps_latitude" }%>
+        <a class="btn" onclick="getBaiduGpsFromGps($('.gps_longitude').val(),$('.gps_latitude').val())">gps转baidu地图坐标</a><br /><br />
+        <%= cf.input :longitude ,:input_html =>{:class=>"longitude"}%>
+        <%= cf.input :latitude ,:input_html =>{:class=>"latitude"}%>
+        <a class="btn" onclick="getBaiduGpsFromGoogleGps($('.longitude').val(),$('.latitude').val())">google转baidu地图坐标</a><br /><br />
+        <%= cf.input :baidu_longitude ,:input_html =>{:class=>"baidu_longitude"}%>
+        <%= cf.input :baidu_latitude ,:input_html =>{:class=>"baidu_latitude"}%>
+
+    <script>
+      _nested_form = false;
+    </script>
+  <% end %>
+    <p><%= f.link_to_add "附加内容", :cms_info_shop,:hidden_tag=>"content_add_nested_fields"%></p>
+  <% end %>
+  <script>
+    jQuery(function($) {
+      //控制自动打开内容项目
+      if (_nested_form){
+        $('a[hidden_tag=content_add_nested_fields]').click()
+      }
+      $('a[hidden_tag=content_add_nested_fields]').hide()
+      // 地图选点
+      var geocoder;
+      var map;
+      function initialize() {
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng( $('.latitude').val(),$('.longitude').val() );
+        var mapOptions = {
+          zoom: 15,
+          center: latlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: latlng
+        });
+      }
+
+      this.codeAddress = function (words) {
+        var address = words;
+        geocoder.geocode( { 'address': address}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+          } else {
+            alert('地址解析出错: ' + status);
+          }
+        });
+      }
+      this.setPointToInput = function (){
+        point = map.getCenter();
+        // alert(point)
+        $('.longitude').val(point.lng());
+        $('.latitude').val(point.lat());
+        this.getBaiduGpsFromGoogleGps(point.lng(),point.lat());
+      }
+      this.getBaiduGpsFromGps = function(lang ,lati){
+        BMap.Convertor.translate(new BMap.Point(lang , lati),0,function(point){
+          $('.baidu_longitude').val(point.lng)
+          $('.baidu_latitude').val(point.lat)
+        })
+      }
+      this.getBaiduGpsFromGoogleGps = function(lang ,lati){
+        BMap.Convertor.translate(new BMap.Point(lang , lati),2,function(point){
+          $('.baidu_longitude').val(point.lng)
+          $('.baidu_latitude').val(point.lat)
+        },100)
+      }
+      
+
+      function load_script(xyUrl, callback){
+          var head = document.getElementsByTagName('head')[0];
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = xyUrl;
+          //借鉴了jQuery的script跨域方法
+          script.onload = script.onreadystatechange = function(){
+              if((!this.readyState || this.readyState === "loaded" || this.readyState === "complete")){
+                  callback && callback();
+                  // Handle memory leak in IE
+                  script.onload = script.onreadystatechange = null;
+                  if ( head && script.parentNode ) {
+                      head.removeChild( script );
+                  }
+              }
+          };
+          // Use insertBefore instead of appendChild  to circumvent an IE6 bug.
+          head.insertBefore( script, head.firstChild );
+      }
+      function translate(point,type,callback){
+          var callbackName = 'cbk_' + Math.round(Math.random() * 10000);    //随机函数名
+          var xyUrl = "http://api.map.baidu.com/ag/coord/convert?from="+ type + "&to=4&x=" + point.lng + "&y=" + point.lat + "&callback=BMap.Convertor." + callbackName;
+          //动态创建script标签
+          load_script(xyUrl);
+          BMap.Convertor[callbackName] = function(xyResult){
+              delete BMap.Convertor[callbackName];    //调用完需要删除改函数
+              var point = new BMap.Point(xyResult.x, xyResult.y);
+              callback && callback(point);
+          }
+      }
+      window.BMap = window.BMap || {};
+      BMap.Convertor = {};
+      BMap.Convertor.translate = translate;
+      google.maps.event.addDomListener(window, 'load', initialize);
+    })
+  </script>
+
+
+  <%= f.actions do %>
+    <%= f.action :submit %>
+  <% end %>
+<% end %>

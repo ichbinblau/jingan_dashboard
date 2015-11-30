@@ -1,0 +1,112 @@
+
+
+<style>
+ #form-ctl{width: 100%;}
+ #form-ctl span{ float: left;,white-space:nowrap }
+
+</style>
+
+
+<%= form_tag nil,method:'GET',id:'form-search' do%>
+
+<div id="form-ctl">
+  <span>
+    <label>优惠券号 </label><input type="text" name="code" value="<%= params[:code]%>" >
+  </span>
+  <span>
+    <label>状态</label>
+    <%= select_tag "status", options_for_select({"已领取" =>"4" ,"已使用" =>"2"  },params[:status] ),  prompt: "请选择"%>
+  </span>
+  <span>
+   <%= submit_tag "查询", :class =>"btn btn-primary"%>
+  </span>
+  <input type="hidden" id="_token" name="_token">
+</div>
+<%end%>
+<div style="clear: both;"></div>
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <thead>
+  <tr>
+    <th>状态</th>
+    <th>编号</th>
+
+    <th>标题</th>
+    <th>摘要</th>
+    <th>内容</th>
+    <th>图片</th>
+    <th>创建时间</th>
+    <th>更新时间</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @content_items.each do |content_item|%>
+      <tr>
+        <td>
+          <%= link_to content_item.act_status_type_text,"javascript:;" ,:onclick=> "use(this,'#{content_item.apply_code}',#{content_item.act_status_type_id}) "%>
+        </td>
+        <td><%= content_item.apply_code%></td>
+        <td><%= content_item.title %></td>
+        <td><%= content_item.abstract%></td>
+        <td><%= content_item.content %> </td>
+        <td><%= raw "<img style='height:100px;width:100px;' src='http://is.hudongka.com/#{content_item.image_cover}'/>"   if !content_item.image_cover.nil? %>
+        </td>
+        <td><%= content_item.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td><%= content_item.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<br />
+
+<script>
+
+  $(function(){
+      var form = $('#form-search').submit(function(){
+          var value =  new Date().getTime();
+          document.getElementById("_token").value= value;
+      });
+
+
+  });
+
+  var getUrlDir = function (input) {
+      var value = input;
+      var index = value.indexOf("?");
+      if (index != -1) {
+          value = value.substr(0,index);
+      }
+      value = value.substr(0, value.lastIndexOf("/") + 1);
+      return value;
+  }
+
+var use = function(link,code,status){
+    var el = $(link);
+
+    if(!code || el.data('user-data') || status!=4 ){
+        return;
+    }
+    if(!confirm("确认修改为[已使用]吗?"))return;
+
+    var url = getUrlDir(location.href)+"update";
+
+    $.ajax({
+        url:url,
+        type: "POST",
+        data:{code:code},
+        success:function(data){
+            if(data && data.success){
+                alert("操作成功!")
+
+                el.text('已使用').data('user-data',1);
+            }else
+                alert(data.msg)
+        },error:function(){
+            alert("发生错误!");
+        }
+    });
+}
+
+
+</script>

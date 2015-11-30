@@ -1,0 +1,106 @@
+	 <style type="text/css">
+    /*全局*/
+    body,table,input,textarea,select {font-family:微软雅黑,Verdana,sans-serif,宋体;}  
+    body { padding-top: 60px; padding-bottom: 40px;} 
+    .hero-unit{padding:0px;max-width:960px;}
+    /*导航*/
+	  /*.navbar-inner .container ,.container ,.row-fluid{width:960px;}*/
+  	.navigation{padding-left:20px; height:30px}
+    .title{background-color:#333; padding:0px; padding-left:8px; color:#FFFFFF;font-size:12px;font-weight: bold;}
+    /*首页*/
+    /*#myCarousel{width:960px;height:360px;}*/
+	  .contentBg{background-color:#FFF;height:453px}
+	  .ctitle1{padding-left:8px; padding-top:10px;font-size:14px; font-weight: bold; height:10px; color:#595757}
+	  .content1{vertical-align:top;padding-left:8px;font-size:12px; width:100px;height:74px;color:#595757}
+	  .image1{ float:right; padding-right: 12px;height:74px;}
+	  .morebtn{padding-top:20px; padding-bottom:20px; padding-left:10px}
+	  .firstcontent{height:20px}
+	  .ctitle3{padding-left:8px; padding-top:10px;color:#595757}
+	  .a{font-size:14px;text-decoration: underline;cursor: pointer;font-weight: bold;}
+
+	  .content-img{-webkit-box-shadow:1px 1px 5px #848484;-moz-box-shadow:1px 1px 5px #848484; width: 74px; height: 74px}
+    .hero-unit .row-fluid .span3 .title {margin:10px 0 0 6px;}
+    .carousel-control{margin-top: 0;}
+    </style>
+
+
+    <%= render "header" %>
+
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit" >
+        <p>
+          <div id="myCarousel" class="carousel">
+              <!-- Carousel items -->
+              <div class="carousel-inner">
+                  <div class="active item"><a href="http://d.nowapp.cn/283737472" target="_blank"><img src="http://is.hudongka.com/3001263.jpg"></a></div>
+                  <div class="item"><a href="https://itunes.apple.com/cn/app/hua-lu-tu/id553473671?mt=8" target="_blank"><img src="http://is.hudongka.com/3001264.jpg"></a></div>
+                  <div class="item"><a href="https://itunes.apple.com/cn/app/si-sheng-huo/id556754986?mt=8" target="_blank"><img src="http://is.hudongka.com/3001265.jpg"></a></div>
+              </div>
+              <!-- Carousel nav -->
+              <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+              <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+          </div>
+          
+        </p>
+      </div>
+   
+      <!-- Example row of columns -->
+      <div class="hero-unit" >
+        <div class="row-fluid" style="padding-bottom:8px">
+          <% @sort1.each do |cmsSortInfo| %>
+
+          <% if cmsSortInfo[:cnname] == "联系我们" %>
+          <div class="span3">
+            <div class="span12 title"><%= cmsSortInfo[:cnname]%>/<%= cmsSortInfo[:name]%></div>
+            <div class="span12 contentBg" >
+              <% @sort2.each do |cmsSort2Info| %>
+                <% if cmsSortInfo[:id] == cmsSort2Info[:sort1Id]%>
+                  <%= raw cmsSort2Info[:content]%>
+                <% end%>
+              <% end%> 
+            </div>
+          </div>
+          <% end%>
+          <% if cmsSortInfo[:cnname] != "联系我们" %>
+          <% if cmsSortInfo[:cnname] != "工作机会" %>
+          <div class="span3" style="padding-left:4px;">
+          <% end%>
+          <% if cmsSortInfo[:cnname] == "工作机会" %>
+          <div class="span3" style="padding-right:16px">
+          <% end%>
+             <div class="span12 title"><%= cmsSortInfo[:cnname]%>/<%= cmsSortInfo[:name]%></div>
+               <div class="span12 contentBg">
+                <table>
+
+                       <% @sort2.each do |cmsSort2Info| %>
+                         <% if cmsSortInfo[:id] == cmsSort2Info[:sort1Id]%>
+                            <tr >
+                                <td  class="ctitle1" colspan="2"><%= link_to(cmsSort2Info[:title],{:controller =>'project',:action => 'detail',:contentId =>cmsSort2Info[:id],:cmsSortId =>cmsSortInfo[:id]})%></td>
+                            </tr>
+                            <tr>
+                            	<td class="content1"><%= raw cmsSort2Info[:abstract]%></td>
+                              <td class="image1"><img class="content-img" src="http://is.hudongka.com/<%= cmsSort2Info[:image_cover]%>"></td>
+                            </tr>
+                          <% end%>
+                      <% end%>
+                 
+                  </table>
+               </div>
+          </div>
+         <% end%>
+
+        <% end%>
+
+        </div>
+      </div>
+
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Kf course knowledge:</b>
+  <%= @kf_course_knowledge_attachment.kf_course_knowledge_id %>
+</p>
+
+<p>
+  <b>Order level:</b>
+  <%= @kf_course_knowledge_attachment.order_level %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @kf_course_knowledge_attachment.title %>
+</p>
+
+<p>
+  <b>Attachment type:</b>
+  <%= @kf_course_knowledge_attachment.attachment_type %>
+</p>
+
+<p>
+  <b>Attachment:</b>
+  <%= @kf_course_knowledge_attachment.attachment %>
+</p>
+
+
+<%= link_to 'Edit', edit_kf_course_knowledge_attachment_path(@kf_course_knowledge_attachment) %> |
+<%= link_to 'Back', kf_course_knowledge_attachments_path %>

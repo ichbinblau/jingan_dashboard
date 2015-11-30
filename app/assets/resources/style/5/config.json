@@ -1,0 +1,87 @@
+{
+	"actionbar":{
+		"background-color" : "#672b73",
+		"font-color" : "#ffffff",
+		"font-size" : "34px"
+	},
+	"index":{
+		"cover-alpha" : "0.3",
+		"icon-font-color" : "#ffffff",
+		"icon-font-size" : "24px"
+	},
+	"chat":{
+		"bubble-background-color":"#ffffff",
+		"bubble-font-color":"#333333",
+		"bubble-font-size":"28px",
+		"bubble-des-font-color":"#808080",
+		"bubble-des-font-size":"22px"
+	},
+	"card":{
+		"style_name": "普罗旺斯之恋",
+		"background-image" : "style/5/card.png",
+		"btn_map":{
+			"left": "30px",
+			"top": "653px",
+			"width": "81px",
+			"height": "81px"
+		},
+		"name1":{
+			"font-color":"#ffffff",
+			"font-size":"40px",
+			"font-weight":"bold",
+			"width":"640px",
+			"top":"393px",
+			"left":"0px"
+		},
+		"name2":{
+			"font-color":"#ffffff",
+			"font-size":"40px",
+			"font-weight":"bold",
+			"width":"640px",
+			"top":"473px",
+			"left":"0px"
+		},
+		"words1":{
+			"font-color":"#672b73",
+			"font-size":"28px",
+			"width":"640px",
+			"top":"180px",
+			"left":"0px"
+		},
+		"words2":{
+			"font-color":"#672b73",
+			"font-size":"28px",
+			"width":"640px",
+			"top":"215px",
+			"left":"0px"
+		},
+		"words3":{
+			"font-color":"#672b73",
+			"font-size":"28px",
+			"width":"640px",
+			"top":"250px",
+			"left":"0px"
+		},
+		"time":{
+			"font-color":"#672b73",
+			"font-size":"28px",
+			"width":"640px",
+			"top":"710px",
+			"left":"0px"
+		},
+		"address":{
+			"font-color":"#672b73",
+			"font-size":"28px",
+			"width":"640px",
+			"top":"633px",
+			"left":"0px"
+		},
+		"place":{
+			"font-color":"#672b73",
+			"font-size":"28px",
+			"width":"640px",
+			"top":"668px",
+			"left":"0px"
+		}
+	}
+}

@@ -1,0 +1,17 @@
+<%= javascript_include_tag "ace/ace" %>
+<%= javascript_include_tag "ace/theme-twilight" %>
+<%= javascript_include_tag "ace/mode-#{@ext}" %>
+<%= javascript_include_tag "eceditor/editor" %>
+<%= stylesheet_link_tag "eceditor/editor"%>
+
+<% if @image_url.blank? %>
+	<div id="editor"><%= @str %></div>
+<% else %>
+	<center><img src="<%= @image_url%>"/></center>
+<% end %>
+<script>
+var ace_editor
+$(function(){
+	ace_editor = new AceEditor("<%= @ext %>" , "editor" ,"<%= @file %>")
+})
+</script>

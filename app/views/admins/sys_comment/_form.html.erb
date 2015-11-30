@@ -1,0 +1,21 @@
+<script>
+    var _nested_form = true;
+</script>
+<%= semantic_bootstrap_nested_form_for  @content_item , :url => url_for( :page=>params[:page],:sort_id=>params[:sort_id], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+    <%= f.semantic_errors %>
+
+    <%= f.inputs do %>
+        <%= f.input :id ,:as => :hidden %>
+        <%= f.input :project_info_id  ,:collection =>ProjectInfo.where(:project_info_id =>@admin_info.project_info_id),:as => :hidden%>
+        <%= f.input :user_info_id, :as => :hidden %>
+        <%= f.input :cms_content_id, :as => :hidden %>
+        <%= f.input :content, :label => "用户评论", :readonly => true %>
+        <%= f.input :admin_reply, :label => "评论回复", :input_html =>{:class=>"small-textarea"} %>
+        <hr/>
+    <% end %>
+
+
+    <%= f.actions do %>
+        <%= f.action :submit %>
+    <% end %>
+<% end %>

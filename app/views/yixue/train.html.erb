@@ -1,0 +1,54 @@
+<div class="navbar" >
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="brand" href="#"><%= @configs[params[:type]][:title] %></a>
+		</div>
+	</div>
+</div>
+<div class="topic">
+	<div class="dropdown clearfix title-unit">
+	  <div class="dropdown-menu topic-title" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px; *width: 180px;">
+	  	正在读取......
+	  </div>
+	</div>
+	<ul class="options">
+		
+	</ul>
+	<div class="topic-sum">
+	</div>
+	<div class="alert alert-warning topic-des">
+	</div>
+</div>
+
+<div class="now-notice"><span class="topic-now">0</span> / <span class="topic-all">0</span></div>
+<div class="actions">
+	<button type="button" class="action-pre btn btn-primary " style="display:none;" onclick="pre_topic()">上一题</button>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" class="action-fav btn btn-default disabled">收藏</button>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" class="action-next btn btn-primary" style="display:none;" onclick="next_topic()">下一题</button>
+</div>
+<script>
+var _type = <%= params[:type] %>;
+</script>
+
+<!-- <label>
+  <span><input tabindex="1" type="radio" id="square-radio-1" name="square-radio"/></span>
+  <label for="square-radio-1" class="">心房颤动</label>
+</label>
+<label>
+  <span><input tabindex="4" type="radio" id="square-radio-4" name="square-radio"/></span>
+  <label for="square-radio-4" class="">心房颤动</label>
+</label>
+<label>
+  <span><input tabindex="5" type="radio" id="square-radio-5" name="square-radio"/></span>
+  <label for="square-radio-5" class="">心房颤动</label>
+</label>
+<label class="error">
+  <span><input tabindex="2" type="radio" id="square-radio-2" name="square-radio"/></span>
+  <label for="square-radio-2" class="">心房扑动</label>
+</label>
+<label class="success">
+  <span><input tabindex="3" type="radio" id="square-radio-3" name="square-radio"/></span>
+  <label for="square-radio-3" class="">阵发性室上性心动过速</label>
+</label> -->

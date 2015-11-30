@@ -1,0 +1,22 @@
+<%= semantic_bootstrap_nested_form_for @kf_global_config , :url => url_for( :page=>params[:page], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <% if @kf_global_config.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kf_global_config.errors.count, "error") %> prohibited this kf_global_config from being saved:</h2>
+
+      <ul>
+      <% @kf_global_config.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.inputs do %>
+    <%= f.input :config_type %>
+    <%= f.input :key %>
+    <%= f.input :value %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit ,:label => params[:action]=="edit" ? "修改" : "添加" %>
+  <% end %>
+<% end %>
+

@@ -1,0 +1,157 @@
+<style>
+#map-point{
+  position:absolute;
+  background-color: red;
+  height: 2px;
+  width: 2px;
+}
+
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=<%= @baidu_key %>"></script>
+<script>
+  var _nested_form = true;
+  $(function() {
+    function init_select_shop(){
+      $(".search_shop").after('<br />搜索：<input id="search_shop" type="text" value=""><a href="javascript:;" class="btn" onclick=\'$(".search_shop").empty();\'>清空</a>');
+      $( "#search_shop" ).autocomplete({
+        source: "<%= url_for :controller=> '/dashboard' , :action => 'search_shop' %>",
+        select: function( event, ui ) {
+          $('.search_shop').append( $("<option></option>").attr("value",ui.item.id).text(ui.item.label) )
+          $('.search_shop option').each(function(index,item){
+            item.selected = true
+          })
+          setTimeout(function(){
+            $('#search_shop').val('')
+          },100);
+          // alert($('#search_shop').val())
+        }
+      });
+      $('.search_shop').dblclick(function(){
+        $('.search_shop option:selected').remove()
+      })
+      $('.search_shop option').each(function(index,item){
+        if(item.selected != true)
+          item.selected = true
+      })
+    }
+    init_select_shop();
+  });
+</script>
+<%= semantic_bootstrap_nested_form_for  @content_item , :url => url_for( :page=>params[:page],:sort_id=>params[:sort_id] , :now_district => params[:now_district] , :now_area => params[:now_area], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <%= f.semantic_errors %>
+
+  <%= f.inputs do %>
+    <%= f.input :id ,:as => :hidden %>
+    
+    <%= render 'admins/sortselector' %>
+    <%= f.input :cms_sorts ,:collection =>f.object.cms_sorts , :input_html =>{:class=>"sort_selector"}%>
+
+    <%= f.input :sys_location_infos , :collection => @select_locations%>
+    <%= f.input :title %>
+    <%= f.input :created_at , :label => "添加时间" %>
+    <%= f.input :order_level ,:label =>"店铺等级" %>
+    <%= f.input :abstract ,:input_html =>{:class=>"small-textarea"} %>
+
+    <%= render 'admins/formcontent' , f: f %>
+
+    <hr/>
+    <%= raw "<img style='height:200px;margin-left:100px;' src='http://is.hudongka.com/#{@content_item.image_cover}'/>" if !@content_item.image_cover.blank? %>
+    <%= f.input :image_cover %>
+    <%= f.fields_for :cms_content_img do |imgf| %>
+      <%= raw "<img style='height:200px;margin-left:100px;' src='http://is.hudongka.com/#{imgf.object.image}'/>" if !imgf.object.image.blank? %>
+      <%= imgf.input :image  %>
+      <%= imgf.input :description ,:input_html =>{:class=>"small-textarea"} %>
+      <%= imgf.input :project_info_id , :as => :hidden ,:collection => @admin_info.project_info_id %>
+      <%= imgf.link_to_remove "删除" %>
+    <% end %>
+    <p><%= f.link_to_add "添加图片", :cms_content_img %></p>
+  <% end %>
+
+  <%= f.fields_for :cms_info_shop do |cf| %>
+    <hr/>
+    <%= cf.input :phone_num  %>
+    <%= cf.input :shop_num  %>
+    <%= cf.input :address ,:input_html =>{:class=>"address_words"}  %>
+    <a class="btn" onclick="codeAddress($('.address_words').val())">地图上显示地址</a>
+
+    <div id="map-canvas" style="height:380px;margin:20px;"></div>
+    <div id="map-point" ></div>
+    <a class="btn" onclick="setPointToInput()">地图中心点转坐标</a><br /><br />
+    <%= cf.input :baidu_longitude ,:input_html =>{:class=>"baidu_longitude"}%>
+    <%= cf.input :baidu_latitude ,:input_html =>{:class=>"baidu_latitude"}%>
+    <script> _nested_form = false </script>
+  <% end %>
+  <p><%= f.link_to_add "附加内容", :cms_info_shop,:hidden_tag=>"content_add_nested_fields"%></p>
+  <hr/>
+  <%= f.fields_for :product_contents do |product| %>
+  <%= product.input :cms_sorts ,:collection =>@select_sorts ,:as => :check_boxes %>
+  <div class="clearfix"></div>
+  <%= product.input :title  %>
+  <%= raw "<img style='height:200px;margin-left:100px;' src='http://is.hudongka.com/#{product.image_cover}'/>" if !product.object.image_cover.blank? %>
+  <%= product.input :image_cover  %>
+  <%= product.fields_for :cms_info_product do |product_info| %>
+    <%= product_info.input :price  %>
+    <%= product_info.input :is_order, :as => :boolean  %>
+    <div class="clearfix"></div>
+  <% end %>
+  <p><%= product.link_to_add "附加内容", :cms_info_product,:hidden_tag=>"content_add_product_infos_fields"%></p>
+  <%= product.link_to_remove "删除" %>
+  <hr/>
+  <% end %>
+  <p><%= f.link_to_add "添加产品", :product_contents ,:hidden_tag=>"content_add_products_fields"%></p>
+
+
+  <%= f.actions do %>
+    <%= f.action :submit %>
+  <% end %>
+<% end %>
+
+
+
+<script>
+  jQuery(function($) {
+    //控制自动打开内容项目
+    if (_nested_form){
+      $('a[hidden_tag=content_add_nested_fields]').click()
+    }
+    $('a[hidden_tag=content_add_nested_fields],a[hidden_tag=content_add_product_infos_fields]').hide()
+    $('a[hidden_tag=content_add_products_fields]').click(function(){
+      setTimeout(function(){
+        $('a[hidden_tag=content_add_product_infos_fields]:last').click();
+        $('a[hidden_tag=content_add_product_infos_fields]').hide()
+      },100)
+    });
+    $("#map-point").css({
+      "left":$("#map-canvas").offset().left + ($("#map-canvas").width() / 2),
+      "top":$("#map-canvas").offset().top + ($("#map-canvas").height() / 2)
+    })
+    // 百度地图API功能
+    var map = new BMap.Map("map-canvas");
+    var point = new BMap.Point( $(".baidu_longitude").val() , $(".baidu_latitude").val() );
+    if("" == $(".baidu_longitude").val())
+      point = new BMap.Point( 121.515729 , 31.3025827 );
+    map.centerAndZoom(point,16);
+    map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));
+    map.addControl(new BMap.OverviewMapControl({isOpen:true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT}));
+    map.enableScrollWheelZoom();
+    map.addControl(new BMap.MapTypeControl({anchor: BMAP_ANCHOR_TOP_LEFT}));
+    map.addControl(new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT})); 
+    // 创建地址解析器实例
+    var myGeo = new BMap.Geocoder();
+    // 将地址解析结果显示在地图上,并调整地图视野
+    this.codeAddress = function (address){
+      myGeo.getPoint(address, function(point){
+        if (point) {
+          map.centerAndZoom(point, 19);
+          map.addOverlay(new BMap.Marker(point));
+        }
+      });
+    }
+    this.setPointToInput = function(){
+      $(".baidu_longitude").val(map.getCenter().lng)
+      $(".baidu_latitude").val(map.getCenter().lat)
+    }
+  })
+</script>
+
+

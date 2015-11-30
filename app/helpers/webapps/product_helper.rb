@@ -1,0 +1,2 @@
+module Webapps::ProductHelper
+end

@@ -1,0 +1,2 @@
+module Webapps::CouponHelper
+end

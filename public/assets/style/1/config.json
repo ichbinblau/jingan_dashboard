@@ -1,0 +1,86 @@
+{
+  "actionbar": {
+    "background-color": "#CE2A2F",
+    "font-color": "#ffffff",
+    "font-size": "34px"
+  },
+  "index": {
+    "cover-alpha": "0.3",
+    "icon-font-color": "#ffffff",
+    "icon-font-size": "24px"
+  },
+  "chat": {
+    "bubble-background-color": "#ffffff",
+    "bubble-font-color": "#333333",
+    "bubble-font-size": "28px",
+    "bubble-des-font-color": "#808080",
+    "bubble-des-font-size": "22px"
+  },
+  "card": {
+    "style_name": "传统经典",
+    "background-image": "style/1/card.png",
+    "btn_map": {
+      "left": "15px",
+      "top": "730px",
+      "width": "81px",
+      "height": "81px"
+    },
+    "name1": {
+      "font-color": "#ffffff",
+      "font-size": "48px",
+      "font-weight": "bold",
+      "top": "175px",
+      "left": "80px",
+      "transform": "rotate(90deg)"
+    },
+    "name2": {
+      "font-color": "#ffffff",
+      "font-size": "48px",
+      "font-weight": "bold",
+      "top": "175px",
+      "left": "140px",
+      "transform": "rotate(90deg)"
+    },
+    "words1": {
+      "font-color": "#ffffff",
+      "font-size": "28px",
+      "top": "90px",
+      "left": "255px",
+      "transform": "rotate(90deg)"
+    },
+    "words2": {
+      "font-color": "#ffffff",
+      "font-size": "28px",
+      "top": "90px",
+      "left": "290px",
+      "transform": "rotate(90deg)"
+    },
+    "words3": {
+      "font-color": "#ffffff",
+      "font-size": "28px",
+      "top": "90px",
+      "left": "320px",
+      "transform": "rotate(90deg)"
+    },
+    "time": {
+      "font-color": "#ffffff",
+      "font-size": "28px",
+      "top": "730px",
+      "left": "100px"
+    },
+    "address": {
+      "text-align": "left",
+      "font-color": "#ffffff",
+      "width": "330px",
+      "font-size": "28px",
+      "top": "820px",
+      "left": "100px"
+    },
+    "place": {
+      "font-color": "#ffffff",
+      "font-size": "28px",
+      "top": "770px",
+      "left": "100px"
+    }
+  }
+}

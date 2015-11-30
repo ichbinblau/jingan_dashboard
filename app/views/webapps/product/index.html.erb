@@ -1,0 +1,5 @@
+
+<%= render :partial => 'webapps/webapp/channel' , :locals => {:channels => @channels} if @channels.size > 1 %>
+
+<%= render :partial => 'webapps/webapp/listviewTwoline' , :locals => {:item_list => @item_list } if !@item_list.nil? && @item_list.size > 0  %>
+

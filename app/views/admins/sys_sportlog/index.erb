@@ -1,0 +1,36 @@
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <thead>
+  <tr>
+    <th>用户</th>
+    <th>运动记录标题</th>
+    <th>运动时长</th>
+    <th>时间</th>
+    <th>场所名称</th>
+    <th>场所地点</th>
+    <th>地址</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @content_items.each do |content_item|
+    shop=content_item.cms_content.cms_info_shop
+    imgInfo = content_item.cms_content_img.first
+
+  %>
+      <tr>
+        <td><%= content_item.user_info.phone_number%></td>
+        <td><%= content_item.title%></td>
+        <td><%= content_item.content%></td>
+        <td><%= content_item.updated_at.strftime("%Y-%m-%d %H:%M:%S").to_s %></td>
+        <td><%= content_item.cms_sort_type_id%></td>
+        <td><%= content_item.cms_content.title %> </td>
+        <td><%= shop.address %> </td>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<br />
+

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invitation</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <link rel="stylesheet" href="css/reveal.min.css"/>
+    <link rel="stylesheet" href="css/invitation.css"/>
+    <script src="src/reveal.min.js"></script>
+    <script src="src/zepto.min.js"></script>
+</head>
+<body>
+
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <section id="page1" data-background="">
+                <div class="page" style="background: red">
+                    page1
+                </div>
+            </section>
+            <section id="page4" data-background="http://m3.img.srcdd.com/farm3/d/2011/1214/18/559C802EDC24F91A93119DC70BC3A32B_B1280_1280_640_960.PNG">
+                <div class="page">
+                    page4
+                </div>
+            </section>
+            <section id="page2">
+                <div class="page">
+                    <div class="bar-top">
+                        top bar
+                    </div>
+                    <div class="bar-bottom">
+                        bottom bar
+                    </div>
+                </div>
+            </section>
+            <section id="page3" data-background="http://m3.img.srcdd.com/farm3/d/2011/1214/18/559C802EDC24F91A93119DC70BC3A32B_B1280_1280_640_960.PNG">
+                <div class="page">
+                    page3
+                </div>
+            </section>
+        </section>
+    </div>
+</div>
+
+<script>
+    Reveal.initialize({
+
+        width: '100%',
+
+        height: '100%',
+
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Display a presentation progress bar
+        progress: false,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // Hides the address bar on mobile devices
+        hideAddressBar: true,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'slide', // default/none/slide/concave/convex/zoom
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Parallax background image
+        parallaxBackgroundImage: 'imgs/cover.png', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+        // Parallax background size
+        parallaxBackgroundSize: '100% 100%' // CSS syntax, e.g. "2100px 900px"
+
+
+    });
+
+    $(function(){
+        $('.page').css({'width': $(window).width(), 'height': $(window).height()});
+    });
+</script>
+</body>
+</html>

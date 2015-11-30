@@ -1,0 +1,68 @@
+<!-- 标题 索引 -->
+<%
+  @sorts = []
+  now_sort = @kf_sort
+  while now_sort.top_id != 0
+    @sorts.push now_sort if now_sort.id != @kf_sort.id
+    now_sort = now_sort.father
+  end
+  @sorts.push now_sort if now_sort.id != @kf_sort.id
+%>
+<h3>
+  <% while item = @sorts.pop %>
+    <a href="/kf/sorts/<%= item.id %>"><%= item.name %></a> > 
+  <% end %>
+  <%= @kf_sort.name %>
+</h3>
+
+<%
+if @kf_sort.top_id == 0
+  @children_top_id = @kf_sort.id
+else
+  @children_top_id = @kf_sort.top_id
+end
+%>
+<h3>
+  <%= link_to '新建子分类',new_kf_sort_path({ :sort_top_id => @children_top_id , :sort_deep => (@kf_sort.deep + 1) , :sort_father_id => @kf_sort.id }) , :class =>"btn btn-success" %>
+</h3>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <th width="60"><%= Kf::Sort.human_attribute_name("order_level") %></th>
+      <th width="100">二维码</th>
+      <th>二维码推荐<%= Kf::Sort.human_attribute_name("kf_course") %></th>
+      <th>名称</th>
+      <th><%= Kf::Sort.human_attribute_name("pipepoint_count") %></th>
+      <th><%= Kf::Sort.human_attribute_name("image_cover") %></th>
+      <th><%= Kf::Sort.human_attribute_name("description") %></th>
+      <th width="30">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @kf_sort.children.each do |content_item| %>
+    <tr>
+      <td><%= content_item.id %></td>
+      <td><%= content_item.order_level %></td>
+      <td><img src="http://cs.hudongka.com/?level=L&size=10&border=1&data=http%3A%2F%2Fkfzs.nowapp.cn%2Fcs%2F%3Fdoctor_group%3D<%= content_item.code%>"><br /><%= content_item.code%></td>
+      <td>
+        <% content_item.kf_course.each do |course| %>
+          <%= link_to course.title, course ,:target => "_blank" %><br />
+        <% end %>
+      </td>
+      <td><%= content_item.name %></td>
+      <td><%= content_item.pipepoint_count %></td>
+      <td><%= content_item.image_cover %></td>
+      <td><%= content_item.description %></td>
+      <td>
+        <%= link_to '医生',  "/kf/doctors?sort_id=#{content_item.id}" %> 
+        <br />
+        <%= link_to '编辑',  "/kf/sorts/#{content_item.id}/edit?sort_top_id=#{@children_top_id}&sort_deep=#{(@kf_sort.deep + 1)}&sort_father_id=#{@kf_sort.id}" %>
+        <br />
+        <br />
+        <%= link_to '删除', "/kf/sorts/#{content_item.id}?sort_top_id=#{@children_top_id}&sort_deep=#{(@kf_sort.deep + 1)}&sort_father_id=#{@kf_sort.id}",  method: :delete, data: { confirm: '确定删除？' } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

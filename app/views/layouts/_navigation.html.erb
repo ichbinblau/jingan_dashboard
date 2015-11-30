@@ -1,0 +1,39 @@
+<%= link_to raw('<i class="icon-flag"></i> nowapp.cn'), root_path, :class => 'brand' %>
+<div class="nav-inner">
+  <ul class="nav">
+    <li class="active">
+      <%= link_to('首页', root_path) %>
+    </li>
+    <li class="active">
+      <%= link_to('用户', root_path) %>
+    </li>
+    <li class="active">
+      <%= link_to('应用', root_path) %>
+    </li>
+  </ul>
+  <ul class="nav pull-right">
+    <!-- 管理员 -->
+    <li class="">
+      <%= link_to('账号信息', "/admin" ,:target =>"_blank") %>
+    </li>
+    <li class="active">
+      <%= link_to('所有订单', root_path) %>
+    </li>
+    
+    <% if admin_user_signed_in? %>
+      <!-- 公共 -->
+      <li class="">
+        <%= current_admin_user.id %>
+      </li>
+      <li>
+      <%= link_to('退出', destroy_admin_user_session_path, :method => :delete ) %>
+      </li>
+    <% else %>
+      <li>
+      <%= link_to('登录', new_admin_user_session_path({:return_to =>url_for(:action => 'index', :controller => 'dashboard')}) )  %>  
+      </li>
+    <% end %>
+  </ul>
+  
+</div>
+

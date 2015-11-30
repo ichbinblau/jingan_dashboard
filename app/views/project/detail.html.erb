@@ -1,0 +1,72 @@
+   <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        body,table,input,textarea,select,p {font-family:微软雅黑,Verdana,sans-serif,宋体;}    
+      }
+    </style>
+
+   <style type="text/css">
+    .hero-unit{padding:0px;max-width:960px;}
+    /*.navbar-inner .container,.container  {width:960px;}*/
+    .title{font-size:14px;color:#595757;font-weight: bold;}
+    .content{font-size:12px;color:#595757;}
+    .padding-left{padding-left:60px;}
+    .content-img{width: 74px; height: 74px}
+    .ctitle1{font-size:14px; font-weight: bold; height:10px; color:#595757}
+    .head-li{font-size: 14px}
+    </style>
+
+
+    <%= render "header" %>
+
+
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit" style="background-color:#FFF">
+   			      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <% if !@sort2.blank?  %>
+              <% @sort2.each do |cmsSortInfo| %>
+                 <% if cmsSortInfo[:id] == @selectContent[0][:id]%>
+                 <li class="active nav-header head-li">
+                 <% end%> 
+                 <% if cmsSortInfo[:id] != @selectContent[0][:id]%>
+                 <li class="nav-header head-li">
+                <% end%> 
+                <%= link_to(cmsSortInfo[:title],{:controller =>'project',:action => 'detail',:contentId =>cmsSortInfo[:id],:cmsSortId =>@tempSortId[0][:cmsSortId]})%></li>
+              <% end%> 
+              <% end%> 
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+
+        <% if !@selectContent.blank?  %>
+        <div class="span9" style="border: 1px solid #eee;">
+        <div class="row-fluid" style="padding-top:20px;">
+          <div class="span9">   
+            <div class="row-fluid padding-left" >
+                  
+                  <% @selectContent.each do |content| %>
+                   <p class="title">
+                     <%= raw content[:contentTitle]%>
+                   </p>
+                   <p class="content">
+                      <%= raw content[:content]%>
+                    </p>
+                  <% end%>
+
+            </div>
+          </div>
+        </div>
+   		</div>
+      <% end%> 
+
+      </div>
+</div>
+    </div> <!-- /container -->
+</html>

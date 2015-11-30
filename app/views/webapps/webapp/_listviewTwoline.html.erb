@@ -1,0 +1,21 @@
+<%= stylesheet_link_tag "webapps/_listviewTwoline" %>
+<ul class="listviewTwoline nav nav-list">
+<% item_list.each do |item| %>
+<li>
+  <a href="<%= url_for :controller => params[:controller]!="webapps/pcmain" ? params[:controller] : module_info[:tname].to_s , :action => "show" , :contentid=>item["id"] , :module_id => params[:controller]!="webapps/pcmain" ? params[:module_id] : module_info[:id].to_s%>">
+    <i class="icon-chevron-right"></i>
+    <% if (params[:controller]!="webapps/pcmain" ? params[:controller] : module_info[:tname].to_s) == "webapps/coupon" %>
+      <span class="label label-success">限时抢</span>
+    <% end%>
+    
+    <div class="list_left">
+      <img src="<%= get_ecimg_url( :imagename =>item["image_cover"], :width=>120 , :height => 120) %>"/>
+    </div>
+    <div class="list_right">
+      <div class="list_title"><%= item["title"] %></div>
+      <div class="list_des"><%= item["abstracts"].truncate(60) %></div>
+    </div>
+  </a>
+</li>
+<% end%>
+</ul>

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Config type:</b>
+  <%= @kf_global_config.config_type %>
+</p>
+
+<p>
+  <b>Key:</b>
+  <%= @kf_global_config.key %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @kf_global_config.value %>
+</p>
+
+
+<%= link_to 'Edit', edit_kf_global_config_path(@kf_global_config) %> |
+<%= link_to 'Back', kf_global_configs_path %>

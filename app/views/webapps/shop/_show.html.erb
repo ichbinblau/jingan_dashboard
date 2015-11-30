@@ -1,0 +1,72 @@
+<div class="row-fluid" style="padding: 0 10px 0 10px;">
+  <h3><%= item_info["Title"]%></h3>
+  <div>地址：<%= item_info["address"]%></div>
+  <div>电话：<%= item_info["phone_num"]%></div>
+  <hr/>
+  <div><%= raw item_info["Content"].gsub("\n","<br/>") %></div>
+
+  <div id="shop_map" style="height:500px;"></div>
+</div>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=<%= baidu_key %>"></script>
+<script type="text/javascript">
+//2011-7-25
+(function(){        //闭包
+function load_script(xyUrl, callback){
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = xyUrl;
+    //借鉴了jQuery的script跨域方法
+    script.onload = script.onreadystatechange = function(){
+        if((!this.readyState || this.readyState === "loaded" || this.readyState === "complete")){
+            callback && callback();
+            // Handle memory leak in IE
+            script.onload = script.onreadystatechange = null;
+            if ( head && script.parentNode ) {
+                head.removeChild( script );
+            }
+        }
+    };
+    // Use insertBefore instead of appendChild  to circumvent an IE6 bug.
+    head.insertBefore( script, head.firstChild );
+}
+function translate(point,type,callback){
+    var callbackName = 'cbk_' + Math.round(Math.random() * 10000);    //随机函数名
+    var xyUrl = "http://api.map.baidu.com/ag/coord/convert?from="+ type + "&to=4&x=" + point.lng + "&y=" + point.lat + "&callback=BMap.Convertor." + callbackName;
+    //动态创建script标签
+    load_script(xyUrl);
+    BMap.Convertor[callbackName] = function(xyResult){
+        delete BMap.Convertor[callbackName];    //调用完需要删除改函数
+        var point = new BMap.Point(xyResult.x, xyResult.y);
+        callback && callback(point);
+    }
+}
+
+window.BMap = window.BMap || {};
+BMap.Convertor = {};
+BMap.Convertor.translate = translate;
+})();
+//GPS坐标
+var ggPoint = new BMap.Point(<%= item_info["longitude"] %>,<%= item_info["latitude"] %>);
+
+
+function translateCallback(point){
+  //地图初始化
+  var bm = new BMap.Map("shop_map");
+  bm.centerAndZoom(point, 18);
+  bm.addControl(new BMap.NavigationControl());
+  var opts = {
+    width : 200,     // 信息窗口宽度
+    height: 100,     // 信息窗口高度
+    enableMessage:false,//设置允许信息窗发送短息
+    title : '<%= item_info["Title"] %>'  // 信息窗口标题
+  }
+  var infoWindow = new BMap.InfoWindow('地址：<%= item_info["address"] %><br />电话：<%= item_info["phone_num"] %>', opts);  // 创建信息窗口对象
+  bm.openInfoWindow(infoWindow,point); //开启信息窗口
+}
+setTimeout(function(){
+    BMap.Convertor.translate(ggPoint,2,translateCallback);     //GCJ-02坐标转成百度坐标
+}, 500);
+
+
+</script>

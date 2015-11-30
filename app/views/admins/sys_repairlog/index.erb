@@ -1,0 +1,87 @@
+<%= form_tag nil,method:'GET',id:'form-search' do%>
+<div id="form-ctl">
+  <span>
+    <label>状态</label>
+    <%= select_tag "status", options_for_select({"报修" =>"0" ,"已处理" =>"1"  },params[:status] ),  prompt: "请选择"%>
+  </span>
+  <span>
+   <%= submit_tag "查询", :class =>"btn btn-primary"%>
+  </span>
+  <input type="hidden" id="_token" name="_token">
+</div>
+<%end%>
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails  %>
+<table class="table table-bordered table-hover">
+  <thead>
+  <tr>
+    <th>设备名称</th>
+    <th>手机号</th>
+    <th>用户</th>
+    <th>报修</th>
+    <th>内容</th>
+    <th>时间</th>
+    <th>场所名称</th>
+    <th>场所地点</th>
+    <th>情况</th>
+    <th>状态</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @content_items.each do |content_item|
+    imgInfo = content_item.cms_content_img.first
+  %>
+      <tr>
+        <td><%= content_item.devicetitle%></td>
+        <td><%= content_item.phone_number%> </td>
+        <td><%= content_item.nickname%></td>
+        <td><%= content_item.title%></td>
+        <td><%= content_item.content%></td>
+        <td><%= content_item.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td><%= content_item.shoptitle %> </td>
+        <td><%= content_item.shopaddress %></td>
+        <td><%= content_item.vote_star_text   %> </td>
+        <td><a href="javascript:;" onclick="setStatus(this,<%=content_item.id %>,<%=content_item.status %>)"> <%= (content_item.status.nil? || content_item.status==0 ) ? "报修":"已处理"   %>    </a> </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<br />
+<script>
+
+    var getUrlDir = function (input) {
+        var value = input;
+        var index = value.indexOf("?");
+        if (index != -1) {
+            value = value.substr(0,index);
+        }
+        value = value.substr(0, value.lastIndexOf("/") + 1);
+        return value;
+    }
+
+  var setStatus = function(link,id,status){
+      var el = $(link);
+      if(status || el.data("uer-data"))return;
+      if(!confirm("确认修改为【已处理】?"))
+        return;
+      var url = getUrlDir(location.href)+"edit" ;
+      $.ajax({
+          url:url,
+          data:{key:id},
+          type:"POST",
+          success:function(data){
+            if(data.success){
+                $(link).text("已处理").data("uer-data",1);
+                alert("操作成功!");
+            }else{
+                alert(data.msg)
+            }
+          },
+          error:function(r){
+            alert("发生错误");
+          }
+      });
+  }
+</script>
+

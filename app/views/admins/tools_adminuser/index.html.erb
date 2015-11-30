@@ -1,0 +1,42 @@
+<h1>
+  <%=@module_info.show_name%> <%= link_to "新建#{@module_info.show_name}", { :action => "new", :sort_id => params[:sort_id]} ,:class =>"btn btn-primary"%>
+</h1>
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <th width="30">email</th>
+      <th>项目二维码</th>
+      <th>项目logo</th>
+      <th>项目名</th>
+      <th>公司名</th>
+      <th>公司电话</th>
+      <th width="30">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @content_items.each do |content_item| %>
+    <tr>
+      <td><%= content_item.id %></td>
+      <td><%= content_item.project_info.first.admin_user.first.email if !content_item.project_info.first.blank? && !content_item.project_info.first.admin_user.first.blank? %></td>
+      <td><%= raw "<img src='http://cs.hudongka.com/?level=L&size=3&border=1&data=http://d.nowapp.cn/#{content_item.project_info.first.project_num}'>" if !content_item.project_info.first.blank? && !content_item.project_info.first.project_num.blank? %></td>
+      <td>
+        <%= raw "<img style='height:80px;' src='#{get_ecimg_url( :imagename =>content_item.project_info.first[:project_logo], :height=>80)}'/>" if !content_item.project_info.first.blank? && !content_item.project_info.first.project_logo.blank? %>
+      </td>
+      <td><%= content_item.project_info.first.cnname if !content_item.project_info.first.blank? && !content_item.project_info.first.cnname.blank? %></td>
+      <td><%= content_item.name %></td>
+      <td><%= content_item.phone %></td>
+      <td>
+        <%= link_to '编辑',  :action => "edit" , :id =>content_item.id , :page => params[:page], :sort_id => params[:sort_id] %>
+        <br />
+        <%= link_to '转到',  "/dashboard/fake_login?fake_user_id=#{content_item.project_info.first.admin_user.first.id}" ,:target =>"_blank" if !content_item.project_info.first.blank? && !content_item.project_info.first.admin_user.first.blank?  && !content_item.project_info.first.admin_user.first.blank? %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<br />

@@ -1,0 +1,11 @@
+<header class="bar bar-nav">
+  <a class="icon icon-left-nav pull-left"  href="news?sort_id=<%= @sort_id %>"  data-ignore="push" data-transition="slide-out"></a>
+  <h1 class="title"> </h1>
+
+</header>
+<div class="content">
+	<div class="content-padded">
+		<h3><%= @news.title %></h3>
+		<p><%= raw @news.content.gsub(/\n/, '<br>') %></p>
+	</div>
+</div>

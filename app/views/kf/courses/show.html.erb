@@ -1,0 +1,225 @@
+<style>
+.ui-state-highlight { height: 1.5em; line-height: 1.2em; }
+.handler{cursor: move; min-width: 300px;}
+</style>
+
+<%= javascript_include_tag "jquery-ui/jquery.ui.core","jquery-ui/jquery.ui.mouse","jquery-ui/jquery.ui.widget","jquery-ui/jquery.ui.sortable"%>
+<%
+  # 内容类型
+  @course_item_types_kv = {}
+  Kf::CourseItemType.all.each{|item| @course_item_types_kv["#{item.id}"] = item.title }
+  # 时间
+%>
+
+<h1>编辑课程内容 <%= link_to '返回', { :action => "index", :page => params[:page]} ,:class =>"btn btn-primary" %></h1>
+<p id="notice"><%= notice %></p>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <th width="100">医生</th>
+      <th width="100">封面</th>
+      <th>名称</th>
+      <th>课程说明</th>
+      <th width="50">订阅数</th>
+      <th width="90">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><%= @kf_course.id %></td>
+    <td><%= @kf_course.kf_doctor_id %></td>
+    <td><%= raw get_ecimg_tag( @kf_course[:image_cover] , 80 , 80 ) if !@kf_course.image_cover.blank? %></td>
+    <td ><%= @kf_course.title %></td>
+    <td><%= @kf_course.content %></td>
+    <th><%= @kf_course.fav_count %></th>
+    <td>
+      <%= link_to '删除课程', { :action => "destroy", :id =>@kf_course.id , :page => params[:page]},  method: :delete, data: { confirm: '确定删除？' } %>
+      <br />
+      <%= link_to '编辑', { :action => "edit", :id =>@kf_course.id , :page => params[:page]} %>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+
+<h3  id="top"> 课程内容列表
+  <%= link_to '新建课程内容',new_kf_course_index_path({ :course_id => @kf_course.id, :kf_doctor_id => @kf_course.kf_doctor_id, :page => params[:page]}) , :class =>"btn btn-success" %>
+</h3>
+
+
+<ul id="tabs" class="nav nav-tabs" role="tablist">
+  <% @courses.each do |key , item| %>
+    <li role="presentation"><a href="#<%= key %>" ikey="<%= key %>"><%=  @kf_course[key.to_sym].blank? ? "课程开始" : @kf_course[key.to_sym] %></a></li>
+  <% end %>
+</ul>
+<div class="tab-content">
+  <% @courses.each do |key , item| %>
+    <div role="tabpanel" class="tab-pane active" id="<%= key %>">
+      <div>
+        <% item.each do |iKey , iItem| %>
+          <div style="float:left;margin-right:10px;"><a href="#<%= key %>_<%= iKey %>">第<%= iKey %>天</a></div>
+        <% end %>
+      </div>
+      <div class="clearfix"></div>
+      <div >
+      <% item.each do |iKey , iItem| %>
+        <h3 id="<%= key %>_<%= iKey %>">第 <%= iKey %> 天 [<a href="#top">top</a>]</h3>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th width="30">顺序</th>
+              <th width="30">ID</th>
+              <th width="70">内容类型</th>
+              <th>名称（拖动排序）</th>
+              <th width="60">重复</th>
+              <th width="30">隐藏</th>
+              <th width="80">时限</th>
+              <th width="30">条目</th>
+              <th width="130">操作</th>
+            </tr>
+          </thead>
+          <tbody class="sortable">
+          <% iItem.each do |content_item| %>
+            <tr itemid="<%= content_item.id %>">
+              <td class="order-input" width="30"><input type="text" style="width:26px;height:13px;" value="<%= content_item.order_level %>"></td>
+              <td width="30"><%= content_item.id %></td>
+              <td width="70"><%= @course_item_types_kv["#{content_item.kf_course_item_type_id}"] %></td>
+              <td class="handler"><%= content_item.title.truncate 30 %></td>
+              <td width="60">
+                <%= raw "<span style='color:red'>重复 #{content_item.children_count} 天</span>" if content_item.children_count > 0 %>
+                <%= raw "<span style='color:green'>[ 重复 ]</span>" if content_item.parent_id > 0 %>
+              </td>
+              <td width="30">
+              <% unless content_item.dc_day_offset.nil? %>
+                  <%= @kf_course[content_item.dc_day_type.to_sym] %><br /><%= content_item.dc_day_offset %>天<br>
+                <% else %>
+                  -
+                <% end %>
+              </td>
+              <td width="80">
+                <% unless content_item.valid_start.nil? %>
+                  <%= content_item.valid_start.to_date %> <br /> <%= content_item.valid_end.to_date %>
+                <% else %>
+                  -
+                <% end %>
+              </td>
+              <td width="30"><%= content_item.item_count %></td>
+              <td width="130">
+                <%= link_to '编辑',  "/kf/course_indices/#{content_item.id}/edit?course_id=#{@kf_course.id}&page=#{params[:page]}&tab=#{key}" if content_item.parent_id == 0 %>
+                <% if content_item.parent_id == 0 %>&nbsp;&nbsp;&nbsp;<a href="javascript:dupe_setting( <%= content_item.id%> , '<%= content_item.title%>')">重复</a><% end %>
+                &nbsp;&nbsp;&nbsp;
+                <%= link_to '删除', "/kf/course_indices/#{content_item.id}?course_id=#{@kf_course.id}&page=#{params[:page]}&tab=#{key}",  method: :delete, data: { confirm: '确定删除？' } %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      <% end %>
+      </div>
+    </div>
+  <% end %>
+
+</div>
+
+<script>
+function dupe_setting(course_id , title){
+  $('#myModal').modal();
+  $('#myModal #title').html("复制条目：" + title);
+  $('#myModal #item_id').val(course_id);
+}
+function dupe(){
+  var days = $('#myModal #days input').val();
+  var offset = $('#myModal #offset input').val();
+  var item_id = $('#myModal #item_id').val()
+  if(days == "")
+    return alert("请填入复制天数");
+  $.get("/kf/courses/dupe_index.json?id="+item_id+"&offset="+offset+"&days="+days ,function(){
+    window.location.reload();
+    $('#myModal').modal('hide');
+  });
+}
+$(function() {
+  // 可排序
+  $( ".sortable" ).sortable({
+    placeholder: "ui-state-highlight",
+    handle: ".handler",
+    update:function( event,ui ){
+      sort = []
+      $("tr" ,ui.item.parent()).each(function(i ,item){
+        sort.push( i + ":" + $(item).attr("itemid") )
+      });
+      $.get("/kf/courses/order_items.json?orders="+sort.join(","),function(res){
+        $.each(sort ,function(n,item){
+          // 修改排序数字
+          $("tr[itemid="+item.split(":")[1]+"] input").val(item.split(":")[0])
+        });
+      })
+    }
+  });
+  $( ".sortable handler" ).disableSelection();
+
+  // 顺序手工更换数字
+  var orderChange = function(i,item){
+    var obj = $(i.target).parent().parent()
+    var table = obj.parent()
+    var itemid = obj.attr("itemid")
+    var order = $(i.target).val()
+    $.get("/kf/courses/order_items.json?orders="+order+":"+itemid,function(res){
+      window.location.reload();
+      // arr = table.find("tr").sort(function(a,b){
+      //   return parseInt($(a).find("input").val()) - parseInt($(b).find("input").val())
+      // })
+      // resultHTML = $("<tbody>")
+      // $.each(arr,function(i, item){
+      //   var copy = $(item).clone()
+      //   resultHTML.append( copy );
+      // })
+      // table.html(resultHTML.html()).find("input").change(orderChange);
+      // // input内容需要手动更新
+      // $.each(table.find("tr"),function(n,item){
+      //   if( $(item).attr("itemid") == itemid){
+      //     $(item).find("input").val(order)
+      //   }
+      // })
+    })
+  }
+  $(".order-input input").change(orderChange);
+
+  // tab
+  $('#tabs a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show');
+  });
+  $('#tabs a:eq(0)').click();
+  <% @courses.each do |key , item| %>
+    <% if key.to_s == params[:tab] %>
+      $('#tabs a[ikey=<%= key %>]').click();
+    <% end %>
+  <% end %>
+});
+
+</script>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+        <h4 class="modal-title" id="myModalLabel">复制</h4>
+      </div>
+      <div class="modal-body">
+        <div id="title"></div>
+        <hr />
+        <div id="days"><span style="width:100px;display:inline-block;">复制几天：</span><input type="text"/></div>
+        <div id="offset"><span style="width:100px;display:inline-block;">每次隔几天：</span><input type="text"/></div>
+        <input type="hidden" id="item_id"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" onclick="dupe()">确定复制</button>
+      </div>
+    </div>
+  </div>
+</div>
+

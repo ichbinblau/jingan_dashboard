@@ -1,0 +1,85 @@
+{
+  "actionbar": {
+    "background-color": "#CE2A2F",
+    "font-color": "#ffffff",
+    "font-size": "34px"
+  },
+  "index": {
+    "cover-alpha": "0.3",
+    "icon-font-color": "#ffffff",
+    "icon-font-size": "24px"
+  },
+  "chat": {
+    "bubble-background-color": "#ffffff",
+    "bubble-font-color": "#333333",
+    "bubble-font-size": "28px",
+    "bubble-des-font-color": "#808080",
+    "bubble-des-font-size": "22px"
+  },
+  "card": {
+    "style_name": "浪漫温馨之选",
+    "background-image": "style/6/card.png",
+    "btn_map": {
+      "left": "88px",
+      "top": "540px",
+      "width": "81px",
+      "height": "81px"
+    },
+    "name1": {
+      "font-color": "#460100",
+      "font-size": "48px",
+      "font-weight": "bold",
+      "top": "455px",
+      "left": "245px"
+    },
+    "name2": {
+      "font-color": "#460100",
+      "font-size": "48px",
+      "font-weight": "bold",
+      "top": "355px",
+      "left": "270px"
+    },
+    "words1": {
+      "font-color": "#aa4651",
+      "font-size": "28px",
+      "top": "285px",
+      "width": "640px",
+      "left": "0px"
+    },
+    "words2": {
+      "font-color": "#aa4651",
+      "font-size": "28px",
+      "top": "245px",
+      "width": "640px",
+      "left": "0px"
+    },
+    "words3": {
+      "font-color": "#aa4651",
+      "font-size": "28px",
+      "top": "205px",
+      "width": "640px",
+      "left": "0px"
+    },
+    "time": {
+      "font-color": "#ae505a",
+      "font-size": "28px",
+      "width": "640px",
+      "top": "540px",
+      "left": "0px"
+    },
+    "address": {
+      "text-align": "left",
+      "font-color": "#ae505a",
+      "font-size": "28px",
+      "width": "270px",
+      "top": "930px",
+      "left": "185px"
+    },
+    "place": {
+      "font-color": "#ae505a",
+      "font-size": "28px",
+      "top": "580px",
+      "left": "185px"
+    }
+  }
+}

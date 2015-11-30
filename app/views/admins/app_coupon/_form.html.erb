@@ -1,0 +1,94 @@
+<script>
+  var _nested_form = true;
+  $(function() {
+    function init_select_shop(){
+      $(".search_shop").after('<br />搜索：<input id="search_shop" type="text" value=""><a href="javascript:;" class="btn" onclick=\'$(".search_shop").empty();\'>清空</a>');
+      $( "#search_shop" ).autocomplete({
+        source: "<%= url_for :controller=> '/dashboard' , :action => 'search_shop' %>",
+        select: function( event, ui ) {
+          $('.search_shop').append( $("<option></option>").attr("value",ui.item.id).text(ui.item.label) )
+          $('.search_shop option').each(function(index,item){
+            item.selected = true
+          })
+          setTimeout(function(){
+            $('#search_shop').val('')
+          },100);
+          // alert($('#search_shop').val())
+        }
+      });
+      $('.search_shop').dblclick(function(){
+        $('.search_shop option:selected').remove()
+      })
+      $('.search_shop option').each(function(index,item){
+        if(item.selected != true)
+          item.selected = true
+      })
+    }
+    init_select_shop();
+  });
+</script>
+<%= semantic_bootstrap_nested_form_for  @content_item , :url => url_for(:page=>params[:page],:sort_id=>params[:sort_id], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <%= f.semantic_errors %>
+
+  <%= f.inputs do %>
+    <%= f.input :id ,:as => :hidden %>
+    <%= f.input :cms_sorts ,:collection =>@sorts%>
+    <%= f.input :title %>
+    <%= f.input :abstract ,:input_html =>{:class=>"small-textarea"} %>
+    <%= f.input :content %>
+    <%= f.input :order_level ,:input_html =>{:class=>"small-text"}%>
+    <%= f.input :is_push %>
+    <%= f.input :is_show %>
+    <hr/>
+    <%= f.input :shop_contents  , :collection => CouponContentsShopContents.select("cms_contents.*").joins("left join cms_contents on (coupon_contents_shop_contents.shop_content_id = cms_contents.id)").where("coupon_contents_shop_contents.coupon_content_id='#{@content_item.id}'").all.map{|b| [ b[:title] , b[:id] ] } , :input_html =>{:class=>"search_shop"}%>
+    
+    <hr/>
+    <div><%= f.object.video_url %></div>
+    <%= f.input :video_url %>
+    <hr/>
+    <%= raw "<img style='height:200px;margin-left:100px;' src='http://is.hudongka.com/#{@content_item.image_cover}'/>" if !@content_item.image_cover.blank? %>
+    <%= f.input :image_cover %>
+    <%= f.fields_for :cms_content_img do |imgf| %>
+      <%= raw "<img style='height:200px;margin-left:100px;' src='http://is.hudongka.com/#{imgf.object.image}'/>" if !imgf.object.image.blank? %>
+      <%= imgf.input :image  %>
+      <%= imgf.input :description ,:input_html =>{:class=>"small-textarea"} %>
+      <%= imgf.input :project_info_id , :as => :hidden ,:collection => @admin_info.project_info_id %>
+      <%= imgf.link_to_remove "删除" %>
+    <% end %>
+    <p><%= f.link_to_add "添加图片", :cms_content_img %></p>
+  <% end %>
+
+  <%= f.fields_for :cms_info_coupon  do |cf| %>
+    <hr/>
+    <%= cf.input :member_limit  ,:input_html =>{:class=>"small-text"}%>
+    <%= cf.input :personal_limit  ,:input_html =>{:class=>"small-text"}%>
+    <%= cf.input :apply_start_time ,:label =>"活动开始时间",:as =>:string ,:format =>:long, :input_html =>{:class=>"datetimepicker-input"}%>
+    <%= cf.input :apply_end_time ,:label =>"活动结束时间",:as =>:string,:input_html =>{:class=>"datetimepicker-input"}%>
+    <%= cf.input :start_time ,:label =>"申领开始时间",:as =>:string,:input_html =>{:class=>"datetimepicker-input"}%>
+    <%= cf.input :end_time ,:label =>"申领结束时间",:as =>:string,:input_html =>{:class=>"datetimepicker-input"}%>
+    <%= cf.input :my_all_apply_code %>
+    <script>
+      _nested_form = false;
+    </script>
+  <% end %>
+  <p><%= f.link_to_add "附加内容", :cms_info_coupon,:hidden_tag=>"content_add_nested_fields"%></p>
+
+  <script>
+    jQuery(function($) {
+      //控制自动打开内容项目
+      if (_nested_form){
+        $('a[hidden_tag=content_add_nested_fields]').click()
+      }
+      $('a[hidden_tag=content_add_nested_fields]').hide()
+      // 设置时间控件
+      $('.datetimepicker-input').each(function(i,o){
+        o.value = o.value.replace(" UTC","")
+      }).attr('data-format',"yyyy-MM-dd hh:mm:ss").parent().addClass("datetimepicker input-append date").append('<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>')
+      $('.datetimepicker').datetimepicker();
+    })
+  </script>
+
+  <%= f.actions do %>
+    <%= f.action :submit %>
+  <% end %>
+<% end %>

@@ -1,0 +1,17 @@
+{
+	"icon": {
+		"style_name":"欧式精致",
+		"album":"icon/3/album.png",
+		"bless":"icon/3/bless.png",
+		"card":"icon/3/card.png",
+		"my":"icon/3/my.png",
+		"now":"icon/3/now.png",
+		"btn_map":"icon/1/btn_map.png",
+		"loading":"icon/1/big_load.gif",
+		"avatar":"icon/1/avatar.png"
+	},
+	"tools": {
+		"shadow_left":"icon/1/shadow_left.png",
+		"shadow_right":"icon/1/shadow_right.png"
+	}
+}

@@ -1,0 +1,49 @@
+<h1>
+  <%= Kf::CourseUserFav.model_name.human %>管理 
+  <%= link_to "新建#{ Kf::CourseUserFav.model_name.human }",  { :action => "new", :page => params[:page]} ,:class =>"btn btn-primary"%>
+  <span><form action="<%= url_for%>">
+    <input name="search" id="search_list_input" value="<%= params[:search]%>" type="text" />
+    <input name="page"  type="hidden" value="<%= params[:page]%>"/>
+    <input name="per_page" type="hidden" value="<%= params[:per_page]%>"/>
+    <button href="javascript:;" onclick="search_list" class="btn" >搜索</button>
+  </form></span>
+</h1>
+<%= will_paginate @kf_course_user_favs , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <tr>
+    <th>ID</th>
+    <th><%= Kf::CourseUserFav.human_attribute_name("kf_course_id") %></th>
+    <th><%= Kf::CourseUserFav.human_attribute_name("user_info_id") %></th>
+    <th><%= Kf::CourseUserFav.human_attribute_name("state") %></th>
+    <th><%= Kf::CourseUserFav.human_attribute_name("start_time") %></th>
+    <th><%= Kf::CourseUserFav.human_attribute_name("end_time") %></th>
+    <th><%= Kf::CourseUserFav.human_attribute_name("day_1_time") %></th>
+    <th><%= Kf::CourseUserFav.human_attribute_name("day_2_time") %></th>
+    <th><%= Kf::CourseUserFav.human_attribute_name("day_3_time") %></th>
+    <th><%= Kf::CourseUserFav.human_attribute_name("day_4_time") %></th>
+    <th><%= Kf::CourseUserFav.human_attribute_name("day_5_time") %></th>
+    <th width="90">操作</th>
+  </tr>
+
+<% @kf_course_user_favs.each do |kf_course_user_fav| %>
+  <tr>
+    <td><%= kf_course_user_fav.id %></td>
+    <td><%= kf_course_user_fav.kf_course_id %></td>
+    <td><%= kf_course_user_fav.user_info_id %></td>
+    <td><%= kf_course_user_fav.state %></td>
+    <td><%= kf_course_user_fav.start_time %></td>
+    <td><%= kf_course_user_fav.end_time %></td>
+    <td><%= kf_course_user_fav.day_1_time %></td>
+    <td><%= kf_course_user_fav.day_2_time %></td>
+    <td><%= kf_course_user_fav.day_3_time %></td>
+    <td><%= kf_course_user_fav.day_4_time %></td>
+    <td><%= kf_course_user_fav.day_5_time %></td>
+    <td>
+        <%= link_to '编辑',  :action => "edit" , :id =>kf_course_user_fav.id , :page => params[:page]%>
+        <br />
+        <%= link_to '删除', { :action => "destroy", :id =>kf_course_user_fav.id , :page => params[:page]},  method: :delete, data: { confirm: '确定删除？' } %>
+    </td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @kf_course_user_favs , renderer: BootstrapPagination::Rails %>

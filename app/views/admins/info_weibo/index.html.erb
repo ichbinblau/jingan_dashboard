@@ -1,0 +1,99 @@
+<%= stylesheet_link_tag "admins/info_weibo" %>
+<%= javascript_include_tag "admins/info_weibo" %>
+<script>
+var weibo_config = $.parseJSON('<%= raw @module_info[:tconfigs]["support"].to_json %>');
+var app_num = '<%= @app_num %>'
+var url_now = 'http://<%= request.host + url_for %>'
+</script>
+<h1><%=@module_info.show_name%> <a href="#" class="btn " onclick="showSupports()">直接发微博</a></h1>
+
+
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th width="30">显示</th>
+      <th width="60">内容类型</th>
+      <th style="min-width:120px;">封面</th>
+      <th>标题\链接\摘要\内容</th>
+      <th width="80">微博</th>
+    </tr>
+  </thead>
+<tbody>
+<% @content_items.each do |content_item| %>
+  <tr>
+    <td><%= raw content_item.is_show ? "<font color='green'>是</font>" : "<font color='red'>否</font>" %></td>
+    <td><%= content_item.sorttype %></td>
+    <td><%= raw "<img style='height:80px;' src='#{get_ecimg_url( :imagename =>content_item[:image_cover], :height=>80)}'/>" if !content_item.image_cover.blank? %></td>
+    <td>
+      标题：<input id="ctitle_<%= content_item.id %>" value="<%= content_item.title %>"/><br />
+      链接：<input id="curl_<%= content_item.id %>" value="http://s.nowapp.cn/<%= content_item.id %>"/><br />
+      摘要：<textarea id="cabstract_<%= content_item.id %>"><%= content_item.abstract %></textarea><br />
+      内容：<textarea id="ccontent_<%= content_item.id %>"><%= content_item.content %></textarea>
+      <input id="cimage_<%= content_item.id %>" type="hidden" value="<%= content_item.image_cover %>"/><br />
+      <input id="ccontent_<%= content_item.id %>_truncate" type="hidden" value="<%= content_item.content.truncate(100) %>" />
+    </td>
+    <td>
+      <% @module_info[:tconfigs]["support"].map do |key , item| %>
+        <div><%= raw item["enable"] ? "<a href='javascript:void(0)' onclick='show_add_status(weibo_config[\"#{key}\"],\"#{content_item.id}\",\"#{content_item.image_cover}\")'> #{item["cnname"]}</a>" : "" %></div>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+<%= will_paginate @content_items , renderer: BootstrapPagination::Rails %>
+<br />
+
+
+<!-- 发送微博界面 -->
+<div id="add_status" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 >发送到<font id="weibo_type"></font></h3>
+  </div>
+  <div class="modal-body">
+    <textarea class="weibo_words"></textarea>
+    <input  type="hidden" class="weibo_image"/>
+    <input  type="hidden" class="weibo_type"/>
+    <hr />
+    <img class="weibo_show_image"/>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:void(0)" class="btn" onclick="$('#add_status').modal('hide')">关闭</a> <a href="javascript:void(0)" class="btn btn-primary" onclick="add_status()">发送</a>
+  </div>
+</div>
+
+<!-- 支持微博平台类型 -->
+<div id="support_list" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>直接发微博</h3>
+  </div>
+  <div class="modal-body">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <% @module_info[:tconfigs]["support"].map do |key , item| %>
+            <th><%= item["name"] %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <% @module_info[:tconfigs]["support"].map do |key , item| %>
+            <td><%= raw item["enable"] ? "<font color='green'>支持</font>" : "<font color='gray'>即将支持</font>" %></td>
+          <% end %>
+        </tr>
+        <tr>
+          <% @module_info[:tconfigs]["support"].map do |key , item| %>
+            <td><%= raw item["enable"] ? "<a href='javascript:void(0)' onclick='show_add_status(weibo_config[\"#{key}\"],\"\",\"\")'>发微博</a>" : "" %></td>
+          <% end %>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" onclick="$('#support_list').modal('hide')">关闭</a>
+  </div>
+</div>

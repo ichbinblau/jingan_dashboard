@@ -1,0 +1,68 @@
+<%= javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
+<h1>统计报表</h1>
+
+<ul class="nav nav-tabs">
+	<% @time_type_nav.each do |item| %>
+	  <li class="<%= 'active' if  params[:time_type] == item[:value].to_s %>">
+	  	<a href="<%= url_for(:time_type =>item[:value] ,:project_app_id =>params[:project_app_id],:view_type =>params[:view_type] )%>"><%= item[:text]%></a>
+	  </li>
+	<% end%>
+	<li><a href="#"></a></li>
+	<li><a href="#"></a></li>
+	<% @project_apps.each do |item| %>
+	  <li class="<%= 'active' if params[:project_app_id] == item[:id].to_s %>">
+	  	<a href="<%= url_for(:project_app_id =>item[:id] ,:time_type =>params[:time_type],:view_type =>params[:view_type] )%>"><%= item[:phonetype]%></a>
+	  </li>
+	<% end%>
+	<li><a href="#"></a></li>
+	<li><a href="#"></a></li>
+	<% @view_type_nav.each do |item| %>
+	  <li class="<%= 'active' if params[:view_type] == item[:value].to_s %>">
+	  	<a href="<%= url_for(:view_type =>item[:value] ,:project_app_id =>params[:project_app_id] ,:time_type =>params[:time_type] )%>"><%= item[:text]%></a>
+	  </li>
+	<% end%>
+</ul>
+
+<%= will_paginate @report_info , renderer: BootstrapPagination::Rails %>
+<% if "1" == params[:view_type] %>
+	<%= line_chart @report_photo_view, :id => "users-chart", :height => "500px" %>
+<% else %>
+	<table class="table table-bordered table-hover">
+	  <thead>
+	    <tr>
+	      <th>时间</th>
+	      <th>用户数</th>
+	      <th>活跃用户量</th>
+	      <th>访问量</th>
+	      <th>优惠申请量</th>
+	      <th>新增用户量</th>
+	      <th>官网下载量</th>
+	    </tr>
+	  </thead>
+	<tbody>
+	<% @report_info.each do |item| %>
+	  <tr>
+	    <td>
+	    	<%= 
+	    	if params[:time_type] == "1"
+	    		item.old_time.strftime("%Y年%m月%d日（周%u）")
+	    	elsif  params[:time_type].to_s == 2.to_s
+	    		item.old_time.strftime("%Y年第%U周（%m月%d日）")
+	    	else
+	    		item.old_time.strftime("%Y年%m月")
+	    	end
+	    	%>
+	    </td>
+	    <td><%= item.unv %></td>
+	    <td><%= item.bnv %></td>
+	    <td><%= item.clv %></td>
+	    <td><%= item.apnv %></td>
+	    <td><%= item.anv %></td>
+	    <td><%= item.dnv %></td>
+	  </tr>
+	<% end %>
+	</tbody>
+	</table>
+<% end %>
+<%= will_paginate @report_info , renderer: BootstrapPagination::Rails %>
+<br />

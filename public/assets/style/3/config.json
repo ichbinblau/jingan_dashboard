@@ -1,0 +1,81 @@
+{
+  "actionbar": {
+    "background-color": "#672b73",
+    "font-color": "#ffffff",
+    "font-size": "34px"
+  },
+  "index": {
+    "cover-alpha": "0.3",
+    "icon-font-color": "#ffffff",
+    "icon-font-size": "24px"
+  },
+  "chat": {
+    "bubble-background-color": "#ffffff",
+    "bubble-font-color": "#333333",
+    "bubble-font-size": "28px",
+    "bubble-des-font-color": "#808080",
+    "bubble-des-font-size": "22px"
+  },
+  "card": {
+    "style_name": "奢华绽放",
+    "background-image": "style/3/card.png",
+    "btn_map": {
+      "left": "150px",
+      "top": "655px",
+      "width": "81px",
+      "height": "81px"
+    },
+    "name1": {
+      "font-color": "#b7833b",
+      "font-size": "48px",
+      "font-weight": "bold",
+      "top": "530px",
+      "left": "250px"
+    },
+    "name2": {
+      "font-color": "#b7833b",
+      "font-size": "48px",
+      "font-weight": "bold",
+      "top": "435px",
+      "left": "250px"
+    },
+    "words1": {
+      "font-color": "#b7833b",
+      "font-size": "28px",
+      "top": "250px",
+      "left": "60px"
+    },
+    "words2": {
+      "font-color": "#b7833b",
+      "font-size": "28px",
+      "top": "210px",
+      "left": "60px"
+    },
+    "words3": {
+      "font-color": "#b7833b",
+      "font-size": "28px",
+      "top": "170px",
+      "left": "60px"
+    },
+    "time": {
+      "font-color": "#b7833b",
+      "font-size": "28px",
+      "top": "655px",
+      "left": "250px"
+    },
+    "address": {
+      "text-align": "left",
+      "font-color": "#b7833b",
+      "font-size": "28px",
+      "width": "300px",
+      "top": "745px",
+      "left": "250px"
+    },
+    "place": {
+      "font-color": "#b7833b",
+      "font-size": "28px",
+      "top": "695px",
+      "left": "250px"
+    }
+  }
+}

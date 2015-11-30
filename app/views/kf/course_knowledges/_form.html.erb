@@ -1,0 +1,25 @@
+<%= semantic_bootstrap_nested_form_for @kf_course_knowledge , :url => url_for( :page=>params[:page], :action => params[:action]=="edit" ? "update" : "create") do |f| %>
+  <% if @kf_course_knowledge.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kf_course_knowledge.errors.count, "error") %> prohibited this kf_course_knowledge from being saved:</h2>
+
+      <ul>
+      <% @kf_course_knowledge.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.inputs do %>
+    <%= f.input :kf_course_id %>
+    <%= f.input :kf_course_index_id %>
+    <%= f.input :order_level %>
+    <%= f.input :title %>
+    <%= f.input :image_cover %>
+    <%= f.input :content %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit ,:label => params[:action]=="edit" ? "修改" : "添加" %>
+  <% end %>
+<% end %>
+

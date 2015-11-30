@@ -1,0 +1,70 @@
+
+<%= stylesheet_link_tag "eceditor/frame" ,"eceditor/jquery_filetree"%>
+<%= javascript_include_tag "eceditor/frame","eceditor/jquery_filetree","eceditor/jquery_cookie" %>
+<%= javascript_include_tag "bootstrap-tab" , "bootstrap-tooltip" ,"bootstrap-contextmenu","bootstrap-modal" %>
+
+
+<div id="main">
+	<div id="leftbar">
+		<div id="project_now">当前项目：<font color="red"><strong><%= @dir %></strong></font></div>
+		<ul id="folder" class="jqueryFileTree"></ul>
+		<div id="project">
+			<form class="form-inline" onsubmit="return false;">
+              <input type="text" id="downurl" class="input-small" onclick="$(this).select()" value="<%= "http://"+request.host + url_for(:action => "downJs" , :project => @dir) %>"/>
+              <button type="submit" class="btn" onclick="ec_editor.buildProjJs()" id="build_btn">build</button>
+              <button type="submit" class="btn" onclick="ec_editor.newProj()">新建</button>
+			</form>
+			<select >
+			  <% @dirs.each do |project| %>
+              	<option <%= 'selected' if project[:path][1,project[:path].length] == @dir %>>
+              		<%= project[:path][1,project[:path].length] %>
+              	</option>
+			  <% end %>
+            </select>
+		</div>
+	</div>
+	<div id="right">
+		<ul class="nav nav-tabs" id="navTab">
+		  <li style="display:none"><a href="#__default_frame" data-toggle="tabContent">default</a></li>
+		</ul>
+		<div class="tab-content" id="tabContent">
+			<div class="tab-pane" id="__default_frame">
+				<iframe src="<%= url_for action: "editor"%>" frameborder="no" scrolling="auto" hidefocus=""></iframe>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 右键菜单 -->
+<div id="context_menu">
+	<ul class="dropdown-menu" role="menu">
+	  <li class="cm_file cm_dir"><a tabindex="-1" action="Rename" href="#">改名</a></li>
+	  <li class="cm_file cm_dir"><a tabindex="-1" action="Remove" href="#">删除</a></li>
+	  <li class="divider"></li>
+	  <li class="cm_file"><a tabindex="-1" action="Dupe" href="#">复制</a></li>
+	  <li class="cm_file cm_dir"><a tabindex="-1" action="Newfile" href="#">新建文件</a></li>
+	  <li class="cm_file cm_dir"><a tabindex="-1" action="Newfolder" href="#">新建文件夹</a></li>
+	</ul>
+</div>
+<!-- 改名等菜单 -->
+<div id="filename" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>文件名称</h3>
+  </div>
+  <div class="modal-body">
+  	<form onsubmit="return false;">
+    	<input type="hidden" value=""/>
+    	<input type="text" value="" class="input-xlarge"/>
+	</form>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" onclick="$('#filename').modal('hide')">关闭</a>
+    <a href="#" class="btn btn-primary" action="">确定</a>
+  </div>
+</div>
+
+<!-- loading... -->
+<div class="alert fade hide in" id="loading">
+	<!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
+	<strong>读取中...</strong>
+</div>

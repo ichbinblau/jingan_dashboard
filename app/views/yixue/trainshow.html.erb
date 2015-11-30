@@ -1,0 +1,17 @@
+<header class="bar bar-nav">
+  <h1 class="title"><%= @sign_config["name"] %></h1>
+</header>
+<div class="content"><div class="content-padded">
+<form onSubmit="return false">
+  <div style="margin:10px 0 10px 0">
+  <% @sorts_select.each do |item| %>
+  	<input type="radio" name="radio" value="<%= item.id %>" id="radio_<%= item.id %>"> <label for="radio_<%= item.id %>"><%= item.cnname %></label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <% end %>
+</div>
+  <input type="text" id="code" placeholder="请输入试题验证码">
+  <button class="btn btn-positive btn-block" onclick="select_train()">确定使用</button>
+</form>
+<p>
+	<%= @sign_config["buy_des"] %>
+</p>
+</div></div>
