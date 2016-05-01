@@ -1,12 +1,13 @@
-source 'http://ruby.taobao.org'
+source 'https://ruby.taobao.org'
 
 gem 'rails', '3.2.9'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-gem 'mysql2'
+gem 'mysql2', '0.3.15'
 gem 'devise'
 gem 'execjs'
+gem "iconv", "~> 1.0.3"
 
 
 gem 'rails_admin'  #,:git => '../rails_admin/.git'
@@ -34,7 +35,7 @@ end
 
 gem 'jquery-rails'
 gem 'grocer'
-gem 'resque'
+gem 'resque', '1.26.0'
 gem 'unicorn'
 gem 'country_select'
 # 短信接口
@@ -61,7 +62,7 @@ gem "oauth_china"
 gem "chartkick" #图表
 gem 'rest-client'
 gem "carrierwave-aliyun"
-gem 'resque-scheduler', :require => 'resque_scheduler'
+gem 'resque-scheduler', '2.0.0', :require => 'resque_scheduler'
 gem 'mqtt'
 gem 'ace-rails-ap'
 # gem 'rgeo'

@@ -4,7 +4,7 @@
 RailsAdmin.config do |config|
 
   require 'i18n'
-  I18n.default_locale = :zh
+  #I18n.default_locale = :zh
 
   # config.models do
   #   edit do
